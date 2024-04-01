@@ -1,0 +1,7 @@
+summary=1;#contentRoot > div > section.article > div.articleContent > article > div.quickTake > ul;0
+title=3;headline;1
+content=2;#articleContent > span > p;1
+publishDate=3;datePublished;1
+hashtag=1;div.articleBody__chipWrapper > a;0
+authors=3;name;1
+category=4;article:section;1

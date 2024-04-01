@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.File;
 import java.util.Scanner;
+import scraping.Scraper;
 
 public class Article {
 	public static int id;
@@ -15,17 +16,18 @@ public class Article {
 	public String type;
 	public String summary;
 	public String title;
-	public String content;
+	public Vector<String> content;
 	public String publishDate;
-	public String author;
+	public Vector<String> authors;
 	public Vector<String> hashtag;
 	public Vector<String> category;	
+	public static int count = 0;
 	
 	public static void updateTotalArticle () {
 		try {
 			File file = new File(System.getProperty("user.dir") + File.separator + "total.info");
 			PrintWriter writer = new PrintWriter(file);
-			writer.print(id);
+			writer.print(id - 1);
 			writer.close();
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -50,7 +52,6 @@ public class Article {
 	}
 
 	public void saveToJSON () {
-		id++;
 		JSONObject mainObject = new JSONObject();
 		mainObject.put("id", id);
 		mainObject.put("link", link);
@@ -60,20 +61,26 @@ public class Article {
 		mainObject.put("title", title);
 		mainObject.put("content", content);
 		mainObject.put("publishDate", publishDate);
-		mainObject.put("author", author);
 		
 		JSONArray hashtagJSON = new JSONArray();
 		JSONArray categoryJSON = new JSONArray();
+		JSONArray authorJSON = new JSONArray();
+		JSONArray contentJSON = new JSONArray();
 		for (String s: hashtag) hashtagJSON.add(s);
 		for (String s: category) categoryJSON.add(s);
+		for (String s: authors) authorJSON.add(s);
+		for (String s: content) contentJSON.add(s);
 		
 		mainObject.put("hashtag", hashtagJSON);
 		mainObject.put("category", categoryJSON);
+		mainObject.put("author", authorJSON);
+		mainObject.put("content", contentJSON);
 		
 		try {
 			PrintWriter file = new PrintWriter(System.getProperty("user.dir") + File.separator + "JSONFile" + File.separator + id + ".json");
 			file.write(mainObject.toJSONString());
-			System.out.println("Done: " + id);
+			System.out.println("Completed, saved to: " + id + ".json");
+			id++;
 			file.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -83,6 +90,7 @@ public class Article {
 	
 	public static Article loadFromJSON (int id) {
 		Article article = new Article();
+		
 		return article;
 	}
 }
