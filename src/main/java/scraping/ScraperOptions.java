@@ -1,130 +1,96 @@
 package scraping;
+import java.io.File;
+import java.io.FileReader;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import article.PageSelector;
 
 public class ScraperOptions {
-	private String startLink;
 	private String validLinkPrefix;
-	private String mainPagePrefix;
-	private int jumpDistance;
-	private String loadLinkMethod = "scroll";
-	private int waitTime;
-	private String loadLinkButtonText = "Load More";
-	private String scrapeMethod = "BFS";
-	private int maxDepth = 0;	
+	private String loadLinkMethod;
+	private String loadLinkButtonText;
+	private String startLink;
+	private long maxLinkCount = 0;	
+	private long thread;
+	public long getThread() {
+		return thread;
+	}
+
+	public void setThread(long thread) {
+		this.thread = thread;
+	}
+
 	private PageSelector pageSelector;
-	private int maxDistance;
-	private int startCount;
 	
-	public int getStartCount() {
-		return startCount;
-	}
+	public ScraperOptions () {
 
-	public synchronized void setStartCount(int startCount) {
-		this.startCount = startCount;
-	}
-
-	public int getMaxDistance() {
-		return maxDistance;
-	}
-
-	public synchronized void setMaxDistance(int maxDistance) {
-		this.maxDistance = maxDistance;
-	}
-
-	public PageSelector getPageSelector() {
-		return pageSelector;
-	}
-
-	public void setPageSelector(PageSelector pageSelector) {
-		this.pageSelector = pageSelector;
-	}
-
-	public String getScrapeMethod() {
-		return scrapeMethod;
-	}
-
-	public void setScrapeMethod(String scrapeMethod) 
-	throws Exception {
-		if (scrapeMethod != "LIST" && scrapeMethod != "BFS") 
-			throw new Exception("Invalid scrape method");
-		
-		this.scrapeMethod = scrapeMethod;
-	}
-
-	/**
-	 * <code>setDepth(-1)</code> to scrape whole site<br>
-	 * <code>setDepth(0)</code> to scrape just startLink, then every link on startLink has depth of 1 and so on
-	*/
-	public void setDepth (int depth) {
-		if (depth != -1)
-			maxDepth = depth;
-		else 
-			maxDepth = 1000000;
 	}
 	
-	public int depth() {
-		return maxDepth;
+	public String getValidLinkPrefix() {
+		return validLinkPrefix;
+	}
+	
+	public void setValidLinkPrefix(String validLinkPrefix) {
+		this.validLinkPrefix = validLinkPrefix;
+	}
+	
+	public String getLoadLinkMethod() {
+		return loadLinkMethod;
+	}
+	
+	public void setLoadLinkMethod(String loadLinkMethod) {
+		this.loadLinkMethod = loadLinkMethod;
 	}
 	
 	public String getLoadLinkButtonText() {
 		return loadLinkButtonText;
 	}
-
+	
 	public void setLoadLinkButtonText(String loadLinkButtonText) {
 		this.loadLinkButtonText = loadLinkButtonText;
-	}
-
-	public int getWaitTime() {
-		return waitTime;
-	}
-
-	public void setWaitTime(int waitTime) {
-		this.waitTime = waitTime;
-	}
-
-	public void setValidLinkPrefix (String validLinkPrefix) {
-		this.validLinkPrefix = validLinkPrefix;
-	}
-
-	public void setStartLink(String startLink) {
-		this.startLink = startLink;
 	}
 	
 	public String getStartLink() {
 		return startLink;
 	}
-
-	public String getValidLinkPrefix() {
-		return validLinkPrefix;
-	}
-
-	public String getMainPagePrefix() {
-		return mainPagePrefix;
-	}
-
-	public void setMainPagePrefix(String mainPagePrefix) {
-		this.mainPagePrefix = mainPagePrefix;
-	}
-
-	public int getJumpDistance() {
-		return jumpDistance;
-	}
-
-	public void setJumpDistance(int jumpDistance) {
-		this.jumpDistance = jumpDistance;
+	
+	public void setStartLink(String startLink) {
+		this.startLink = startLink;
 	}
 	
-	public void setLoadLinkMethod (String loadLinkMethod) 
-	throws Exception {
-		if (loadLinkMethod != "click"
-		 && loadLinkMethod != "scroll"
-		 && loadLinkMethod != "new page") throw new Exception("Invalid load-link method");
-		this.loadLinkMethod = loadLinkMethod;
+	public long getMaxLinkCount() {
+		return maxLinkCount;
 	}
 	
-	public String getLoadLinkMethod () {
-		return loadLinkMethod;
+	public void setMaxLinkCount(long maxLinkCount) {
+		this.maxLinkCount = maxLinkCount;
 	}
 	
+	public PageSelector getPageSelector() {
+		return pageSelector;
+	}
 	
+	public void setPageSelector(PageSelector pageSelector) {
+		this.pageSelector = pageSelector;
+	}
+	
+	public void setByJSONFile (String link) throws Exception {
+		try {			
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(new FileReader(System.getProperty("user.dir") + File.separator + link));
+			JSONObject options = (JSONObject)obj;
+			
+			setValidLinkPrefix((String)options.get("validLinkPrefix"));
+			setLoadLinkMethod((String)options.get("loadLinkMethod"));
+			setLoadLinkButtonText((String)options.get("loadLinkButtonText"));
+			setMaxLinkCount((long)options.get("maxLinkCount"));
+			setThread((long)options.get("thread"));
+			setStartLink((String)options.get("startLink"));
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

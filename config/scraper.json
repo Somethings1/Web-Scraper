@@ -1,0 +1,8 @@
+{
+    "validLinkPrefix": "beincrypto.com",
+    "loadLinkMethod": "scroll",
+    "loadLinkButtonText": "Load more",
+    "maxLinkCount": -1,
+    "startLink": "https://beincrypto.com/news",
+    "thread": 5
+}

@@ -38,5 +38,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Javafx"/>
+	<classpathentry kind="lib" path="/Users/admin/Downloads/stanford-ner-2020-11-17/lib/stanford-ner-resources.jar"/>
+	<classpathentry kind="lib" path="/stanford-ner-2020-11-17/stanford-ner-4.2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

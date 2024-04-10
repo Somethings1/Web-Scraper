@@ -1,6 +1,8 @@
 package article;
 import java.io.File;
-import java.util.Scanner;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.io.FileReader;
 
 /**
  * Configures selectors for a page\nusing CSS selector
@@ -57,70 +59,21 @@ public class PageSelector {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	@Override
-	public String toString() {
-		return "summary=" + summary + "\ntitle=" + title + "\ncontent=" + content + "\npublishDate="
-				+ publishDate + "\nhashtag=" + hashtag + "\nauthors=" + authors + "\ncategory=" + category;
-	}
 	
-	public void setByString (String _options) throws Exception {
-		String options[] = _options.split("\n");
-		int cnt = 0;
-		for (String option: options) {
-			String attr = option.split("=")[0];
-			String val = option.split("=")[1];
+	public void setByJSONFile (String fileName) throws Exception {
+		try {			
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(new FileReader(System.getProperty("user.dir") + File.separator + fileName));
+			JSONObject options = (JSONObject)obj;
 			
-			switch(attr) {
-			case "summary": 
-				this.summary = val;
-				cnt++;
-				break;
-			case "title":
-				this.title = val;
-				cnt++;
-				break;
-			case "content":
-				this.content = val;
-				cnt++;
-				break;
-			case "publishDate":
-				this.publishDate = val;
-				cnt++;
-				break;
-			case "hashtag":
-				this.hashtag = val;
-				cnt++;
-				break;
-			case "authors":
-				this.authors = val;
-				cnt++;
-				break;
-			case "category": 
-				this.category = val;
-				cnt++;
-				break;
-			default:
-				throw new Exception("Invalid format for page selector");
-			}
-		}
-		if (cnt < 7)
-			throw new Exception("Invalid format for page selector");
-	}
-	
-	public void setByFile (String fileName) throws Exception {
-		try {
-			File file = new File(System.getProperty("user.dir") + File.separator + fileName);
-			Scanner reader = new Scanner(file);
+			setSummary((String)options.get("summary"));
+			setTitle((String)options.get("title"));
+			setContent((String)options.get("content"));
+			setPublishDate((String)options.get("publishDate"));
+			setHashtag((String)options.get("hashtag"));
+			setAuthors((String)options.get("authors"));
+			setCategory((String)options.get("category"));
 			
-			String res = reader.nextLine();
-			
-			while (reader.hasNextLine()) {
-				res += "\n" + reader.nextLine();
-			}
-			
-			setByString(res);
-			
-			reader.close();
 		} catch (Exception e) {
 			throw e;
 		}

@@ -1,42 +1,56 @@
 package utility;
 
-import java.util.Vector;
+import java.io.File;
+import java.io.PrintWriter;
 import article.PageSelector;
 import scraping.Scraper;
 import scraping.ScraperOptions;
 
 public class Test {	
-	public static void main(String[] args) {
-		PageSelector pageSelector = new PageSelector();
-
-		// Create options for scraper
-		ScraperOptions scraperOptions = new ScraperOptions();
+	private static final String SELECTOR_OPTION_FILE = "config" + File.separator + "selector.json";
+	private static final String SCRAPER_OPTION_FILE = "config" + File.separator + "scraper.json";
+	
+	private static final void reset () {
 		try {
-			pageSelector.setByFile("selector-config.info");
-			scraperOptions.setValidLinkPrefix("https://www.theblock.co/post");
-			scraperOptions.setStartLink("https://www.theblock.co/");
-			scraperOptions.setLoadLinkMethod("new page");
-			scraperOptions.setScrapeMethod("LIST");
-			scraperOptions.setMainPagePrefix("https://www.theblock.co/latest?start=");
-			scraperOptions.setDepth(-1);
-			scraperOptions.setJumpDistance(10);
-			scraperOptions.setPageSelector(pageSelector);
-		} catch (Exception e) {
-
+			File nextURLFile = new File("config" + File.separator + "next-url.info");
+			File visitedURLFile = new File("config" + File.separator + "visited-url.info");
+			File totalFile = new File("config" + File.separator + "total.info");
+			
+			PrintWriter p1 = new PrintWriter(nextURLFile);
+			PrintWriter p2 = new PrintWriter(visitedURLFile);
+			PrintWriter p3 = new PrintWriter(totalFile);
+			
+			p1.print("");
+			p2.print("");
+			p3.print(0);
+			
+			p1.close();
+			p2.close();
+			p3.close();
 		}
-
-		for (int i = 0; i < 5; i++) {
-			scraperOptions.setStartCount(i * 4000);
-			scraperOptions.setMaxDistance((i + 1) * 4000 - 10);
+		catch (Exception e) {
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+		// Use reset() at your own risk
+		reset();
+		try {
+			// Set page selector
+			PageSelector pageSelector = new PageSelector();
+			pageSelector.setByJSONFile(SELECTOR_OPTION_FILE);
+			
+			// Create options for scraper
+			ScraperOptions scraperOptions = new ScraperOptions();
+			scraperOptions.setByJSONFile(SCRAPER_OPTION_FILE);
+			scraperOptions.setPageSelector(pageSelector);
+			
+			// Real scraping process
 			Scraper scraper = new Scraper(scraperOptions);
-			scraper.start();
-			
-			try {
-				Thread.sleep(1000);
-			}
-			catch (Exception e) {}
-			
-			
+			scraper.scrape();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
 		}
 	}
 }
