@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.pages.TrendPageController">
+   <children>
+      <HBox fx:id="title_bar" alignment="TOP_RIGHT" prefHeight="48.0" prefWidth="993.0" style="-fx-background-color: #0B1416;">
+         <children>
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="922.0" text="Trend Analyzer" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Bold" size="15.0" />
+               </font>
+            </Label>
+            <Pane fx:id="exit_btn" onMouseEntered="#hoverExitButton" onMouseExited="#unhoverExitButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <Label layoutX="4.0" layoutY="-11.0" onMouseClicked="#clickExitButton" style="-fx-rotate: 45;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Regular" size="45.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll_pane" prefHeight="651.0" prefWidth="993.0">
+         <content>
+            <VBox prefHeight="629.0" prefWidth="987.0" style="-fx-background-color: transparent;">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="995.0" text="What is going on with..." textFill="#aaaaaa">
+                     <font>
+                        <Font name="Montserrat Bold" size="27.0" />
+                     </font>
+                     <padding>
+                        <Insets left="30.0" top="20.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="query_label" maxWidth="960.0" prefHeight="43.0" prefWidth="960.0" text="&quot;bitcoin&amp;author=james&quot;?" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Montserrat Bold" size="27.0" />
+                     </font>
+                     <padding>
+                        <Insets left="30.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <VBox fx:id="item_container" prefHeight="525.0" prefWidth="987.0">
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

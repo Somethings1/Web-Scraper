@@ -5,8 +5,6 @@ import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import article.PageSelector;
-
 public class ScraperOptions {
 	private String validLinkPrefix;
 	private String loadLinkMethod;

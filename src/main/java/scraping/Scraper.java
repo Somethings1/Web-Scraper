@@ -1,17 +1,24 @@
 package scraping;
 
-//import playwright and the proxy packages
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.Proxy;
-
 import java.io.File;
-//import some useful packages
-import java.util.*;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import article.PageSelector;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.PlaywrightException;
+import com.microsoft.playwright.options.Proxy;
+
 import article.Article;
 
 /**
@@ -21,7 +28,7 @@ import article.Article;
  * If you want to scrape a set of page (same website), use <code>Scraper.scrapeWholeSite(String link, PageSelector ps, [optional] int maxDepth = 15)</code>
  */
 
-class SingleThreadScraper extends Thread {
+class SingleThreadScraper extends Scraper implements Runnable {
 	private static final String PROXY_FILE = "config" + File.separator + "prx.txt";
 	public static int threadCounter = 0;
 
@@ -35,6 +42,7 @@ class SingleThreadScraper extends Thread {
 
 	public SingleThreadScraper(ScraperOptions scraperOptions,
 			Vector<String> nextURL, HashSet<String> visitedURL) {
+		super(scraperOptions);
 		loadProxyList();
 		proxyCounter = 0;
 		this.scraperOptions = scraperOptions;
@@ -48,7 +56,7 @@ class SingleThreadScraper extends Thread {
 		System.out.println("(" + Thread.currentThread().getName() + ") " + t);
 	}
 
-	public void loadProxyList() {
+	private void loadProxyList() {
 		try {
 			File file = new File(PROXY_FILE);
 			Scanner reader = new Scanner(file);
@@ -190,10 +198,6 @@ class SingleThreadScraper extends Thread {
 				continue;
 			// System.out.println(URL + " " + webName);
 
-			// Remove links that are not articles, in case we are in the main page
-			if (!checkValidLinkPrefix(URL))
-				continue;
-
 			// Remove visited links
 			if (visitedURL.containsKey(URL) || nextURL.containsKey(URL) || newURL.contains(URL))
 				continue;
@@ -239,7 +243,7 @@ class SingleThreadScraper extends Thread {
 		debug("Proxy: " + t[0] + ":" + t[1]);
 
 		// Open browser, add page
-		BrowserContext context = browser.newContext(new Browser.NewContextOptions().setProxy(prox));
+		BrowserContext context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false).setProxy(prox));
 		Page page = context.newPage();
 
 		// Ignore ERR_TIMED_OUT Exception
@@ -262,6 +266,11 @@ class SingleThreadScraper extends Thread {
 		catch (PlaywrightException e) {
 			markLinkAsUnvisited(link);
 			debug(e.getMessage() + " at link: " + link);
+			if (nextURL.get(link) > 5) {
+				debug("Stopped trying!");
+				markLinkAsVisited(link);
+				return;
+			}
 			debug("Trying again (" + nextURL.get(link) + ")");
 		}
 		catch (Exception e) {
@@ -288,64 +297,132 @@ class SingleThreadScraper extends Thread {
 			browser.close();
 			
 			threadCounter--;
-			// Send unvisited and visited links to thread manager
-			Scraper.reopenThread(newURL, visitedURL);
+			// Send new links to thread manager
+			super.reopenThread(newURL);
 		}
 		debug("Closed");
 	}
 }
 
 public class Scraper {
-	private static ScraperOptions scraperOptions;
-	private static HashSet<String> nextURL = new HashSet<String>();
-	private static HashSet<String> visitedURL = new HashSet<String>();
+	private ScraperOptions scraperOptions;
+	private final String NEW_URL_FILE = "config" + File.separator + "new-url.info";
+	private final String VISITED_URL_FILE = "config" + File.separator + "visited-url.info";
+	
+	// All URLs distributed to threads
+	private HashSet<String> visitedURL = new HashSet<String>();
+	
+	// URLs waiting to be distributed
+	private HashSet<String> newURL = new HashSet<String>();
+	
+	// All URLs appeared in newURL
+	private final File APPEARED_FILE = new File("config" + File.separator + "appeared.info");
+	
+	// URLs sent back by threads, to be considered as fully visited
+	private final File FULLY_VISITED_FILE = new File("config" + File.separator + "visited.info");
 
 	public Scraper(ScraperOptions _scraperOptions) {
 		Article.id = Article.getTotalArticle() + 1;
 		scraperOptions = _scraperOptions;
 	}
 	
-	private static void openThread (Vector<String> nextURL) {
-		SingleThreadScraper scraper = new SingleThreadScraper(scraperOptions, nextURL, visitedURL);
-		scraper.start();
-		
+	private void openThread (Vector<String> nextURL) {
+		Thread thread = new Thread(new SingleThreadScraper(scraperOptions, nextURL, visitedURL));
+		thread.start();
 	}
 	
-	public static synchronized void reopenThread (HashSet<String> newURL, HashMap<String, Integer> _visitedURL) {
-		visitedURL.addAll(_visitedURL.keySet());
-		newURL.removeAll(_visitedURL.keySet());
-		nextURL.addAll(newURL);
-		nextURL.removeAll(visitedURL);
-		
-		if (SingleThreadScraper.threadCounter < scraperOptions.getThread()) {
-			Vector<String> _nextURL = new Vector<String>(nextURL);
+	private void backup () {
+		try {
+			FileWriter appeared = new FileWriter(APPEARED_FILE, true);
+			FileWriter visited = new FileWriter(FULLY_VISITED_FILE, true);
 			
-			if (nextURL.size() < scraperOptions.getThread()) {
-				openThread(_nextURL);
-				return;
+			for (String s: visitedURL) {
+				visited.write(s);
+				visited.flush();
 			}
 			
-			long t = scraperOptions.getThread() - SingleThreadScraper.threadCounter;
-			int block = (int) (_nextURL.size() / t);
-			System.out.println("Expected: " + scraperOptions.getThread());
-			System.out.println("Current: " + Thread.activeCount());
-			
-			for (int i = 0; i < t; i++) {
-				int start = i * block;
-				int end = (i + 1) * block;
-				
-				Vector<String> tmp = new Vector<String>();
-				for (int j = start; j < end && j < _nextURL.size(); j++) {
-					tmp.add(_nextURL.elementAt(j));
-				}
-				openThread(tmp);
+			for (String s: newURL) {
+				appeared.write(s);
+				appeared.flush();
 			}
+			
+			appeared.close();
+			visited.close();
+		}
+		catch (Exception e) {
+			System.out.println("Unknown error occured");
 		}
 	}
+	
+	private void loadBackup () {
+		try {
+			Scanner newURLFile = new Scanner(new File(NEW_URL_FILE));
+			Scanner visitedURLFile = new Scanner(new File(VISITED_URL_FILE));
+			
+			while (newURLFile.hasNextLine()) {
+				newURL.add(newURLFile.nextLine());
+			}
+			while (visitedURLFile.hasNextLine()) {
+				visitedURL.add(visitedURLFile.nextLine());
+			}
+			
+			newURLFile.close();
+			visitedURLFile.close();
+		}
+		catch (Exception e) {
+			System.out.println("Unknown error occured");
+		}
+	}
+	
+	protected synchronized void reopenThread (HashSet<String> _newURL) {	
+		// If there's still a thread running, just add new URLs to the set
+		newURL.addAll(_newURL);
+		if (SingleThreadScraper.threadCounter != 0) return;
+		
+		// Distribute next URLs to the threads evenly
+		Vector<String> nextURL = new Vector<String>(newURL);
+		
+		// Abort the app when there's no URL left
+		if (nextURL.size() == 0) return;
+		
+		// If the number of new URL < number of thread then open only one new thread
+		if (nextURL.size() < scraperOptions.getThread()) {
+			openThread(nextURL);
+			return;
+		}
+		
+		long t = scraperOptions.getThread() - SingleThreadScraper.threadCounter;
+		int block = (int) (nextURL.size() / t);
+		System.out.println("Expected: " + scraperOptions.getThread());
+		System.out.println("Current: " + SingleThreadScraper.threadCounter);
+		backup();
+		
+		for (int i = 0; i < t; i++) {
+			int start = i * block;
+			int end = (i + 1) * block;
+			
+			Vector<String> tmp = new Vector<String>();
+			for (int j = start; j < end && j < nextURL.size(); j++) {
+				tmp.add(nextURL.elementAt(j));
+			}
+			openThread(tmp);
+			
+			// URLs distributed to a thread should be ignored in the future calls
+			visitedURL.addAll(tmp);
+		}
+		
+		// ready for the next distributing event
+		newURL.clear();
+	}
 
+	/**
+	 * Scrape by the settings in <code>scraper.json</code> and <code>selector.json</code></br>
+	 * Provide proxy list in <code>prx.txt</code></br>
+	 * The number of proxy should at least double the number of thread
+	*/
 	public void scrape() {
-		Vector<String> tmp = new Vector<String>();
-		tmp.add(scraperOptions.getStartLink());
-		openThread(tmp);
+		loadBackup();
+		if (newURL.size() == 0) newURL.add(scraperOptions.getStartLink());
+		reopenThread(newURL);
 	}
 }

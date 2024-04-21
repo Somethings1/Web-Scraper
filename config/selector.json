@@ -1,9 +1,9 @@
 {
-    "summary": "4;og:description;1",
-    "title": "4;og:title;1",
-    "content": "2;.entry-content-inner p;1",
-    "publishDate": "4;article:published_time;1",
-    "hashtag": "4;article:tag;0",
-    "authors": "1;div.h8;1",
-    "category": "1;ol li.text-grey-600;1"
+    "summary": "1;.at-subheadline;1",
+    "title": "1;.at-headline;1",
+    "content": "1;.at-body p;1",
+    "publishDate": "3;datePublished;1",
+    "hashtag": "1;div[data-module-name=\"article-tags-module\"] a;0",
+    "authors": "1;.name;1",
+    "category": "1;.at-category;1"
 }

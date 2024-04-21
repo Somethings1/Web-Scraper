@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import gui.pages.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+   <children>
+      <HBox fx:id="title_bar" alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="993.0" style="-fx-background-color: #04090A;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="855.0" text="CRYPTO NEWS" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Bold" size="15.0" />
+               </font>
+            </Label>
+            <Pane fx:id="info_btn" onMouseClicked="#clickInfoButton" onMouseEntered="#hoverInfoButton" onMouseExited="#unhoverInfoButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="7.5" layoutY="7.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:material/info-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="exit_btn" onMouseEntered="#hoverExitButton" onMouseExited="#unhoverExitButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <Label layoutX="4.0" layoutY="-11.0" onMouseClicked="#clickExitButton" style="-fx-rotate: 45;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Regular" size="45.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="trend_btn" prefHeight="637.0" prefWidth="993.0">
+         <children>
+            <Pane prefHeight="636.0" prefWidth="991.0">
+               <children>
+                  <VBox layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="993.0" style="-fx-background-color: #04090A;">
+                     <children>
+                        <TextField fx:id="search_bar" prefHeight="40.0" prefWidth="788.0" promptText="Search..." style="-fx-border-radius: 13px; -fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;">
+                           <font>
+                              <Font name="Montserrat Regular" size="15.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="30.0" left="130.0" right="100.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <VBox fx:id="item_container" alignment="TOP_CENTER" prefHeight="460.0" prefWidth="835.0">
+                           <children>
+                              <Label text="Loading articles, please wait" textFill="WHITE">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="13.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="prev_page_btn" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#clickPrevPage" onMouseEntered="#hoverPrevPage" onMouseExited="#unhoverPrevPage" prefHeight="50.0" prefWidth="50.0" text="&lt;" textFill="#AAAAAA">
+                              	<cursor>
+                              		<Cursor fx:constant="HAND" />
+                              	</cursor>
+                              	<font>
+                              		<Font name="Montserrat Bold" size="25.0" />
+                              	</font>
+                              </Label>
+                              <TextField fx:id="pagination" alignment="CENTER" maxWidth="60.0" minWidth="30.0" onKeyTyped="#showArticleSet" prefHeight="30.0" style="-fx-text-fill: white; -fx-background-color: transparent; -fx-border-style: hidden" text="1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="total_page" prefHeight="50.0" text="/ NaN" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="next_page_btn" alignment="CENTER" onMouseClicked="#clickNextPage" onMouseEntered="#hoverNextPage" onMouseExited="#unhoverNextPage" prefHeight="50.0" prefWidth="50.0" text="&gt;" textFill="#AAAAAA">
+                              	<cursor>
+                              		<Cursor fx:constant="HAND" />
+                              	</cursor>
+                              	<font>
+                              		<Font name="Montserrat Bold" size="25.0" />
+                              	</font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="file:material/logo.png" />
+               </image>
+            </ImageView>
+            <Pane fx:id="trend_btn" onMouseClicked="#clickTrendButton" onMouseEntered="#hoverTrendButton" onMouseExited="#unhoverTrendButton" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #333333; -fx-background-radius: 100pc;" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+               <children>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:material/trend-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

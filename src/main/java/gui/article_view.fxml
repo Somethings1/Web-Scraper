@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ArticleViewController">
+   <children>
+      <HBox alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="993.0" style="-fx-background-color: #3E3833;">
+         <children>
+            <Pane fx:id="navigate_btn" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: #3944BC;" />
+            <Pane fx:id="close_btn" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: #D0312D;" />
+         </children>
+      </HBox>
+      <ScrollPane prefHeight="624.0" prefWidth="993.0" style="-fx-background: #0B1416; -fx-border-style: hidden hidden hidden hidden;">
+         <content>
+            <HBox prefHeight="621.0" prefWidth="991.0">
+               <children>
+                  <VBox prefHeight="621.0" prefWidth="735.0" style="-fx-border-style: hidden solid hidden hidden; -fx-border-color: #333333;">
+                     <children>
+                        <Label fx:id="label_title" maxWidth="735.0" prefHeight="34.0" prefWidth="733.0" text="This is title" wrapText="true">
+                           <font>
+                              <Font name="Montserrat Bold" size="28.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+                           </padding>
+                        </Label>
+                        <TextFlow prefHeight="62.0" prefWidth="733.0">
+                           <children>
+                              <Label style="-fx-text-fill: #ababab;" text="by ">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_author" text="Author">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-text-fill: #ababab;" text=" on ">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_site" text="Webname">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-text-fill: #ababab;" text=" at " textFill="#ababab">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_date" text="date">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                           </padding>
+                        </TextFlow>
+                        <TextFlow fx:id="content_container" prefHeight="494.0" prefWidth="733.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="621.0" prefWidth="256.0">
+                     <children>
+                        <Label text="Related articles">
+                           <font>
+                              <Font name="Montserrat Bold" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <VBox fx:id="related_container" prefHeight="590.0" prefWidth="256.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </children>
+</fx:root>

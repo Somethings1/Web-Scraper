@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.pages.AboutPageController">
+   <children>
+      <HBox fx:id="title_bar" alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="993.0" style="-fx-background-color: #0B1416;">
+         <children>
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="928.0" text="About this app" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Bold" size="15.0" />
+               </font>
+            </Label>
+            <Pane fx:id="exit_btn" onMouseEntered="#hoverExitButton" onMouseExited="#unhoverExitButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <Label layoutX="4.0" layoutY="-11.0" onMouseClicked="#clickExitButton" style="-fx-rotate: 45;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Regular" size="45.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll_pane" hbarPolicy="NEVER" prefHeight="641.0" prefWidth="993.0">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" />
+         </padding>
+         <content>
+            <TextFlow prefHeight="569.0" prefWidth="934.0" style="-fx-background-color: transparent;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview&#10;">
+                     <font>
+                        <Font name="Montserrat Bold" size="33.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;This app is a personal project based on the project in OOP course. It was proginally a group project. However, I want to have a deeper understanding of Java language and Javafx framework, so I decided to do it solo. In the group project, I provided the scraping part, which is also used here.&#10;&#10;Big thanks to: &#10;&#9;* The Java Langugage&#10;&#9;* Javafx framework for GUI&#10;&#9;* Playwright for web scraping&#10;&#9;* Stanford NER library for entity detection&#10;&#9;* And others on Stackoverflow for amazing explanation&#10;&#10;&#10;">
+                     <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Article Set&#10;">
+                     <font>
+                        <Font name="Montserrat Bold" size="33.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;This app works around an article set, which is a collection of article scraped from the internet. Currently, the set contains only articles on theblock.co and the &quot;add more to set&quot; feature will be added in the future.&#10;&#10;After perfoming search, a new Article Set will be created and shown to user in the main screen. The &quot;Trend&quot; feature works with that set. So, for instance, if you want to analyse trend in the whole set, just open the app and instantly to the trend button. If you want to know, for example, the trend with &quot;bitcoin&quot;, type &quot;bitcoin&quot; in the search, press Enter, then press the trend button.&#10;&#10;&#10;">
+                     <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Search&#10;">
+                     <font>
+                        <Font name="Montserrat Bold" size="33.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;For basic search, just type in the content you wanna search for, then press Enter. The app performs exact search on your query. If you want to perform loose search, use a comma to separate words in the query (i.e. &quot;bitcoin,etf&quot; will search for articles contains the word &quot;bitcoin&quot; or &quot;etf&quot;)&#10;&#10;Advanced search: use filter by format &lt;indicator&gt;=&lt;query&gt;, while &lt;query&gt; is the content you wanna search for, and &lt;indicator&gt; consists:&#10;&#9;- author (i.e. Mc glaren)&#10;&#9;- site (i.e. theblock.co)&#10;&#9;- type (not supported in this version)&#10;&#9;- dateRange: provide fromDate and toDate, separated by comma, in the format yyyy-mm-dd&#10;&#9;- tag: category of the article&#10;&#9;- hashtag: hashtag contains in the article&#10;Use (&amp;) to separate each filter. For example, &quot;author=james&amp;dateRange=2024-01-12,2024-02-12&amp;bitcoin,etf&quot; will search for articles written by james, from 2024, 12 jan to 2024, 12 feb and contains the word &quot;bitcoin&quot; or &quot;etf&quot;">
+                     <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

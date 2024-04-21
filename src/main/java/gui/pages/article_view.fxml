@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.pages.ArticleViewController">
+   <children>
+      <HBox fx:id="title_bar" alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="993.0" style="-fx-background-color: #0B1416;">
+         <children>
+            <Label alignment="CENTER" prefHeight="102.0" prefWidth="794.0" text="Article view" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Bold" size="15.0" />
+               </font>
+            </Label>
+            <Pane fx:id="object_toggle" onMouseClicked="#toggleEntity" onMouseEntered="#hoverObjectButton" onMouseExited="#unhoverObjectButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <ImageView fx:id="object_icon" fitHeight="20.0" fitWidth="23.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:material/object-off.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="navigate_btn" onMouseClicked="#clickNavigateButton" onMouseEntered="#hoverNavigateButton" onMouseExited="#unhoverNavigateButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="24.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:material/open_link.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <Pane fx:id="exit_btn" onMouseEntered="#hoverExitButton" onMouseExited="#unhoverExitButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <Label layoutX="4.0" layoutY="-11.0" onMouseClicked="#clickExitButton" style="-fx-rotate: 45;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Regular" size="45.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Pane>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll_pane" hbarPolicy="NEVER" prefHeight="641.0" prefWidth="993.0">
+         <content>
+            <HBox prefHeight="640.0" prefWidth="991.0">
+               <children>
+                  <VBox fx:id="main" maxWidth="735.0" minWidth="735.0" prefHeight="621.0" prefWidth="735.0" style="-fx-border-style: hidden solid hidden hidden; -fx-border-color: #333333;">
+                     <children>
+                        <Label fx:id="label_title" maxWidth="735.0" minHeight="-Infinity" prefWidth="735.0" text="This is title" wrapText="true">
+                           <font>
+                              <Font name="Montserrat Bold" size="35.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="30.0" right="10.0" top="20.0" />
+                           </padding>
+                        </Label>
+                        <TextFlow prefHeight="44.0" prefWidth="733.0">
+                           <children>
+                              <Label style="-fx-text-fill: #ababab;" text="by ">
+                                 <font>
+                                    <Font name="Montserrat Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_author" text="Author">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-text-fill: #ababab;" text=" on ">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_site" text="Webname">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label style="-fx-text-fill: #ababab;" text=" at " textFill="#ababab">
+                                 <font>
+                                    <Font name="Montserrat Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="label_date" text="date">
+                                 <font>
+                                    <Font name="Montserrat Regular" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                           </padding>
+                        </TextFlow>
+                        <TextFlow fx:id="tag_container" prefHeight="39.0" prefWidth="733.0" />
+                        <TextFlow fx:id="content_container" prefHeight="459.0" prefWidth="733.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="621.0" prefWidth="245.0">
+                     <children>
+                        <Label text="Related articles" textFill="#aaaaaa">
+                           <font>
+                              <Font name="Montserrat Regular" size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                        <VBox fx:id="related_container" prefWidth="245.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>
