@@ -3,12 +3,17 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Vector;
 
+
+/**
+ * Set of all article ever scraped
+*/
 public class ArticleSet {
 	private HashSet<Article> backupSet = new HashSet<Article>();
 	private HashSet<Article> articleSet = new HashSet<Article>();
 	
 	/**
-	 * Load all article from folder JSONFile
+	 * Load all article from folder JSONFile to the set. This constructor should be used only once in the program because it's time-consuming<br>
+	 * In case of creating a new, separate Article Set, use constructor <code>ArticleSet(ArticleSet, boolean)</code>
 	*/
 	public ArticleSet () {
 		final long startTime = System.currentTimeMillis();
@@ -23,15 +28,16 @@ public class ArticleSet {
 		System.out.println("Search Engine started with size = " + this.articleSet.size() + ". Time: " + (endTime - startTime));
 	}
 	
-	public ArticleSet (ArticleSet a, boolean keepResult) {
+	/**
+	 * Clone another ArticleSet
+	 * @param set the ArticleSet to clone from
+	 * @param keepResult <code>boolean</code> to determine whether to keep the previous search result or reset the set back to original
+	*/
+	public ArticleSet (ArticleSet set, boolean keepResult) {
 		if (keepResult)
-			this.articleSet.addAll(a.content());
+			this.articleSet.addAll(set.content());
 		else 
-			this.articleSet.addAll(a.backupSet);
-	}
-	
-	public void reset () {
-		this.articleSet.addAll(this.backupSet);
+			this.articleSet.addAll(set.backupSet);
 	}
 	
 	private boolean contains (String a, String b) {
@@ -43,14 +49,23 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Return total number of matching articles
+	 * Clear all the search result and return to the original set (all articles)
+	*/
+	public void reset () {
+		this.articleSet.addAll(this.backupSet);
+	}
+	
+	/**
+	 * Get the current size of the set
+	 * @return single integer: current size of the set
 	*/
 	public int size () {
 		return this.articleSet.size();
 	}
 	
 	/**
-	 * return <code>Vector&lt;Article&gt;</code> of articles matches
+	 * Get the content stored in the set
+	 * @return Vector of Article of the content in the set
 	*/	
 	public Vector<Article> content () {
 		Vector<Article> res = new Vector<Article>();
@@ -58,8 +73,14 @@ public class ArticleSet {
 		return res;
 	}
 	
+	public void add (Article article) {
+		this.articleSet.add(article);
+	}
+	
 	/**
-	 * Find in all fields
+	 * Remove all articles in the set which does not contain any of the query in any field
+	 * @param query Collection of String to search for
+	 * @return this set after filter.
 	*/
 	public ArticleSet applyGeneralFilter (String ...query) {
 		articleSet.removeIf(article -> {
@@ -96,7 +117,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles with similar text appear in content, title or summary 
+	 * Remove all articles in the set which does not contain any of the query in content, title or summary 
+	 * @param query Collection of String to search for
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByContent (String ...query) {
 		articleSet.removeIf(article -> {
@@ -117,7 +140,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles in particular sites
+	 * Remove all articles in the set which does not contain any of the query in web name 
+	 * @param query Collection of String to search for
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByWebName (String ...query) {
 		articleSet.removeIf(article -> {	
@@ -131,7 +156,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles in particular types
+	 * Remove all articles in the set which does not contain any of the query in type
+	 * @param query Collection of String to search for
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByType (String ...query) {
 		articleSet.removeIf(article -> {
@@ -145,8 +172,10 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles in a specific date range</br>
-	 * Provide <code>startDate</code> and <code>endDate</code> in format <code>YYYY-MM-DD</code>
+	 * Remove all articles in the set which has publish date earlier than startDate or later than endDate
+	 * @param startDate String represent date in format yyyy-mm-dd
+	 * @param endDate String represent date in format yyyy-mm-dd
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByDateRange (String startDate, String endDate) throws Exception {
 		articleSet.removeIf(article -> {
@@ -155,7 +184,7 @@ public class ArticleSet {
 			LocalDateTime end = LocalDateTime.parse(endDate);
 			LocalDateTime current = LocalDateTime.parse(article.publishDate);
 				
-				return current.isBefore(start) || current.isAfter(end);
+			return current.isBefore(start) || current.isAfter(end);
 			
 		});
 		
@@ -163,7 +192,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles written by authors
+	 * Remove all articles in the set which was not written by any of the provided authors
+	 * @param query Collection of String contains the authors' name
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByAuthor (String ...query) {
 		articleSet.removeIf(article -> {
@@ -177,7 +208,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles with particular hashtags
+	 * Remove all articles in the set which does not have any provided hashtag
+	 * @param query Collection of String to search for
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByHashtag (String ...query) {
 		articleSet.removeIf(article -> {
@@ -191,7 +224,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find articles in particular categories
+	 * Remove all articles in the set which does not have any provided category
+	 * @param query Collection of String to search for
+	 * @return this set after filter
 	*/
 	public ArticleSet filterByCategory (String ...query) {
 		articleSet.removeIf(article -> {
@@ -205,7 +240,9 @@ public class ArticleSet {
 	}
 	
 	/**
-	 * Find related articles
+	 * Remove all articles in the set which does not have more than 10 similar entities to the provided Article
+	 * @param source the Article to search for
+	 * @return this set after filter
 	*/
 	public ArticleSet filterBySimilarEntity (Article source) {
 		articleSet.removeIf(article -> {

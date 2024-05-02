@@ -1,9 +1,1 @@
-{
-    "summary": "1;.at-subheadline;1",
-    "title": "1;.at-headline;1",
-    "content": "1;.at-body p;1",
-    "publishDate": "3;datePublished;1",
-    "hashtag": "1;div[data-module-name=\"article-tags-module\"] a;0",
-    "authors": "1;.name;1",
-    "category": "1;.at-category;1"
-}
+{"summary":"1;.at-subheadline;1","publishDate":"3;datePublished;1","title":"1;.at-headline;1","category":"1;.at-category;1","content":"1;.at-body p;1","hashtag":"1;div[data-module-name=\"article-tags-module\"] a;1","authors":"1;.name;1"}

@@ -143,7 +143,7 @@ public class ArticleViewController extends Application {
 
 		showTag();
 		showContent();
-		showSimilar();
+		if (this.articleSet != null) showSimilar();
 	}
 
 	private void showSimilar() {
@@ -258,9 +258,10 @@ public class ArticleViewController extends Application {
 		showArticle();
 	}
 
-	public void initData(Article article, ArticleSet set) {
+	public void initData(Article article, ArticleSet ...set) {
 		this.article = article;
-		this.articleSet = new ArticleSet(set, true);
+		if (set.length != 0)
+			this.articleSet = new ArticleSet(set[0], true);
 		this.articleSet.filterBySimilarEntity(article);
 		showArticle();
 		initStyle();

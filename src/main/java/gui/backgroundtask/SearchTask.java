@@ -57,7 +57,8 @@ public class SearchTask extends Task<ArticleSet> {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace(System.out);
+			updateMessage(e.getMessage());
+			throw new Exception("");
 		}
 
 		updateMessage("done");

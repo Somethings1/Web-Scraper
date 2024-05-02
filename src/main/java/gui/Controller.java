@@ -7,15 +7,19 @@ import java.util.concurrent.Executors;
 import article.Article;
 import article.ArticleSet;
 import gui.backgroundtask.SearchTask;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -32,101 +36,142 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+/**
+ * Main controller of the app
+ */
 public class Controller {
-	@FXML private Pane exit_btn;
-	@FXML private StackPane page_container;
-	@FXML private VBox item_container;
-	@FXML private TextField pagination;
-	@FXML private Label total_page;
-	@FXML private TextField search_bar;
-	@FXML private Pane info_btn;
-	@FXML private Pane trend_btn;
-	@FXML private HBox title_bar;
-	@FXML private Label prev_page_btn;
-	@FXML private Label next_page_btn;
+	@FXML
+	private Pane exit_btn;
+	@FXML
+	private StackPane page_container;
+	@FXML
+	private VBox item_container;
+	@FXML
+	private TextField pagination;
+	@FXML
+	private Label total_page;
+	@FXML
+	private TextField search_bar;
+	@FXML
+	private Pane info_btn;
+	@FXML
+	private Pane trend_btn;
+	@FXML
+	private Pane crawl_btn;
+	@FXML
+	private HBox title_bar;
+	@FXML
+	private Label prev_page_btn;
+	@FXML
+	private Label next_page_btn;
+	private ContextMenu recommendationList = new ContextMenu();
 	private int numberOfPage;
 	private ArticleSet articleSet;
 	private double xOffset = 0;
 	private double yOffset = 0;
-	
-	public void quit() {
-		Platform.exit();
-		System.exit(0);
-	}
-	
-	public void hoverExitButton() {
-		exit_btn.setBackground(new Background(new BackgroundFill(Paint.valueOf(Color.DARK_RED), null, null)));
+
+	private void setEventHandlers() {
+		search_bar.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode().equals(KeyCode.ENTER)) {
+					hideRecommendation();
+					search(search_bar.getText());
+				}
+			}
+		});
+
+		title_bar.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				xOffset = event.getSceneX();
+				yOffset = event.getSceneY();
+			}
+		});
+		title_bar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				((Stage) (title_bar.getScene().getWindow())).setX(event.getScreenX() - xOffset);
+				((Stage) (title_bar.getScene().getWindow())).setY(event.getScreenY() - yOffset);
+			}
+		});
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.3));
+		search_bar.textProperty().addListener((observable, oldValue, newValue) -> {
+			pause.setOnFinished(event -> showRecommendation(newValue));
+			pause.playFromStart();
+		});
+		search_bar.focusedProperty().addListener((observable, lostFocus, gainFocus) -> {
+			hideRecommendation();
+		});
 	}
 
-	public void unhoverExitButton() {
-		exit_btn.setBackground(null);
+	private Vector<MenuItem> getRecommendationList(String query) {
+		Vector<MenuItem> result = new Vector<>();
+		Vector<Article> set = (new ArticleSet(articleSet, false)).content();
+		query = query.toLowerCase();
+
+		for (int i = 0; i < set.size() && result.size() < 10; i++) {
+			String title = set.elementAt(i).title;
+			int t = title.toLowerCase().indexOf(query);
+			if (t < 0)
+				continue;
+
+			Label first = new Label(title.substring(0, t));
+			first.setFont(new Font("Montserrat Regular", 15));
+			Label match = new Label(title.substring(t, t + query.length()));
+			match.setFont(new Font("Montserrat Bold", 15));
+			Label other = new Label(title.substring(t + query.length()));
+			other.setFont(new Font("Montserrat Regular", 15));
+
+			TextFlow flow = new TextFlow();
+			flow.setPadding(new Insets(5, 10, 5, 10));
+			flow.getChildren().addAll(first, match, other);
+			flow.setPrefWidth(739);
+
+			MenuItem item = new MenuItem("", flow);
+			item.setOnAction((event) -> {
+				search_bar.setText(title.substring(t));
+				search(search_bar.getText());
+				search_bar.setFocusTraversable(false);
+				hideRecommendation();
+			});
+			result.add(item);
+		}
+
+		return result;
 	}
 
-	public void hoverInfoButton() {
-		info_btn.setBackground(new Background(new BackgroundFill(Paint.valueOf(Color.DARK_GREY), null, null)));
+	private void hideRecommendation() {
+		recommendationList.hide();
+		search_bar.setBorder(new Border(new BorderStroke(Paint.valueOf(Color.WHITE), BorderStrokeStyle.SOLID,
+				new CornerRadii(13), new BorderWidths(1), new Insets(0))));
 	}
 
-	public void unhoverInfoButton() {
-		info_btn.setBackground(null);
-	}
-
-	public void hoverTrendButton() {
-		trend_btn.setBackground(
-				new Background(new BackgroundFill(Paint.valueOf(Color.LIGHT_BLUE), new CornerRadii(100), null)));
-	}
-
-	public void unhoverTrendButton() {
-		trend_btn.setBackground(
-				new Background(new BackgroundFill(Paint.valueOf(Color.DARK_GREY), new CornerRadii(100), null)));
-	}
-	
-	public void hoverPrevPage () {
-		prev_page_btn.setTextFill(Paint.valueOf(Color.WHITE));
-	}
-	
-	public void unhoverPrevPage () {
-		prev_page_btn.setTextFill(Paint.valueOf(Color.LIGHT_GREY));
-	}
-	
-	public void hoverNextPage () {
-		next_page_btn.setTextFill(Paint.valueOf(Color.WHITE));
-	}
-	
-	public void unhoverNextPage () {
-		next_page_btn.setTextFill(Paint.valueOf(Color.LIGHT_GREY));
-	}
-	
-	public void clickExitButton() {
-		Platform.exit();
-		System.exit(0);
-	}
-
-	public void clickNextPage() {
-		int currentPage = Integer.parseInt(pagination.getText());
-		if (currentPage == numberOfPage)
+	private void showRecommendation(String query) {
+		if (query.isBlank() || query.contains("&") || query.contains(",") || query.contains("=")) {
+			hideRecommendation();
 			return;
-		pagination.setText("" + (currentPage + 1));
-		showArticleSet();
+		}
+		search_bar.setBorder(new Border(new BorderStroke(Paint.valueOf(Color.WHITE), Paint.valueOf(Color.WHITE),
+				Paint.valueOf(Color.WHITE), Paint.valueOf(Color.WHITE), BorderStrokeStyle.SOLID,
+				BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID,
+				new CornerRadii(13, 13, 0, 0, false), new BorderWidths(1), new Insets(0))));
+		
+		
+		recommendationList.getItems().clear();
+		recommendationList.getItems().addAll(getRecommendationList(query));
+		if (recommendationList.getItems().size() == 0) {
+			hideRecommendation();
+			return;
+		}
+		recommendationList.show(search_bar, Side.BOTTOM, 0, 0);
 	}
 
-	public void clickPrevPage() {
-		int currentPage = Integer.parseInt(pagination.getText());
-		if (currentPage == 1)
-			return;
-		pagination.setText("" + (currentPage - 1));
-		showArticleSet();
-	}
-	public void clickTrendButton() {
-		String query = search_bar.getText();
-		Helper.showTrendPage(query.isBlank() ? "whole set" : query, articleSet);
-	}
-	public void clickInfoButton() {
-		Helper.showAboutPage();
-	}
-	
-	public HBox createItem(Article article, boolean lastItem) {
+	private HBox createItem(Article article, boolean lastItem) {
 		// Create the container
 		HBox item = new HBox();
 		item.setPadding(new Insets(12, 10, 12, 10));
@@ -149,7 +194,6 @@ public class Controller {
 				item.setBackground(null);
 			}
 		});
-		
 
 		// add tooltip
 		Tooltip.install(item, Helper.createTooltip("Author: ".concat(String.join(", ", article.authors))
@@ -175,49 +219,8 @@ public class Controller {
 		item.getChildren().add(label);
 		return item;
 	}
-	private void displaySearchError(String message) {
-		Label loadingText = new Label(message);
-		loadingText.setFont(new Font("Montserrat Bold", 18));
-		loadingText.setTextFill(Paint.valueOf(Color.WHITE));
-		item_container.setAlignment(Pos.CENTER);
-		item_container.getChildren().add(loadingText);
-	}
 
-	public void showArticleSet() {
-		try {
-			Integer.parseInt(pagination.getText());
-		} catch (NumberFormatException e) {
-			pagination.setText("1");
-		}
-
-		if (articleSet.size() == 0) {
-			displaySearchError("No result found");
-			return;
-		}
-
-		numberOfPage = (articleSet.size() + 9) / 10;
-		total_page.setText("/    " + Integer.toString(numberOfPage));
-		int page = Integer.parseInt(pagination.getText());
-		Vector<Article> currentSet = articleSet.content();
-		currentSet.sort((Article a, Article b) -> a.ownID - b.ownID);
-
-		item_container.getChildren().clear();
-		item_container.setAlignment(Pos.CENTER_LEFT);
-		item_container.setPadding(new Insets(0, 30, 0, 25));
-
-		for (int i = (page - 1) * 10; i < page * 10 && i < currentSet.size(); i++) {
-			HBox item = createItem(currentSet.elementAt(i), (i == page * 10 - 1 || i == currentSet.size() - 1 ? true : false));
-			int t = i;
-			item.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) {
-					Helper.showArticleView(currentSet.elementAt(t), articleSet);
-				}
-			});
-			item_container.getChildren().add(item);
-		}
-	}
-
-	public void search(String query) {
+	private void search(String query) {
 		// Return to page 1
 		pagination.setText("1");
 		articleSet.reset();
@@ -245,6 +248,7 @@ public class Controller {
 				showArticleSet();
 			});
 			searcher.setOnFailed((event) -> {
+				search_bar.setDisable(false);
 				displaySearchError(event.getSource().getMessage());
 			});
 			ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -254,37 +258,146 @@ public class Controller {
 			displaySearchError(e.getMessage());
 			return;
 		}
-	}	
-	private void setEventHandlers () {
-		search_bar.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent ke) {
-				if (ke.getCode().equals(KeyCode.ENTER)) {
-					search(search_bar.getText());
-				}
-			}
-		});
+	}
 
-		title_bar.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				xOffset = event.getSceneX();
-				yOffset = event.getSceneY();
-			}
-		});
-		title_bar.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				((Stage) (title_bar.getScene().getWindow())).setX(event.getScreenX() - xOffset);
-				((Stage) (title_bar.getScene().getWindow())).setY(event.getScreenY() - yOffset);
-			}
-		});
+	private void displaySearchError(String message) {
+		Label loadingText = new Label(message);
+		loadingText.setFont(new Font("Montserrat Bold", 18));
+		loadingText.setTextFill(Paint.valueOf(Color.WHITE));
+		item_container.setAlignment(Pos.CENTER);
+		item_container.getChildren().clear();
+		item_container.getChildren().add(loadingText);
+	}
+
+	public void quit() {
+		Platform.exit();
+		System.exit(0);
+	}
+
+	public void hoverExitButton() {
+		exit_btn.setBackground(new Background(new BackgroundFill(Paint.valueOf(Color.DARK_RED), null, null)));
+	}
+
+	public void unhoverExitButton() {
+		exit_btn.setBackground(null);
+	}
+
+	public void hoverInfoButton() {
+		info_btn.setBackground(new Background(new BackgroundFill(Paint.valueOf(Color.DARK_GREY), null, null)));
+	}
+
+	public void unhoverInfoButton() {
+		info_btn.setBackground(null);
+	}
+
+	public void hoverTrendButton() {
+		trend_btn.setBackground(
+				new Background(new BackgroundFill(Paint.valueOf(Color.LIGHT_BLUE), new CornerRadii(100), null)));
+	}
+
+	public void unhoverTrendButton() {
+		trend_btn.setBackground(
+				new Background(new BackgroundFill(Paint.valueOf(Color.DARK_GREY), new CornerRadii(100), null)));
+	}
+	public void hoverCrawlButton() {
+		crawl_btn.setBackground(
+				new Background(new BackgroundFill(Paint.valueOf(Color.LIGHT_BLUE), new CornerRadii(100), null)));
+	}
+
+	public void unhoverCrawlButton() {
+		crawl_btn.setBackground(
+				new Background(new BackgroundFill(Paint.valueOf(Color.DARK_GREY), new CornerRadii(100), null)));
+	}
+
+	public void hoverPrevPage() {
+		prev_page_btn.setTextFill(Paint.valueOf(Color.WHITE));
+	}
+
+	public void unhoverPrevPage() {
+		prev_page_btn.setTextFill(Paint.valueOf(Color.LIGHT_GREY));
+	}
+
+	public void hoverNextPage() {
+		next_page_btn.setTextFill(Paint.valueOf(Color.WHITE));
+	}
+
+	public void unhoverNextPage() {
+		next_page_btn.setTextFill(Paint.valueOf(Color.LIGHT_GREY));
+	}
+
+	public void clickExitButton() {
+		Platform.exit();
+		System.exit(0);
+	}
+
+	public void clickNextPage() {
+		int currentPage = Integer.parseInt(pagination.getText());
+		if (currentPage == numberOfPage)
+			return;
+		pagination.setText("" + (currentPage + 1));
+		showArticleSet();
+	}
+
+	public void clickPrevPage() {
+		int currentPage = Integer.parseInt(pagination.getText());
+		if (currentPage == 1)
+			return;
+		pagination.setText("" + (currentPage - 1));
+		showArticleSet();
+	}
+
+	public void clickTrendButton() {
+		String query = search_bar.getText();
+		Helper.showTrendPage(query.isBlank() ? "whole set" : query, articleSet);
+	}
+
+	public void clickInfoButton() {
+		Helper.showAboutPage();
+	}
+	
+	public void clickCrawlButton() {
+		Helper.showCrawlPage(articleSet);
+	}
+
+	public void showArticleSet() {
+		try {
+			Integer.parseInt(pagination.getText());
+		} catch (NumberFormatException e) {
+			pagination.setText("1");
+		}
+
+		if (articleSet.size() == 0) {
+			displaySearchError("No result found");
+			return;
+		}
+
+		numberOfPage = (articleSet.size() + 9) / 10;
+		total_page.setText("/    " + Integer.toString(numberOfPage));
+		int page = Integer.parseInt(pagination.getText());
+		Vector<Article> currentSet = articleSet.content();
+		currentSet.sort((Article a, Article b) -> a.ownID - b.ownID);
+
+		item_container.getChildren().clear();
+		item_container.setAlignment(Pos.CENTER_LEFT);
+		item_container.setPadding(new Insets(0, 30, 0, 25));
+
+		for (int i = (page - 1) * 10; i < page * 10 && i < currentSet.size(); i++) {
+			HBox item = createItem(currentSet.elementAt(i),
+					(i == page * 10 - 1 || i == currentSet.size() - 1 ? true : false));
+			int t = i;
+			item.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) {
+					Helper.showArticleView(currentSet.elementAt(t), articleSet);
+				}
+			});
+			item_container.getChildren().add(item);
+		}
 	}
 
 	public void initialize() {
 		articleSet = new ArticleSet();
 		showArticleSet();
-		Platform.runLater( () -> item_container.requestFocus() );
-		setEventHandlers();	
+		Platform.runLater(() -> item_container.requestFocus());
+		setEventHandlers();
 	}
 }

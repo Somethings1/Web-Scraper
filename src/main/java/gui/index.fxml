@@ -118,9 +118,21 @@
             </ImageView>
             <Pane fx:id="trend_btn" onMouseClicked="#clickTrendButton" onMouseEntered="#hoverTrendButton" onMouseExited="#unhoverTrendButton" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #333333; -fx-background-radius: 100pc;" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
                <children>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="12.5" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="file:material/trend-icon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane fx:id="crawl_btn" layoutX="10.0" layoutY="10.0" onMouseClicked="#clickCrawlButton" onMouseEntered="#hoverCrawlButton" onMouseExited="#unhoverCrawlButton" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #333333; -fx-background-radius: 100pc;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="12.5" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:material/crawler-icon.png" />
                      </image>
                   </ImageView>
                </children>

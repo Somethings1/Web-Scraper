@@ -14,25 +14,19 @@ import article.Article;
 import article.ArticleSet;
 import article.Entity;
 import gui.pages.ArticleViewController;
+import gui.pages.CrawlPageController;
 import gui.pages.TrendPageController;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
@@ -44,6 +38,7 @@ public class Helper {
 	
 	/**
 	 * Custom tooltip by given text
+	 * @return javafx.scene.control.Tooltip corresponding to given text 
 	*/
 	public static Tooltip createTooltip (String s) {
 		Tooltip tooltip = new Tooltip(s);
@@ -58,6 +53,8 @@ public class Helper {
 	
 	/**
 	 * Beautify and escape HTML entities
+	 * @param s the String to be modified
+	 * @return modified string
 	*/
 	public static String modifyString (String s) {
 		s = s.replaceAll("<[^>]*>", "");
@@ -76,8 +73,10 @@ public class Helper {
 	}
 	
 	/**
-	 * Return LinkedList<Pair<String, String>> </br>
-	 * of Pair(text, object type)
+	 * Separate object and normal text in a paragraph
+	 * @param para paragraph to separate
+	 * @param article the Article corresponding to the para to search for Entity
+	 * @return LinkedList of Pair(text, object type)
 	*/
 	public static LinkedList<Pair<String, String>> objectSeparator (String para, Article article) {
 		LinkedList<Pair<String, String>> subParas = new LinkedList<>();
@@ -132,9 +131,9 @@ public class Helper {
 	}
 	
 	/**
-	 * Support for trend finding</br>
-	 * @return a list of word (or word combination) and its frequency</br>
-	 * update filler word list in material/filler-words.info
+	 * Support for trend finding<br>update filler word list in material/filler-words.info
+	 * @param _articleSet the ArticleSet to search for words in it
+	 * @return a list of word (or word combination) and its frequency
 	*/
 	public static Vector<Pair<String, Integer>> getWordList (ArticleSet _articleSet) {
 		HashMap<String, Integer> words = new HashMap<String, Integer>();
@@ -189,11 +188,11 @@ public class Helper {
 	}
 
 	/**
-	 * Open article view window</br>
-	 * @param Article article: article to be shown
-	 * @param ArticleSet articleSet: the set to search for related articles
+	 * Open article view window
+	 * @param article article to be shown
+	 * @param articleSet the set to search for related articles
 	*/
-	public static void showArticleView(Article article, ArticleSet articleSet) {
+	public static void showArticleView(Article article, ArticleSet ...articleSet) {
 		try {
 			FXMLLoader loader = new FXMLLoader(Helper.class.getResource("pages/article_view.fxml"));
 
@@ -229,8 +228,32 @@ public class Helper {
 	}
 	
 	/**
-	 * Show trend window</br>
-	 * @param ArticleSet articleSet: the article set to analyze and show result
+	 * Show about window
+	*/
+	public static void showCrawlPage (ArticleSet set) {
+		try {
+			FXMLLoader loader = new FXMLLoader(Helper.class.getResource("pages/crawl_page.fxml"));
+
+			Stage stage = new Stage();
+			Scene scene = new Scene(loader.load());
+			scene.getStylesheets().add("gui" + File.separator + "pages" + File.separator + "crawl-page.css");
+			stage.setScene(scene);
+			
+			stage.initStyle(StageStyle.UNDECORATED);
+			
+			CrawlPageController controller = loader.getController();
+			controller.initData(set);
+
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Open a new window to represent the trend analyzed from the search result
+	 * @param query the query input in search
+	 * @param articleSet the article set to analyze and show result
 	*/
 	public static void showTrendPage (String query, ArticleSet articleSet) {
 		try {
@@ -248,4 +271,56 @@ public class Helper {
 			e.printStackTrace();
 		}
 	}
+	
+	public static Label createNormalText (String s, int size) {
+		Label res = new Label(s);
+		res.setFont(new Font("Montserrat Regular", size));
+		res.setTextFill(Paint.valueOf(Color.WHITE));
+		return res;
+	}
+	
+	public static Label createTitle (String s) {
+		Label res = new Label(s);
+		res.setFont(new Font("Montserrat Bold", 32));
+		res.setTextFill(Paint.valueOf(Color.WHITE));
+		res.setAlignment(Pos.CENTER);
+		res.setPadding(new Insets(30, 0, 0, 0));
+		return res;
+	}
+	
+	public static TextField createTextField (int width) {
+		TextField field = new TextField();
+		field.setStyle("-fx-text-fill: " + Color.WHITE + ";"
+				+ "-fx-border-color: " + Color.LIGHT_GREY + ";"
+				+ "-fx-border-radius: 10px");
+		field.setBackground(null);
+		field.setFont(new Font("Montserrat", 15));
+		field.setMinWidth(width);
+		return field;
+	}
+	
+	public static TextArea createTextArea (int width) {
+		TextArea field = new TextArea();
+		field.setStyle("-fx-text-fill: white;"
+					 + "-fx-background-color: transparent;"
+					 + "-fx-control-inner-background: " + Color.BACKGROUND_MEDIUM + ";"
+					 + "-fx-border-color: " + Color.WHITE + ";");
+		field.setMaxWidth(width);
+		field.setMinHeight(300);
+		field.setFont(new Font("Montserrat", 15));
+		field.widthProperty().addListener((o) -> {
+			Node vp = field.lookup(".content");
+			vp.setStyle("-fx-background-color: " + Color.BACKGROUND_MEDIUM + ";"
+					  + "-fx-text-fill: white;");
+		});
+		return field;
+	}
+	
+	public static ComboBox createDropdown (String ...s) {
+		ComboBox box = new ComboBox();
+		box.getItems().addAll(s);
+		return box;
+	}
+	
+	
 }

@@ -21,14 +21,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class TrendPageController {
 	private double xOffset = 0;
 	private double yOffset = 0;
-	private ArticleSet articleSet;
 	String query;
 
 	@FXML
@@ -93,7 +91,6 @@ public class TrendPageController {
 	public void initData (String query, ArticleSet articleSet) {
 		query_label.setText(query);
 		initStyle();
-		this.articleSet = articleSet;	
 		Platform.runLater(new Runnable () {
 			@Override
 			public void run () {

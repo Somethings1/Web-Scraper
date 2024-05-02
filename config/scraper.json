@@ -1,8 +1,1 @@
-{
-    "validLinkPrefix": "theblock.co/post",
-    "loadLinkMethod": "scroll",
-    "loadLinkButtonText": "Load more",
-    "maxLinkCount": -1,
-    "startLink": "https://www.theblock.co/latest",
-    "thread": 5
-}
+{"loadLinkButtonText":"Load more","validLinkPrefix":"coindesk.com","thread":5,"loadLinkMethod":"scroll","maxLinkCount":-1,"startLink":"https:\/\/www.coindesk.com\/"}

@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import scraping.PageSelector;
@@ -37,25 +38,6 @@ public class Test extends Application {
 		}
 		catch (Exception e) {
 			
-		}
-	}
-	
-	private void callScraper () {
-		try {
-			// Set page selector
-			PageSelector pageSelector = new PageSelector();
-			pageSelector.setByJSONFile(SELECTOR_OPTION_FILE);
-			
-			// Create options for scraper
-			ScraperOptions scraperOptions = new ScraperOptions();
-			scraperOptions.setByJSONFile(SCRAPER_OPTION_FILE);
-			scraperOptions.setPageSelector(pageSelector);
-			
-			// Real scraping process
-			Scraper scraper = new Scraper(scraperOptions);
-			scraper.scrape();
-		} catch (Exception e) {
-			e.printStackTrace(System.out);
 		}
 	}
 	

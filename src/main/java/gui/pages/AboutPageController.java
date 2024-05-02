@@ -1,7 +1,6 @@
 package gui.pages;
 
 import gui.Color;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

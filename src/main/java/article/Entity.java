@@ -2,6 +2,9 @@ package article;
 
 import java.util.Objects;
 
+/**
+ * Entity detected by Stanford NER library
+*/
 public class Entity {
 	public String type;
 	public String content;

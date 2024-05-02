@@ -1,5 +1,8 @@
 package gui;
 
+/**
+ * Constant colors to use in GUI
+*/
 public interface Color {
 	String BACKGROUND_STRONG = "#0F1A1C";
 	String BACKGROUND_MEDIUM = "#131313";

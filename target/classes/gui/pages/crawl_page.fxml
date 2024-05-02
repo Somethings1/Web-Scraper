@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.pages.CrawlPageController">
+   <children>
+      <HBox fx:id="title_bar" alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="993.0" style="-fx-background-color: #0B1416;">
+         <children>
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="928.0" text="Crawl new site" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Bold" size="15.0" />
+               </font>
+            </Label>
+            <Pane fx:id="exit_btn" onMouseEntered="#hoverExitButton" onMouseExited="#unhoverExitButton" prefHeight="35.0" prefWidth="35.0">
+               <children>
+                  <Label layoutX="4.0" layoutY="-11.0" onMouseClicked="#clickExitButton" style="-fx-rotate: 45;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Regular" size="45.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll_pane" hbarPolicy="NEVER" prefHeight="641.0" prefWidth="993.0">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" />
+         </padding>
+         <content>
+            <VBox fx:id="item_container" prefHeight="630.0" prefWidth="919.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

@@ -1,0 +1,105 @@
+.combo-box .list-cell 
+{
+    -fx-background-color: #04090A;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-cell-size: 1.66667em; 
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-pref-width: 130px;
+}
+
+.combo-box-popup .list-view 
+{
+    -fx-background-color: #04090A;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 5px;
+    -fx-padding: 3 5 3 5;
+}    
+
+.combo-box-popup .list-view .list-cell 
+{
+    -fx-padding: 3 5 3 5;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
+{
+    -fx-background-color: #04090A;
+    -fx-text-fill: -fx-selection-bar-text;
+    -fx-background-radius: 5px;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover 
+{
+    -fx-background-color: #131F23;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+.combo-box-base  
+{
+    -fx-background-color: #04090A;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-padding: 0;
+    -fx-border-color: #AAAAAA;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.combo-box-base:hover
+{
+    -fx-color: #131F23;
+}
+
+.combo-box-base:showing 
+{
+    -fx-color: #04090A;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: #131F23;
+}
+
+.combo-box-base:disabled {
+    -fx-opacity: .4;
+}
+
+.check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: black;
+}
+
+.check-box:selected .box {
+    -fx-background-color: white
+}
+.text-area .text {
+     -fx-line-spacing: 10px;
+}
+.text-area .scroll-bar:vertical {
+    -fx-pref-width: 1;
+    -fx-opacity: 0;
+}
+.text-area .scroll-bar:horizontal {
+    -fx-pref-height: 1;
+    -fx-opacity: 0;
+}
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
