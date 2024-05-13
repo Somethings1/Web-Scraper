@@ -4,7 +4,14 @@
     <eAnnotations xmi:id="_oNjIQABQEe-ziPgQOrU91w" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_oNp18ABQEe-ziPgQOrU91w" source="codegen">
         <details xmi:id="_oNp18QBQEe-ziPgQOrU91w" key="codegenDirectory" value="/WebScraper/src/main/java"/>
-        <details xmi:id="_sgj1kABQEe-ziPgQOrU91w" key="AssociatedSourceCode" value="/WebScraper/src/main/java/article/Article.java;1861232024/1;/WebScraper/src/main/java/article/ArticleSet.java;2242133112/1;/WebScraper/src/main/java/article/Entity.java;1710091692/1;/WebScraper/src/main/java/gui/Color.java;586903306/1;/WebScraper/src/main/java/gui/Controller.java;716813240/1;/WebScraper/src/main/java/gui/Helper.java;1011785785/1;/WebScraper/src/main/java/gui/Test.java;8311939/1;/WebScraper/src/main/java/gui/backgroundtask/SearchTask.java;260754307/1;/WebScraper/src/main/java/gui/pages/AboutPageController.java;680560893/1;/WebScraper/src/main/java/gui/pages/TrendPageController.java;780194065/1;/WebScraper/src/main/java/gui/pages/ArticleViewController.java;3720605739/1;/WebScraper/src/main/java/scraping/PageSelector.java;2226869916/1;/WebScraper/src/main/java/scraping/Scraper.java;648109943/1;/WebScraper/src/main/java/scraping/ScraperOptions.java;4142275699/1;"/>
+        <details xmi:id="_sgj1kABQEe-ziPgQOrU91w" key="AssociatedSourceCode" value="/WebScraper/src/main/java/article/Article.java;383952302/1;/WebScraper/src/main/java/article/ArticleSet.java;3699347048/1;/WebScraper/src/main/java/article/Entity.java;475444629/1;/WebScraper/src/main/java/gui/Color.java;2900111008/1;/WebScraper/src/main/java/gui/Controller.java;678976584/1;/WebScraper/src/main/java/gui/Helper.java;699126871/1;/WebScraper/src/main/java/gui/backgroundtask/SearchTask.java;260754307/1;/WebScraper/src/main/java/gui/pages/AboutPageController.java;680560893/1;/WebScraper/src/main/java/gui/pages/TrendPageController.java;780194065/1;/WebScraper/src/main/java/gui/pages/ArticleViewController.java;2619230446/1;/WebScraper/src/main/java/scraping/PageSelector.java;1406372842/1;/WebScraper/src/main/java/scraping/Scraper.java;2877884266/1;/WebScraper/src/main/java/scraping/ScraperOptions.java;2650081838/1;"/>
+      </contents>
+      <contents xmi:type="ecore:EAnnotation" xmi:id="_8MkFAAkPEe-_9bSnsIpr9A" source="preferences">
+        <contents xmi:type="ecore:EAnnotation" xmi:id="_8MksEAkPEe-_9bSnsIpr9A" source="com.yattasolutions.codegen.reverse">
+          <details xmi:id="_8MksEQkPEe-_9bSnsIpr9A" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerNewFiles" value="true"/>
+          <details xmi:id="_8MlTIAkPEe-_9bSnsIpr9A" key="com.yattasolutions.codegen.reverse.roundtrip.RemoveDeletedFiles" value="true"/>
+          <details xmi:id="_8MlTIQkPEe-_9bSnsIpr9A" key="com.yattasolutions.codegen.reverse.roundtrip.ReverseEngineerChangedFiles" value="true"/>
+        </contents>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_pIyogABQEe-ziPgQOrU91w">
@@ -60,6 +67,7 @@
         <packagedElement xmi:type="uml:Class" xmi:id="_pwoEkABQEe-ziPgQOrU91w" name="HashMap"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_pwp5wQBQEe-ziPgQOrU91w" name="LinkedList"/>
         <packagedElement xmi:type="uml:Interface" xmi:id="_px86QQBQEe-ziPgQOrU91w" name="Iterator"/>
+        <packagedElement xmi:type="uml:Interface" xmi:id="__KcycAkPEe-_9bSnsIpr9A" name="Collection"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_pKDz0ABQEe-ziPgQOrU91w" name="time">
         <packagedElement xmi:type="uml:Class" xmi:id="_pu_F0ABQEe-ziPgQOrU91w" name="LocalDateTime"/>
@@ -517,7 +525,7 @@
 
 		showTag();
 		showContent();
-		showSimilar();
+		if (this.articleSet != null) showSimilar();
 	</body>
           </ownedBehavior>
           <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5r58QBQEe-ziPgQOrU91w" name="showSimilar" specification="_pUKLAABQEe-ziPgQOrU91w">
@@ -643,12 +651,15 @@
 		showArticle();
 	</body>
           </ownedBehavior>
-          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5u9QQBQEe-ziPgQOrU91w" name="initData" specification="_pxsbkABQEe-ziPgQOrU91w">
-            <ownedParameter xmi:id="_p5u9QgBQEe-ziPgQOrU91w" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
-            <ownedParameter xmi:id="_p5u9QwBQEe-ziPgQOrU91w" name="set" type="_pP59IABQEe-ziPgQOrU91w"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MFxMAkPEe-_9bSnsIpr9A" name="initData" specification="__B4sUAkPEe-_9bSnsIpr9A">
+            <ownedParameter xmi:id="__MFxMQkPEe-_9bSnsIpr9A" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
+            <ownedParameter xmi:id="__MFxMgkPEe-_9bSnsIpr9A" name="set" type="_pP59IABQEe-ziPgQOrU91w">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__MFxMwkPEe-_9bSnsIpr9A" value="*"/>
+            </ownedParameter>
             <language>java</language>
             <body>this.article = article;
-		this.articleSet = new ArticleSet(set, true);
+		if (set.length != 0)
+			this.articleSet = new ArticleSet(set[0], true);
 		this.articleSet.filterBySimilarEntity(article);
 		showArticle();
 		initStyle();
@@ -668,12 +679,14 @@
           <ownedOperation xmi:id="_pUPqkABQEe-ziPgQOrU91w" name="unhoverObjectButton" method="_p5uWMABQEe-ziPgQOrU91w"/>
           <ownedOperation xmi:id="_pUPqkQBQEe-ziPgQOrU91w" name="clickNavigateButton" method="_p5uWMQBQEe-ziPgQOrU91w"/>
           <ownedOperation xmi:id="_pUQRoABQEe-ziPgQOrU91w" name="toggleEntity" method="_p5u9QABQEe-ziPgQOrU91w"/>
-          <ownedOperation xmi:id="_pxsbkABQEe-ziPgQOrU91w" name="initData" method="_p5u9QQBQEe-ziPgQOrU91w">
-            <ownedParameter xmi:id="_pxtCoABQEe-ziPgQOrU91w" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
-            <ownedParameter xmi:id="_pxtCoQBQEe-ziPgQOrU91w" name="set" type="_pP59IABQEe-ziPgQOrU91w"/>
-          </ownedOperation>
           <ownedOperation xmi:id="_p0Ck8ABQEe-ziPgQOrU91w" name="start" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
             <ownedParameter xmi:id="_p0Ck8QBQEe-ziPgQOrU91w" name="arg0" type="_pwNN0QBQEe-ziPgQOrU91w"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="__B4sUAkPEe-_9bSnsIpr9A" name="initData" method="__MFxMAkPEe-_9bSnsIpr9A">
+            <ownedParameter xmi:id="__B4sUQkPEe-_9bSnsIpr9A" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
+            <ownedParameter xmi:id="__B5TYAkPEe-_9bSnsIpr9A" name="set" type="_pP59IABQEe-ziPgQOrU91w">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__B7IkAkPEe-_9bSnsIpr9A" value="*"/>
+            </ownedParameter>
           </ownedOperation>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_p7epsQBQEe-ziPgQOrU91w" name="" memberEnd="_p7epsgBQEe-ziPgQOrU91w _p22BUQBQEe-ziPgQOrU91w">
@@ -754,9 +767,13 @@
         <packagedElement xmi:type="uml:Association" xmi:id="_p8FGoQBQEe-ziPgQOrU91w" name="" memberEnd="_p8FGogBQEe-ziPgQOrU91w _p3vZMABQEe-ziPgQOrU91w">
           <ownedEnd xmi:id="_p8FGogBQEe-ziPgQOrU91w" name="" type="_pUBoIABQEe-ziPgQOrU91w" association="_p8FGoQBQEe-ziPgQOrU91w"/>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="__KLssAkPEe-_9bSnsIpr9A" name="CrawlPageController"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Interface" xmi:id="_pRUSYABQEe-ziPgQOrU91w" name="Color">
-        <ownedAttribute xmi:id="_pRWuoABQEe-ziPgQOrU91w" name="BACKGROUND_STRONG" visibility="package">
+        <ownedComment xmi:id="__MjEMAkPEe-_9bSnsIpr9A">
+          <body>Constant colors to use in GUI</body>
+        </ownedComment>
+        <ownedAttribute xmi:id="_pRWuoABQEe-ziPgQOrU91w" name="BACKGROUND_STRONG" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_pRcOMABQEe-ziPgQOrU91w" value="&quot;#0F1A1C&quot;"/>
         </ownedAttribute>
@@ -772,7 +789,7 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_pRnNUABQEe-ziPgQOrU91w" value="&quot;#131F23&quot;"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_pRq3sABQEe-ziPgQOrU91w" name="DARK_GREY" visibility="package">
+        <ownedAttribute xmi:id="_pRq3sABQEe-ziPgQOrU91w" name="DARK_GREY" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_pRrewABQEe-ziPgQOrU91w" value="&quot;#333333&quot;"/>
         </ownedAttribute>
@@ -802,6 +819,9 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_pSJ_4ABQEe-ziPgQOrU91w" name="Controller">
+        <ownedComment xmi:id="__MjrQAkPEe-_9bSnsIpr9A">
+          <body>Main controller of the app</body>
+        </ownedComment>
         <ownedAttribute xmi:id="_p1vOEABQEe-ziPgQOrU91w" name="exit_btn" visibility="private" type="_pwDc0ABQEe-ziPgQOrU91w" association="_p7MV0ABQEe-ziPgQOrU91w"/>
         <ownedAttribute xmi:id="_p1xqUABQEe-ziPgQOrU91w" name="page_container" visibility="private" type="_pwED4QBQEe-ziPgQOrU91w" association="_p7Nj8QBQEe-ziPgQOrU91w"/>
         <ownedAttribute xmi:id="_p1zfgQBQEe-ziPgQOrU91w" name="item_container" visibility="private" type="_pwF5EABQEe-ziPgQOrU91w" association="_p7PZIQBQEe-ziPgQOrU91w"/>
@@ -825,12 +845,17 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_p2KE0ABQEe-ziPgQOrU91w" value="0"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="__LO1kAkPEe-_9bSnsIpr9A" name="crawl_btn" visibility="private" type="_pwDc0ABQEe-ziPgQOrU91w" association="__NDagAkPEe-_9bSnsIpr9A"/>
+        <ownedAttribute xmi:id="__LR44QkPEe-_9bSnsIpr9A" name="recommendationList" visibility="private" type="__KCiwAkPEe-_9bSnsIpr9A" association="__NHE4AkPEe-_9bSnsIpr9A">
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LTHAAkPEe-_9bSnsIpr9A" value="new ContextMenu()"/>
+        </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5QcIABQEe-ziPgQOrU91w" name="setEventHandlers" specification="_pSQtkABQEe-ziPgQOrU91w">
           <language>java</language>
           <body>search_bar.setOnKeyPressed(new EventHandler&lt;KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {
 				if (ke.getCode().equals(KeyCode.ENTER)) {
+					hideRecommendation();
 					search(search_bar.getText());
 				}
 			}
@@ -850,6 +875,14 @@
 				((Stage) (title_bar.getScene().getWindow())).setY(event.getScreenY() - yOffset);
 			}
 		});
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.3));
+		search_bar.textProperty().addListener((observable, oldValue, newValue) -> {
+			pause.setOnFinished(event -> showRecommendation(newValue));
+			pause.playFromStart();
+		});
+		search_bar.focusedProperty().addListener((observable, lostFocus, gainFocus) -> {
+			hideRecommendation();
+		});
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5RDMABQEe-ziPgQOrU91w" name="createItem" specification="_pwXl4ABQEe-ziPgQOrU91w">
@@ -857,7 +890,9 @@
           <ownedParameter xmi:id="_p5RDMgBQEe-ziPgQOrU91w" name="lastItem">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_p5RDMwBQEe-ziPgQOrU91w" type="_pwCOsABQEe-ziPgQOrU91w" direction="return"/>
+          <ownedParameter xmi:id="_p5RDMwBQEe-ziPgQOrU91w" type="_pwCOsABQEe-ziPgQOrU91w" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>// Create the container
 		HBox item = new HBox();
@@ -881,7 +916,6 @@
 				item.setBackground(null);
 			}
 		});
-		
 
 		// add tooltip
 		Tooltip.install(item, Helper.createTooltip(&quot;Author: &quot;.concat(String.join(&quot;, &quot;, article.authors))
@@ -1082,7 +1116,8 @@
 		item_container.setPadding(new Insets(0, 30, 0, 25));
 
 		for (int i = (page - 1) * 10; i &lt; page * 10 &amp;&amp; i &lt; currentSet.size(); i++) {
-			HBox item = createItem(currentSet.elementAt(i), (i == page * 10 - 1 || i == currentSet.size() - 1 ? true : false));
+			HBox item = createItem(currentSet.elementAt(i),
+					(i == page * 10 - 1 || i == currentSet.size() - 1 ? true : false));
 			int t = i;
 			item.setOnMouseClicked(new EventHandler&lt;MouseEvent>() {
 				public void handle(MouseEvent event) {
@@ -1097,8 +1132,97 @@
           <language>java</language>
           <body>articleSet = new ArticleSet();
 		showArticleSet();
-		Platform.runLater( () -> item_container.requestFocus() );
-		setEventHandlers();	
+		Platform.runLater(() -> item_container.requestFocus());
+		setEventHandlers();
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__L1SgAkPEe-_9bSnsIpr9A" name="getRecommendationList" specification="__EzdcAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__L1SgQkPEe-_9bSnsIpr9A" name="query">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__L1SggkPEe-_9bSnsIpr9A" type="_pukPEABQEe-ziPgQOrU91w" direction="return"/>
+          <language>java</language>
+          <body>Vector&lt;MenuItem> result = new Vector&lt;>();
+		Vector&lt;Article> set = (new ArticleSet(articleSet, false)).content();
+		query = query.toLowerCase();
+
+		for (int i = 0; i &lt; set.size() &amp;&amp; result.size() &lt; 10; i++) {
+			String title = set.elementAt(i).title;
+			int t = title.toLowerCase().indexOf(query);
+			if (t &lt; 0)
+				continue;
+
+			Label first = new Label(title.substring(0, t));
+			first.setFont(new Font(&quot;Montserrat Regular&quot;, 15));
+			Label match = new Label(title.substring(t, t + query.length()));
+			match.setFont(new Font(&quot;Montserrat Bold&quot;, 15));
+			Label other = new Label(title.substring(t + query.length()));
+			other.setFont(new Font(&quot;Montserrat Regular&quot;, 15));
+
+			TextFlow flow = new TextFlow();
+			flow.setPadding(new Insets(5, 10, 5, 10));
+			flow.getChildren().addAll(first, match, other);
+			flow.setPrefWidth(739);
+
+			MenuItem item = new MenuItem(&quot;&quot;, flow);
+			item.setOnAction((event) -> {
+				search_bar.setText(title.substring(t));
+				search(search_bar.getText());
+				search_bar.setFocusTraversable(false);
+				hideRecommendation();
+			});
+			result.add(item);
+		}
+
+		return result;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__L4V0AkPEe-_9bSnsIpr9A" name="hideRecommendation" specification="__AeXEAkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>recommendationList.hide();
+		search_bar.setBorder(new Border(new BorderStroke(Paint.valueOf(Color.WHITE), BorderStrokeStyle.SOLID,
+				new CornerRadii(13), new BorderWidths(1), new Insets(0))));
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__L6LAAkPEe-_9bSnsIpr9A" name="showRecommendation" specification="__E_qsAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__L6LAQkPEe-_9bSnsIpr9A" name="query">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>if (query.isBlank() || query.contains(&quot;&amp;&quot;) || query.contains(&quot;,&quot;) || query.contains(&quot;=&quot;)) {
+			hideRecommendation();
+			return;
+		}
+		search_bar.setBorder(new Border(new BorderStroke(Paint.valueOf(Color.WHITE), Paint.valueOf(Color.WHITE),
+				Paint.valueOf(Color.WHITE), Paint.valueOf(Color.WHITE), BorderStrokeStyle.SOLID,
+				BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID,
+				new CornerRadii(13, 13, 0, 0, false), new BorderWidths(1), new Insets(0))));
+		
+		
+		recommendationList.getItems().clear();
+		recommendationList.getItems().addAll(getRecommendationList(query));
+		if (recommendationList.getItems().size() == 0) {
+			hideRecommendation();
+			return;
+		}
+		recommendationList.show(search_bar, Side.BOTTOM, 0, 0);
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__L91YAkPEe-_9bSnsIpr9A" name="hoverCrawlButton" specification="__AgMQAkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>crawl_btn.setBackground(
+				new Background(new BackgroundFill(Paint.valueOf(Color.LIGHT_BLUE), new CornerRadii(100), null)));
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__L-ccAkPEe-_9bSnsIpr9A" name="unhoverCrawlButton" specification="__AhaYAkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>crawl_btn.setBackground(
+				new Background(new BackgroundFill(Paint.valueOf(Color.DARK_GREY), new CornerRadii(100), null)));
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__L_qkAkPEe-_9bSnsIpr9A" name="clickCrawlButton" specification="__Aj2oAkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>Helper.showCrawlPage(articleSet);
 	</body>
         </ownedBehavior>
         <ownedOperation xmi:id="_pSQtkABQEe-ziPgQOrU91w" name="setEventHandlers" visibility="private" method="_p5QcIABQEe-ziPgQOrU91w"/>
@@ -1137,8 +1261,34 @@
           </ownedParameter>
           <ownedParameter xmi:id="_pzd9MABQEe-ziPgQOrU91w" type="_pwCOsABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
+        <ownedOperation xmi:id="__AeXEAkPEe-_9bSnsIpr9A" name="hideRecommendation" visibility="private" method="__L4V0AkPEe-_9bSnsIpr9A"/>
+        <ownedOperation xmi:id="__AgMQAkPEe-_9bSnsIpr9A" name="hoverCrawlButton" method="__L91YAkPEe-_9bSnsIpr9A"/>
+        <ownedOperation xmi:id="__AhaYAkPEe-_9bSnsIpr9A" name="unhoverCrawlButton" method="__L-ccAkPEe-_9bSnsIpr9A"/>
+        <ownedOperation xmi:id="__Aj2oAkPEe-_9bSnsIpr9A" name="clickCrawlButton" method="__L_qkAkPEe-_9bSnsIpr9A"/>
+        <ownedOperation xmi:id="__EzdcAkPEe-_9bSnsIpr9A" name="getRecommendationList" visibility="private" method="__L1SgAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__EzdcQkPEe-_9bSnsIpr9A" name="query">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__E0rkAkPEe-_9bSnsIpr9A" type="_pukPEABQEe-ziPgQOrU91w" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="__E_qsAkPEe-_9bSnsIpr9A" name="showRecommendation" visibility="private" method="__L6LAAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__FARwAkPEe-_9bSnsIpr9A" name="query">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_pSwc0ABQEe-ziPgQOrU91w" name="Helper">
+        <ownedAttribute xmi:id="__LXYcAkPEe-_9bSnsIpr9A" name="MAXIMUM_LINE_IN_TEXTAREA" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LX_gAkPEe-_9bSnsIpr9A" value="1000"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="__LX_gQkPEe-_9bSnsIpr9A" name="FILLER_WORD_FILE_NAME" isLeaf="true" isStatic="true" isReadOnly="true">
+          <eAnnotations xmi:id="__LYmkAkPEe-_9bSnsIpr9A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="__LYmkQkPEe-_9bSnsIpr9A" key="ConstantWithGetter"/>
+          </eAnnotations>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LYmkgkPEe-_9bSnsIpr9A" value="&quot;material&quot; + File.separator + &quot;filler-words.info&quot;"/>
+        </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5bbQABQEe-ziPgQOrU91w" name="createTooltip" specification="_pSzgIABQEe-ziPgQOrU91w">
           <ownedParameter xmi:id="_p5bbQQBQEe-ziPgQOrU91w" name="s">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -1230,7 +1380,7 @@
           <body>HashSet&lt;String> result = new HashSet&lt;String>();
 		
 		try {
-			File file = new File(&quot;material&quot; + File.separator + &quot;filler-words.info&quot;);
+			File file = new File(FILLER_WORD_FILE_NAME);
 			Scanner scanner = new Scanner(file);
 			
 			String[] words = scanner.nextLine().split(&quot;,&quot;);
@@ -1302,27 +1452,6 @@
 		return wordList;
 	</body>
         </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5fFoABQEe-ziPgQOrU91w" name="showArticleView" specification="_pw9bwABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_p5fFoQBQEe-ziPgQOrU91w" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
-          <ownedParameter xmi:id="_p5fFogBQEe-ziPgQOrU91w" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w"/>
-          <language>java</language>
-          <body>try {
-			FXMLLoader loader = new FXMLLoader(Helper.class.getResource(&quot;pages/article_view.fxml&quot;));
-
-			Stage stage = new Stage();
-			stage.setTitle(article.title);
-			stage.setScene(new Scene(loader.load()));
-			stage.initStyle(StageStyle.UNDECORATED);
-
-			ArticleViewController controller = loader.getController();
-			controller.initData(article, articleSet);
-
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	</body>
-        </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5fssABQEe-ziPgQOrU91w" name="showAboutPage" specification="_pS604ABQEe-ziPgQOrU91w">
           <language>java</language>
           <body>try {
@@ -1360,8 +1489,148 @@
 		}
 	</body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MA4sAkPEe-_9bSnsIpr9A" name="showArticleView" specification="__BMIwAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MA4sQkPEe-_9bSnsIpr9A" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
+          <ownedParameter xmi:id="__MA4sgkPEe-_9bSnsIpr9A" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__MA4swkPEe-_9bSnsIpr9A" value="*"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>try {
+			FXMLLoader loader = new FXMLLoader(Helper.class.getResource(&quot;pages/article_view.fxml&quot;));
+
+			Stage stage = new Stage();
+			stage.setTitle(article.title);
+			stage.setScene(new Scene(loader.load()));
+			stage.initStyle(StageStyle.UNDECORATED);
+
+			ArticleViewController controller = loader.getController();
+			controller.initData(article, articleSet);
+
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MBfwAkPEe-_9bSnsIpr9A" name="showCrawlPage" specification="__BQaMAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MBfwQkPEe-_9bSnsIpr9A" name="set" type="_pP59IABQEe-ziPgQOrU91w"/>
+          <language>java</language>
+          <body>try {
+			FXMLLoader loader = new FXMLLoader(Helper.class.getResource(&quot;pages/crawl_page.fxml&quot;));
+
+			Stage stage = new Stage();
+			Scene scene = new Scene(loader.load());
+			scene.getStylesheets().add(&quot;gui&quot; + File.separator + &quot;pages&quot; + File.separator + &quot;crawl-page.css&quot;);
+			stage.setScene(scene);
+			
+			stage.initStyle(StageStyle.UNDECORATED);
+			
+			CrawlPageController controller = loader.getController();
+			controller.initData(set);
+
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MBfwgkPEe-_9bSnsIpr9A" name="createNormalText" specification="__FINkAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MBfwwkPEe-_9bSnsIpr9A" name="s">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__MBfxAkPEe-_9bSnsIpr9A" name="size">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__MBfxQkPEe-_9bSnsIpr9A" type="_pvnX8ABQEe-ziPgQOrU91w" direction="return"/>
+          <language>java</language>
+          <body>Label res = new Label(s);
+		
+		res.setFont(new Font(&quot;Montserrat Regular&quot;, size));
+		res.setTextFill(Paint.valueOf(Color.WHITE));
+		
+		return res;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MCG0AkPEe-_9bSnsIpr9A" name="createTitle" specification="__FKCwAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MCG0QkPEe-_9bSnsIpr9A" name="s">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__MCG0gkPEe-_9bSnsIpr9A" type="_pvnX8ABQEe-ziPgQOrU91w" direction="return"/>
+          <language>java</language>
+          <body>Label res = new Label(s);
+		
+		res.setFont(new Font(&quot;Montserrat Bold&quot;, 32));
+		res.setTextFill(Paint.valueOf(Color.WHITE));
+		res.setAlignment(Pos.CENTER);
+		res.setPadding(new Insets(30, 0, 0, 0));
+		
+		return res;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MCt4AkPEe-_9bSnsIpr9A" name="createTextField" specification="__FLQ4AkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MCt4QkPEe-_9bSnsIpr9A" name="width">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__MCt4gkPEe-_9bSnsIpr9A" type="_pvp0MABQEe-ziPgQOrU91w" direction="return"/>
+          <language>java</language>
+          <body>TextField field = new TextField();
+		
+		field.setStyle(&quot;-fx-text-fill: &quot; + Color.WHITE + &quot;;&quot;
+				+ &quot;-fx-border-color: &quot; + Color.LIGHT_GREY + &quot;;&quot;
+				+ &quot;-fx-border-radius: 10px&quot;);
+		field.setBackground(null);
+		field.setFont(new Font(&quot;Montserrat Regular&quot;, 15));
+		field.setMinWidth(width);
+		
+		return field;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MDU8AkPEe-_9bSnsIpr9A" name="createTextArea" specification="__FNGEAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MDU8QkPEe-_9bSnsIpr9A" name="width">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__MDU8gkPEe-_9bSnsIpr9A" type="__KP-IQkPEe-_9bSnsIpr9A" direction="return"/>
+          <language>java</language>
+          <body>TextArea field = new TextArea() {
+			@Override
+         public void replaceText(int start, int end, String text) {
+             super.replaceText(start, end, text);
+             while(getText().split(&quot;\n&quot;, -1).length > MAXIMUM_LINE_IN_TEXTAREA) {
+                 int fle = getText().indexOf(&quot;\n&quot;);
+                 super.replaceText(0, fle+1, &quot;&quot;);
+             }
+             positionCaret(getText().length());
+         }
+		};
+		field.setStyle(&quot;-fx-text-fill: white;&quot;
+					 + &quot;-fx-background-color: transparent;&quot;
+					 + &quot;-fx-control-inner-background: &quot; + Color.BACKGROUND_MEDIUM + &quot;;&quot;
+					 + &quot;-fx-border-color: &quot; + Color.WHITE + &quot;;&quot;);
+		field.setMaxWidth(width);
+		field.setMinHeight(300);
+		field.setFont(new Font(&quot;Montserrat&quot;, 15));
+		field.widthProperty().addListener((o) -> {
+			Node vp = field.lookup(&quot;.content&quot;);
+			vp.setStyle(&quot;-fx-background-color: &quot; + Color.BACKGROUND_MEDIUM + &quot;;&quot;
+					  + &quot;-fx-text-fill: white;&quot;);
+		});
+		return field;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MD8AAkPEe-_9bSnsIpr9A" name="createDropdown" specification="__FRXgAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MD8AQkPEe-_9bSnsIpr9A" name="s">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__MD8AgkPEe-_9bSnsIpr9A" value="*"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__MD8AwkPEe-_9bSnsIpr9A" type="__KOwAQkPEe-_9bSnsIpr9A" direction="return"/>
+          <language>java</language>
+          <body>ComboBox box = new ComboBox();
+		for (String t: s) box.getItems().add(t);
+		return box;
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_pSzgIABQEe-ziPgQOrU91w" name="createTooltip" isStatic="true" method="_p5bbQABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIGgMABTEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__Mk5YAkPEe-_9bSnsIpr9A">
             <body>Custom tooltip by given text
 	 * @return javafx.scene.control.Tooltip corresponding to given text</body>
           </ownedComment>
@@ -1371,7 +1640,7 @@
           <ownedParameter xmi:id="_pziOoABQEe-ziPgQOrU91w" type="_pvrpYQBQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_pS0uQABQEe-ziPgQOrU91w" name="modifyString" isStatic="true" method="_p5cCUABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIHHQABTEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MlgcAkPEe-_9bSnsIpr9A">
             <body>Beautify and escape HTML entities
 	 * @param s the String to be modified
 	 * @return modified string</body>
@@ -1384,16 +1653,21 @@
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_pS2jcABQEe-ziPgQOrU91w" name="getFillerWords" visibility="private" isStatic="true" method="_p5dQcABQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MmHgAkPEe-_9bSnsIpr9A">
+            <body>Read filler words in file FILLER_WORD_FILE_NAME</body>
+          </ownedComment>
           <ownedParameter xmi:id="_pzjcwABQEe-ziPgQOrU91w" type="_puc6UABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_pS604ABQEe-ziPgQOrU91w" name="showAboutPage" isStatic="true" method="_p5fssABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIHHRABTEe-ziPgQOrU91w">
-            <body>Show about window</body>
+          <ownedComment xmi:id="__MmHggkPEe-_9bSnsIpr9A">
+            <body>Open &quot;About&quot; window, which provides informations and instruction to use the app</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_pw2HAABQEe-ziPgQOrU91w" name="objectSeparator" isStatic="true" method="_p5cCUwBQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIHHQQBTEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MlgcQkPEe-_9bSnsIpr9A">
             <body>Separate object and normal text in a paragraph
+	 * @param para paragraph to separate
+	 * @param article the Article corresponding to the para to search for Entity
 	 * @return LinkedList of Pair(text, object type)</body>
           </ownedComment>
           <ownedParameter xmi:id="_pw2HAQBQEe-ziPgQOrU91w" name="para">
@@ -1403,24 +1677,16 @@
           <ownedParameter xmi:id="_pzi1sABQEe-ziPgQOrU91w" type="_pwp5wQBQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_pw5xYABQEe-ziPgQOrU91w" name="getWordList" isStatic="true" method="_p5eekABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIHHQgBTEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MmHgQkPEe-_9bSnsIpr9A">
             <body>Support for trend finding&lt;br>update filler word list in material/filler-words.info
+	 * @param _articleSet the ArticleSet to search for words in it
 	 * @return a list of word (or word combination) and its frequency</body>
           </ownedComment>
           <ownedParameter xmi:id="_pw5xYQBQEe-ziPgQOrU91w" name="_articleSet" type="_pP59IABQEe-ziPgQOrU91w"/>
           <ownedParameter xmi:id="_pzjcwQBQEe-ziPgQOrU91w" type="_pukPEABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_pw9bwABQEe-ziPgQOrU91w" name="showArticleView" isStatic="true" method="_p5fFoABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIHHQwBTEe-ziPgQOrU91w">
-            <body>Open article view window
-	 * @param article article to be shown
-	 * @param articleSet the set to search for related articles</body>
-          </ownedComment>
-          <ownedParameter xmi:id="_pw-C0ABQEe-ziPgQOrU91w" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
-          <ownedParameter xmi:id="_pw-C0QBQEe-ziPgQOrU91w" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w"/>
-        </ownedOperation>
         <ownedOperation xmi:id="_pw-p4ABQEe-ziPgQOrU91w" name="showTrendPage" isStatic="true" method="_p5gTwABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_oIHHRQBTEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MmukQkPEe-_9bSnsIpr9A">
             <body>Open a new window to represent the trend analyzed from the search result
 	 * @param query the query input in search
 	 * @param articleSet the article set to analyze and show result</body>
@@ -1430,91 +1696,75 @@
           </ownedParameter>
           <ownedParameter xmi:id="_pw-p4gBQEe-ziPgQOrU91w" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w"/>
         </ownedOperation>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_pTCJoABQEe-ziPgQOrU91w" name="Test">
-        <generalization xmi:id="_pzmgEgBQEe-ziPgQOrU91w" general="_pw_4AABQEe-ziPgQOrU91w"/>
-        <ownedAttribute xmi:id="_p2s3YABQEe-ziPgQOrU91w" name="SELECTOR_OPTION_FILE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_p2tecABQEe-ziPgQOrU91w" value="&quot;config&quot; + File.separator + &quot;selector.json&quot;"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_p2uFgABQEe-ziPgQOrU91w" name="SCRAPER_OPTION_FILE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_p2uFgQBQEe-ziPgQOrU91w" value="&quot;config&quot; + File.separator + &quot;scraper.json&quot;"/>
-        </ownedAttribute>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5g60ABQEe-ziPgQOrU91w" name="reset" specification="_pTEl4ABQEe-ziPgQOrU91w">
-          <language>java</language>
-          <body>try {
-			File nextURLFile = new File(&quot;config&quot; + File.separator + &quot;next-url.info&quot;);
-			File visitedURLFile = new File(&quot;config&quot; + File.separator + &quot;visited-url.info&quot;);
-			File totalFile = new File(&quot;config&quot; + File.separator + &quot;total.info&quot;);
-			
-			PrintWriter p1 = new PrintWriter(nextURLFile);
-			PrintWriter p2 = new PrintWriter(visitedURLFile);
-			PrintWriter p3 = new PrintWriter(totalFile);
-			
-			p1.print(&quot;&quot;);
-			p2.print(&quot;&quot;);
-			p3.print(0);
-			
-			p1.close();
-			p2.close();
-			p3.close();
-		}
-		catch (Exception e) {
-			
-		}
-	</body>
-        </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5iI8ABQEe-ziPgQOrU91w" name="callScraper" specification="_pTF0AABQEe-ziPgQOrU91w">
-          <language>java</language>
-          <body>try {
-			// Set page selector
-			PageSelector pageSelector = new PageSelector();
-			pageSelector.setByJSONFile(SELECTOR_OPTION_FILE);
-			
-			// Create options for scraper
-			ScraperOptions scraperOptions = new ScraperOptions();
-			scraperOptions.setByJSONFile(SCRAPER_OPTION_FILE);
-			scraperOptions.setPageSelector(pageSelector);
-			
-			// Real scraping process
-			Scraper scraper = new Scraper(scraperOptions);
-			scraper.scrape();
-		} catch (Exception e) {
-			e.printStackTrace(System.out);
-		}
-	</body>
-        </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5jXEABQEe-ziPgQOrU91w" name="main" specification="_pTHCIABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_p5jXEQBQEe-ziPgQOrU91w" name="args">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p5jXEgBQEe-ziPgQOrU91w" value="*"/>
-          </ownedParameter>
-          <language>java</language>
-          <body>//reset();
-		launch(args);
-	</body>
-        </ownedBehavior>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5j-IABQEe-ziPgQOrU91w" name="start" specification="_pzkq4ABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_p5j-IQBQEe-ziPgQOrU91w" name="primaryStage" type="_pwNN0QBQEe-ziPgQOrU91w"/>
-          <language>java</language>
-          <body>Parent root = FXMLLoader.load(getClass().getResource(&quot;index.fxml&quot;));
-     primaryStage.setTitle(&quot;Blockchain news&quot;);
-     primaryStage.setScene(new Scene(root, 993, 673));
-     primaryStage.initStyle(StageStyle.UNDECORATED);
-     primaryStage.show();
-	</body>
-        </ownedBehavior>
-        <ownedOperation xmi:id="_pTEl4ABQEe-ziPgQOrU91w" name="reset" visibility="private" isLeaf="true" isStatic="true" method="_p5g60ABQEe-ziPgQOrU91w"/>
-        <ownedOperation xmi:id="_pTF0AABQEe-ziPgQOrU91w" name="callScraper" visibility="private" method="_p5iI8ABQEe-ziPgQOrU91w"/>
-        <ownedOperation xmi:id="_pTHCIABQEe-ziPgQOrU91w" name="main" isStatic="true" method="_p5jXEABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_pTHpMABQEe-ziPgQOrU91w" name="args">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pTIQQABQEe-ziPgQOrU91w" value="*"/>
+        <ownedOperation xmi:id="__BMIwAkPEe-_9bSnsIpr9A" name="showArticleView" isStatic="true" method="__MA4sAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__BMv0AkPEe-_9bSnsIpr9A" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
+          <ownedParameter xmi:id="__BMv0QkPEe-_9bSnsIpr9A" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__BN98AkPEe-_9bSnsIpr9A" value="*"/>
           </ownedParameter>
         </ownedOperation>
-        <ownedOperation xmi:id="_pzkq4ABQEe-ziPgQOrU91w" name="start" method="_p5j-IABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_pzkq4QBQEe-ziPgQOrU91w" name="primaryStage" type="_pwNN0QBQEe-ziPgQOrU91w"/>
+        <ownedOperation xmi:id="__BQaMAkPEe-_9bSnsIpr9A" name="showCrawlPage" isStatic="true" method="__MBfwAkPEe-_9bSnsIpr9A">
+          <ownedComment xmi:id="__MmukAkPEe-_9bSnsIpr9A">
+            <body>Open &quot;Crawl&quot; windows, which allows user to scrape more articles from the internet.
+	 * User can configure preferences of the scraper in a friendly way.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="__BQaMQkPEe-_9bSnsIpr9A" name="set" type="_pP59IABQEe-ziPgQOrU91w"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="__FINkAkPEe-_9bSnsIpr9A" name="createNormalText" isStatic="true" method="__MBfwgkPEe-_9bSnsIpr9A">
+          <ownedComment xmi:id="__MmukgkPEe-_9bSnsIpr9A">
+            <body>Create a label with given text, with font Montserrat Regular
+	 * @param s the content of the label
+	 * @param size the size of Label in pixel
+	 * @return the label with given text and size</body>
+          </ownedComment>
+          <ownedParameter xmi:id="__FI0oAkPEe-_9bSnsIpr9A" name="s">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__FI0oQkPEe-_9bSnsIpr9A" name="size">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__FI0ogkPEe-_9bSnsIpr9A" type="_pvnX8ABQEe-ziPgQOrU91w" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="__FKCwAkPEe-_9bSnsIpr9A" name="createTitle" isStatic="true" method="__MCG0AkPEe-_9bSnsIpr9A">
+          <ownedComment xmi:id="__MnVoAkPEe-_9bSnsIpr9A">
+            <body>Create a label with given text, with font Montserrat Bold and size of 32
+	 * @param s the content of the label
+	 * @return the label - title - with given text</body>
+          </ownedComment>
+          <ownedParameter xmi:id="__FKCwQkPEe-_9bSnsIpr9A" name="s">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__FKCwgkPEe-_9bSnsIpr9A" type="_pvnX8ABQEe-ziPgQOrU91w" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="__FLQ4AkPEe-_9bSnsIpr9A" name="createTextField" isStatic="true" method="__MCt4AkPEe-_9bSnsIpr9A">
+          <ownedComment xmi:id="__MnVoQkPEe-_9bSnsIpr9A">
+            <body>Create a normal text field
+	 * @param width the width of text field
+	 * @return a TextField with given width</body>
+          </ownedComment>
+          <ownedParameter xmi:id="__FL38AkPEe-_9bSnsIpr9A" name="width">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__FL38QkPEe-_9bSnsIpr9A" type="_pvp0MABQEe-ziPgQOrU91w" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="__FNGEAkPEe-_9bSnsIpr9A" name="createTextArea" isStatic="true" method="__MDU8AkPEe-_9bSnsIpr9A">
+          <ownedComment xmi:id="__MnVogkPEe-_9bSnsIpr9A">
+            <body>Create a text area with a height of 300 pixels.
+	 * &lt;b>IMPORTANT!&lt;/b> this text area auto delete the first line
+	 * when it's more than MAXIMUM_LINE_IN_TEXTAREA line 
+	 * @param width the width of the area
+	 * @return a TextArea of size (300, width)</body>
+          </ownedComment>
+          <ownedParameter xmi:id="__FNtIAkPEe-_9bSnsIpr9A" name="width">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__K3pMAkPEe-_9bSnsIpr9A" type="__KP-IQkPEe-_9bSnsIpr9A" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="__FRXgAkPEe-_9bSnsIpr9A" name="createDropdown" isStatic="true" method="__MD8AAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__FR-kAkPEe-_9bSnsIpr9A" name="s">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__FTzwQkPEe-_9bSnsIpr9A" value="*"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="__K4QQAkPEe-_9bSnsIpr9A" type="__KOwAQkPEe-_9bSnsIpr9A" direction="return"/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_p7MV0ABQEe-ziPgQOrU91w" name="" memberEnd="_p7MV0QBQEe-ziPgQOrU91w _p1vOEABQEe-ziPgQOrU91w">
@@ -1553,11 +1803,18 @@
       <packagedElement xmi:type="uml:Association" xmi:id="_p7bmYQBQEe-ziPgQOrU91w" name="" memberEnd="_p7bmYgBQEe-ziPgQOrU91w _p2GacABQEe-ziPgQOrU91w">
         <ownedEnd xmi:id="_p7bmYgBQEe-ziPgQOrU91w" name="" type="_pSJ_4ABQEe-ziPgQOrU91w" association="_p7bmYQBQEe-ziPgQOrU91w"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="__NDagAkPEe-_9bSnsIpr9A" name="" memberEnd="__NDagQkPEe-_9bSnsIpr9A __LO1kAkPEe-_9bSnsIpr9A">
+        <ownedEnd xmi:id="__NDagQkPEe-_9bSnsIpr9A" name="" type="_pSJ_4ABQEe-ziPgQOrU91w" association="__NDagAkPEe-_9bSnsIpr9A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="__NHE4AkPEe-_9bSnsIpr9A" name="" memberEnd="__NHE4QkPEe-_9bSnsIpr9A __LR44QkPEe-_9bSnsIpr9A">
+        <ownedEnd xmi:id="__NHE4QkPEe-_9bSnsIpr9A" name="" type="_pSJ_4ABQEe-ziPgQOrU91w" association="__NHE4AkPEe-_9bSnsIpr9A"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_pJ0jQABQEe-ziPgQOrU91w" name="article">
       <packagedElement xmi:type="uml:Class" xmi:id="_pOx7wABQEe-ziPgQOrU91w" name="Article">
-        <ownedComment xmi:id="_P4IVMABTEe-ziPgQOrU91w">
-          <body>The soul of the project</body>
+        <ownedComment xmi:id="__MUasAkPEe-_9bSnsIpr9A">
+          <body>The soul of the project. Articles scraped from the internet will be contained
+here</body>
         </ownedComment>
         <ownedAttribute xmi:id="_p1CDcABQEe-ziPgQOrU91w" name="id" isStatic="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
@@ -1577,48 +1834,42 @@
         <ownedAttribute xmi:id="_p1LNYABQEe-ziPgQOrU91w" name="title">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_p1MbgABQEe-ziPgQOrU91w" name="content" type="_pukPEABQEe-ziPgQOrU91w" association="_p6-6cABQEe-ziPgQOrU91w"/>
+        <ownedAttribute xmi:id="_p1MbgABQEe-ziPgQOrU91w" name="content" type="_pukPEABQEe-ziPgQOrU91w" association="_p6-6cABQEe-ziPgQOrU91w">
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_--jEcAkPEe-_9bSnsIpr9A" value="new Vector&lt;String>()"/>
+        </ownedAttribute>
         <ownedAttribute xmi:id="_p1QF4ABQEe-ziPgQOrU91w" name="publishDate">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_p1SiIABQEe-ziPgQOrU91w" name="authors" type="_pukPEABQEe-ziPgQOrU91w" association="_p7AvoABQEe-ziPgQOrU91w"/>
-        <ownedAttribute xmi:id="_p1WMgABQEe-ziPgQOrU91w" name="hashtag" type="_pukPEABQEe-ziPgQOrU91w" association="_p7B9wABQEe-ziPgQOrU91w"/>
-        <ownedAttribute xmi:id="_p1YBsABQEe-ziPgQOrU91w" name="category" type="_pukPEABQEe-ziPgQOrU91w" association="_p7EaAABQEe-ziPgQOrU91w"/>
-        <ownedAttribute xmi:id="_p1bsEABQEe-ziPgQOrU91w" name="entities" type="_pukPEABQEe-ziPgQOrU91w" association="_p7G2QQBQEe-ziPgQOrU91w"/>
+        <ownedAttribute xmi:id="_p1SiIABQEe-ziPgQOrU91w" name="authors" type="_pukPEABQEe-ziPgQOrU91w" association="_p7AvoABQEe-ziPgQOrU91w">
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_--kSkAkPEe-_9bSnsIpr9A" value="new Vector&lt;String>()"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_p1WMgABQEe-ziPgQOrU91w" name="hashtag" type="_pukPEABQEe-ziPgQOrU91w" association="_p7B9wABQEe-ziPgQOrU91w">
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_--pLEAkPEe-_9bSnsIpr9A" value="new Vector&lt;String>()"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_p1YBsABQEe-ziPgQOrU91w" name="category" type="_pukPEABQEe-ziPgQOrU91w" association="_p7EaAABQEe-ziPgQOrU91w">
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_--pyIAkPEe-_9bSnsIpr9A" value="new Vector&lt;String>()"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_p1bsEABQEe-ziPgQOrU91w" name="entities" type="_pukPEABQEe-ziPgQOrU91w" association="_p7G2QQBQEe-ziPgQOrU91w">
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_--rnUAkPEe-_9bSnsIpr9A" value="new Vector&lt;Entity>()"/>
+        </ownedAttribute>
         <ownedAttribute xmi:id="_p1fWcABQEe-ziPgQOrU91w" name="ownID">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:id="_p1f9gQBQEe-ziPgQOrU91w" name="COUNTER_FILE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_p1gkkABQEe-ziPgQOrU91w" value="&quot;config&quot; + File.separator + &quot;total.info&quot;"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_p1hLoABQEe-ziPgQOrU91w" name="serializedClassifier" visibility="private">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_p1hLoQBQEe-ziPgQOrU91w" value="&quot;classifiers/english.muc.7class.distsim.crf.ser.gz&quot;"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_p1iZwABQEe-ziPgQOrU91w" name="classifier" visibility="private" type="_purj0ABQEe-ziPgQOrU91w" association="_p7JSgABQEe-ziPgQOrU91w"/>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p42McABQEe-ziPgQOrU91w" name="Article" specification="_pPDokABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_p42McQBQEe-ziPgQOrU91w" type="_pOx7wABQEe-ziPgQOrU91w" direction="return">
-            <name xsi:nil="true"/>
-          </ownedParameter>
-          <language>java</language>
-          <body>content = new Vector&lt;String>();
-		authors = new Vector&lt;String>();
-		hashtag = new Vector&lt;String>();
-		category = new Vector&lt;String>();
-		entities = new Vector&lt;Entity>();
-	</body>
-        </ownedBehavior>
+        <ownedAttribute xmi:id="__LLLMAkPEe-_9bSnsIpr9A" name="COUNTER_FILE_NAME" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LLyQAkPEe-_9bSnsIpr9A" value="&quot;config&quot; + File.separator + &quot;total.info&quot;"/>
+        </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p4-IQABQEe-ziPgQOrU91w" name="updateTotalArticle" specification="_pPIhEABQEe-ziPgQOrU91w">
           <language>java</language>
-          <body>try {
-			File file = new File(COUNTER_FILE);
-			PrintWriter writer = new PrintWriter(file);
-			writer.print(id - 1);
-			writer.close();
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+          <body>File file = new File(COUNTER_FILE_NAME);
+		PrintWriter writer = new PrintWriter(file);
+		writer.print(id - 1);
+		writer.close();
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p4-vUABQEe-ziPgQOrU91w" name="getTotalArticle" specification="_pPJvMABQEe-ziPgQOrU91w">
@@ -1628,15 +1879,11 @@
           </ownedParameter>
           <language>java</language>
           <body>int total = 0;
-		try {
-			File file = new File(COUNTER_FILE);
-			Scanner reader = new Scanner(file);
-			String s = reader.nextLine();
-			total = Integer.parseInt(s);
-			reader.close();
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
+		File file = new File(COUNTER_FILE_NAME);
+		Scanner reader = new Scanner(file);
+		String s = reader.nextLine();
+		total = Integer.parseInt(s);
+		reader.close();
 		return total;
 	</body>
         </ownedBehavior>
@@ -1712,7 +1959,7 @@
 		file.write(mainObject.toJSONString());
 		file.close();
 
-		System.out.println(&quot;Completed, saved to: &quot; + id++ + &quot;.json&quot;);
+		id++;
 		updateTotalArticle();
 	</body>
         </ownedBehavior>
@@ -1728,6 +1975,8 @@
 
 		JSONParser parser = new JSONParser();
 		JSONObject main = new JSONObject();
+
+		// DO NOT delete this try...catch under any circumstance
 		try {
 			main = (JSONObject) parser.parse(new FileReader(&quot;JSONFile&quot; + File.separator + id + &quot;.json&quot;));
 		} catch (Exception e) {
@@ -1770,12 +2019,7 @@
           </ownedParameter>
           <language>java</language>
           <body>Vector&lt;Article> articleSet = new Vector&lt;Article>();
-		
-		// Get number of articles
-		int total = 0;
-		Scanner reader = new Scanner(new File(&quot;config&quot; + File.separator + &quot;total.info&quot;));
-		total = Integer.parseInt(reader.nextLine());
-		reader.close();
+		int total = getTotalArticle();
 
 		// Read all the articles
 		for (int i = 1; i &lt;= total; i++) {
@@ -1784,27 +2028,39 @@
 		return articleSet;
 	</body>
         </ownedBehavior>
-        <ownedOperation xmi:id="_pPDokABQEe-ziPgQOrU91w" name="Article" method="_p42McABQEe-ziPgQOrU91w">
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__LsvoAkPEe-_9bSnsIpr9A" name="beginIDCount" specification="_-_CMoAkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>Article.id = getTotalArticle() + 1;
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="_pPDokABQEe-ziPgQOrU91w" name="Article">
           <eAnnotations xmi:id="_pPGE0ABQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_pPGr4ABQEe-ziPgQOrU91w" key="create"/>
           </eAnnotations>
           <ownedParameter xmi:id="_pPHS8ABQEe-ziPgQOrU91w" type="_pOx7wABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_pPIhEABQEe-ziPgQOrU91w" name="updateTotalArticle" isStatic="true" method="_p4-IQABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_P4I8QABTEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_pPIhEABQEe-ziPgQOrU91w" name="updateTotalArticle" isStatic="true" method="_p4-IQABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MZTMAkPEe-_9bSnsIpr9A">
             <body>Write the total number of articles to the total.info file</body>
           </ownedComment>
         </ownedOperation>
-        <ownedOperation xmi:id="_pPJvMABQEe-ziPgQOrU91w" name="getTotalArticle" isStatic="true" method="_p4-vUABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_P4I8QQBTEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_pPJvMABQEe-ziPgQOrU91w" name="getTotalArticle" isStatic="true" method="_p4-vUABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MahUAkPEe-_9bSnsIpr9A">
             <body>Set the counter to the one saved in file
-	 * @return &lt;code>int&lt;/code>: the total number of articles saved in the database</body>
+	 * 
+	 * @return the total number of articles saved in the database</body>
           </ownedComment>
           <ownedParameter xmi:id="_pPMygABQEe-ziPgQOrU91w" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_pPOnsABQEe-ziPgQOrU91w" name="findEntitiesInParagraph" visibility="private" isLeaf="true" method="_p4_WYABQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MahUQkPEe-_9bSnsIpr9A">
+            <body>Find all entities in a text
+	 * 
+	 * @param s The String to be analyzed
+	 * @return a Vector of Entity contains in the given text</body>
+          </ownedComment>
           <ownedParameter xmi:id="_pPOnsQBQEe-ziPgQOrU91w" name="s">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
@@ -1815,9 +2071,10 @@
             <details xmi:id="_pPV8cQBQEe-ziPgQOrU91w" key="synchronized"/>
           </eAnnotations>
         </ownedOperation>
-        <ownedOperation xmi:id="_pPcqIABQEe-ziPgQOrU91w" name="readFromJSON" isStatic="true" method="_p4_9cQBQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w _puVlkQBQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_P4I8QwBTEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_pPcqIABQEe-ziPgQOrU91w" name="readFromJSON" isStatic="true" method="_p4_9cQBQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__McWgAkPEe-_9bSnsIpr9A">
             <body>Read an article from JSON file with corresponding id
+	 * 
 	 * @param id the id of article to be read
 	 * @return an Article object: the article read from JSON file</body>
           </ownedComment>
@@ -1826,18 +2083,23 @@
           </ownedParameter>
           <ownedParameter xmi:id="_pu2i8ABQEe-ziPgQOrU91w" type="_pOx7wABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_pPftcABQEe-ziPgQOrU91w" name="loadAllArticle" isStatic="true" method="_p5BLkABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w _puVlkQBQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_P4I8RABTEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_pPftcABQEe-ziPgQOrU91w" name="loadAllArticle" isStatic="true" method="_p5BLkABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__Mc9kAkPEe-_9bSnsIpr9A">
             <body>Read all articles from database, write to a vector of article
+	 * 
 	 * @return A Vector of all articles have ever been saved</body>
           </ownedComment>
           <ownedParameter xmi:id="_pzLpUABQEe-ziPgQOrU91w" type="_pukPEABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
+        <ownedOperation xmi:id="_-_CMoAkPEe-_9bSnsIpr9A" name="beginIDCount" isStatic="true" method="__LsvoAkPEe-_9bSnsIpr9A" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MYsIAkPEe-_9bSnsIpr9A">
+            <body>@throws Exception</body>
+          </ownedComment>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_pP59IABQEe-ziPgQOrU91w" name="ArticleSet">
-        <ownedComment xmi:id="_Jb0KUABZEe-ziPgQOrU91w">
-          <body>Hehe
-This object, once constructed,</body>
+        <ownedComment xmi:id="__MdkoAkPEe-_9bSnsIpr9A">
+          <body>Set of all article ever scraped</body>
         </ownedComment>
         <ownedAttribute xmi:id="_p1mrMABQEe-ziPgQOrU91w" name="backupSet" visibility="private" type="_puc6UABQEe-ziPgQOrU91w" association="_p7J5kQBQEe-ziPgQOrU91w">
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_p1ogYABQEe-ziPgQOrU91w" value="new HashSet&lt;Article>()"/>
@@ -2043,7 +2305,7 @@ This object, once constructed,</body>
 			LocalDateTime end = LocalDateTime.parse(endDate);
 			LocalDateTime current = LocalDateTime.parse(article.publishDate);
 				
-				return current.isBefore(start) || current.isAfter(end);
+			return current.isBefore(start) || current.isAfter(end);
 			
 		});
 		
@@ -2126,12 +2388,19 @@ This object, once constructed,</body>
 		return this;
 	</body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__Luk0AkPEe-_9bSnsIpr9A" name="add" specification="_-_lmQAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__Luk0QkPEe-_9bSnsIpr9A" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
+          <language>java</language>
+          <body>this.articleSet.add(article);
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_pP9AcABQEe-ziPgQOrU91w" name="ArticleSet" method="_p5CZsABQEe-ziPgQOrU91w">
           <eAnnotations xmi:id="_pP9AcQBQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_pP9AcgBQEe-ziPgQOrU91w" key="create"/>
           </eAnnotations>
-          <ownedComment xmi:id="_Jb0KUQBZEe-ziPgQOrU91w">
-            <body>Load all article from folder JSONFile to the set</body>
+          <ownedComment xmi:id="__MeLsAkPEe-_9bSnsIpr9A">
+            <body>Load all article from folder JSONFile to the set. This constructor should be used only once in the program because it's time-consuming&lt;br>
+	 * In case of creating a new, separate Article Set, use constructor &lt;code>ArticleSet(ArticleSet, boolean)&lt;/code></body>
           </ownedComment>
           <ownedParameter xmi:id="_pP9ngABQEe-ziPgQOrU91w" type="_pP59IABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
@@ -2147,21 +2416,23 @@ This object, once constructed,</body>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_pQCgAABQEe-ziPgQOrU91w" name="reset" method="_p5EO4ABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_Jb0KUwBZEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MfZ0AkPEe-_9bSnsIpr9A">
             <body>Clear all the search result and return to the original set (all articles)</body>
           </ownedComment>
         </ownedOperation>
         <ownedOperation xmi:id="_pQDHEABQEe-ziPgQOrU91w" name="size" method="_p5EO4QBQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_Jb0KVABZEe-ziPgQOrU91w">
-            <body>@return single integer: current size of the set</body>
+          <ownedComment xmi:id="__MgA4AkPEe-_9bSnsIpr9A">
+            <body>Get the current size of the set
+	 * @return single integer: current size of the set</body>
           </ownedComment>
           <ownedParameter xmi:id="_pQDuIABQEe-ziPgQOrU91w" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_pQEVMABQEe-ziPgQOrU91w" name="content" method="_p5E18ABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_Jb0xYABZEe-ziPgQOrU91w">
-            <body>@return Vector of Article of the content in the set</body>
+          <ownedComment xmi:id="__Mgn8AkPEe-_9bSnsIpr9A">
+            <body>Get the content stored in the set
+	 * @return Vector of Article of the content in the set</body>
           </ownedComment>
           <ownedParameter xmi:id="_pzQh0ABQEe-ziPgQOrU91w" type="_pukPEABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
@@ -2194,9 +2465,10 @@ This object, once constructed,</body>
           <ownedParameter xmi:id="_pvKE8ABQEe-ziPgQOrU91w" type="_pP59IABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_pQi2UABQEe-ziPgQOrU91w" name="filterByDateRange" method="_p5IgUABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_Jb0xYQBZEe-ziPgQOrU91w">
-            <body>Find articles in a specific date range&lt;br>
-	 * Provide &lt;code>startDate&lt;/code> and &lt;code>endDate&lt;/code> in format &lt;code>YYYY-MM-DD&lt;/code>
+          <ownedComment xmi:id="__Mgn8QkPEe-_9bSnsIpr9A">
+            <body>Remove all articles in the set which has publish date earlier than startDate or later than endDate
+	 * @param startDate String represent date in format yyyy-mm-dd
+	 * @param endDate String represent date in format yyyy-mm-dd
 	 * @return this set after filter</body>
           </ownedComment>
           <ownedParameter xmi:id="_pQi2UQBQEe-ziPgQOrU91w" name="startDate">
@@ -2232,7 +2504,7 @@ This object, once constructed,</body>
           <eAnnotations xmi:id="_pvCJIABQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_pvCJIQBQEe-ziPgQOrU91w" key="create"/>
           </eAnnotations>
-          <ownedComment xmi:id="_Jb0KUgBZEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__MeLsQkPEe-_9bSnsIpr9A">
             <body>Clone another ArticleSet
 	 * @param set the ArticleSet to clone from
 	 * @param keepResult &lt;code>boolean&lt;/code> to determine whether to keep the previous search result or reset the set back to original</body>
@@ -2244,15 +2516,22 @@ This object, once constructed,</body>
           <ownedParameter xmi:id="_pvCwMABQEe-ziPgQOrU91w" type="_pP59IABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
         <ownedOperation xmi:id="_pvMhMABQEe-ziPgQOrU91w" name="filterBySimilarEntity" method="_p5NY0ABQEe-ziPgQOrU91w">
-          <ownedComment xmi:id="_Jb0xYgBZEe-ziPgQOrU91w">
-            <body>Find related articles
+          <ownedComment xmi:id="__MhPAAkPEe-_9bSnsIpr9A">
+            <body>Remove all articles in the set which does not have more than 10 similar entities to the provided Article
+	 * @param source the Article to search for
 	 * @return this set after filter</body>
           </ownedComment>
           <ownedParameter xmi:id="_pvMhMQBQEe-ziPgQOrU91w" name="source" type="_pOx7wABQEe-ziPgQOrU91w"/>
           <ownedParameter xmi:id="_pvMhMgBQEe-ziPgQOrU91w" type="_pP59IABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
+        <ownedOperation xmi:id="_-_lmQAkPEe-_9bSnsIpr9A" name="add" method="__Luk0AkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="_-_mNUAkPEe-_9bSnsIpr9A" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_pRFo4ABQEe-ziPgQOrU91w" name="Entity">
+        <ownedComment xmi:id="__Mh2EAkPEe-_9bSnsIpr9A">
+          <body>Entity detected by Stanford NER library</body>
+        </ownedComment>
         <ownedAttribute xmi:id="_p1rjsABQEe-ziPgQOrU91w" name="type">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
@@ -2266,7 +2545,9 @@ This object, once constructed,</body>
           <ownedParameter xmi:id="_p5N_4gBQEe-ziPgQOrU91w" name="content">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
-          <ownedParameter xmi:id="_p5N_4wBQEe-ziPgQOrU91w" type="_pRFo4ABQEe-ziPgQOrU91w" direction="return"/>
+          <ownedParameter xmi:id="_p5N_4wBQEe-ziPgQOrU91w" type="_pRFo4ABQEe-ziPgQOrU91w" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>this.type = type;
 		this.content = content;
@@ -2274,6 +2555,7 @@ This object, once constructed,</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5Om8ABQEe-ziPgQOrU91w" name="hashCode" specification="_pRLIcABQEe-ziPgQOrU91w">
           <ownedParameter xmi:id="_p5Om8QBQEe-ziPgQOrU91w" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           </ownedParameter>
           <language>java</language>
@@ -2283,6 +2565,7 @@ This object, once constructed,</body>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5P1EABQEe-ziPgQOrU91w" name="equals" specification="_pzTlIQBQEe-ziPgQOrU91w">
           <ownedParameter xmi:id="_p5P1EQBQEe-ziPgQOrU91w" name="obj" type="_pzSXAABQEe-ziPgQOrU91w"/>
           <ownedParameter xmi:id="_p5P1EgBQEe-ziPgQOrU91w" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
           </ownedParameter>
           <language>java</language>
@@ -2360,6 +2643,7 @@ This object, once constructed,</body>
       <packagedElement xmi:type="uml:Package" xmi:id="_pK79kABQEe-ziPgQOrU91w" name="geometry">
         <packagedElement xmi:type="uml:Class" xmi:id="_pvjGgABQEe-ziPgQOrU91w" name="Insets"/>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_pvjtkQBQEe-ziPgQOrU91w" name="Pos"/>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="__J9DMAkPEe-_9bSnsIpr9A" name="Side"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_pK8koABQEe-ziPgQOrU91w" name="scene">
         <packagedElement xmi:type="uml:Package" xmi:id="_pK9ywABQEe-ziPgQOrU91w" name="control">
@@ -2367,6 +2651,10 @@ This object, once constructed,</body>
           <packagedElement xmi:type="uml:Class" xmi:id="_pvp0MABQEe-ziPgQOrU91w" name="TextField"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_pvrpYQBQEe-ziPgQOrU91w" name="Tooltip"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_pxUoIQBQEe-ziPgQOrU91w" name="ScrollPane"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="__J-4YAkPEe-_9bSnsIpr9A" name="MenuItem"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="__KCiwAkPEe-_9bSnsIpr9A" name="ContextMenu"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="__KOwAQkPEe-_9bSnsIpr9A" name="ComboBox"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="__KP-IQkPEe-_9bSnsIpr9A" name="TextArea"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_pK_A4ABQEe-ziPgQOrU91w" name="input">
           <packagedElement xmi:type="uml:Enumeration" xmi:id="_pvtekQBQEe-ziPgQOrU91w" name="KeyCode"/>
@@ -2414,11 +2702,17 @@ This object, once constructed,</body>
       <packagedElement xmi:type="uml:Package" xmi:id="_pMBisABQEe-ziPgQOrU91w" name="concurrent">
         <packagedElement xmi:type="uml:Class" xmi:id="_pxLeMABQEe-ziPgQOrU91w" name="Task"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="__ACSMAkPEe-_9bSnsIpr9A" name="animation">
+        <packagedElement xmi:type="uml:Class" xmi:id="__J6m8AkPEe-_9bSnsIpr9A" name="PauseTransition"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_pL5m4ABQEe-ziPgQOrU91w" name="scraping">
       <packagedElement xmi:type="uml:Class" xmi:id="_pUilgABQEe-ziPgQOrU91w" name="PageSelector">
-        <ownedComment xmi:id="_RUdJQABTEe-ziPgQOrU91w">
-          <body>Configures selectors for a page. The format will be updated later</body>
+        <ownedComment xmi:id="__Mn8sAkPEe-_9bSnsIpr9A">
+          <body>Configures selectors for a page. &lt;br>
+All selector should be in the format {type};{query};{required}
+Where {type} = {1, 2, 3, 4} meaning &quot;use css selector, keep text only&quot;, &quot;use css selector, keep HTML&quot;, &quot;use application/json+ld key&quot;, &quot;use meta tag&quot; respectively
+{query}</body>
         </ownedComment>
         <ownedAttribute xmi:id="_p3ycgABQEe-ziPgQOrU91w" name="summary">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -2441,13 +2735,14 @@ This object, once constructed,</body>
         <ownedAttribute xmi:id="_p30RsQBQEe-ziPgQOrU91w" name="category">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5xZgABQEe-ziPgQOrU91w" name="setByJSONFile" specification="_pUneAABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_p5xZgQBQEe-ziPgQOrU91w" name="fileName">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedParameter>
+        <ownedAttribute xmi:id="__LabwAkPEe-_9bSnsIpr9A" name="FILE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LbC0AkPEe-_9bSnsIpr9A" value="&quot;config&quot; + File.separator + &quot;selector.json&quot;"/>
+        </ownedAttribute>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MHmYAkPEe-_9bSnsIpr9A" name="setByJSONFile" specification="__CP4sAkPEe-_9bSnsIpr9A">
           <language>java</language>
           <body>JSONParser parser = new JSONParser();
-		Object obj = parser.parse(new FileReader(System.getProperty(&quot;user.dir&quot;) + File.separator + fileName));
+		Object obj = parser.parse(new FileReader(FILE));
 		JSONObject options = (JSONObject) obj;
 
 		setSummary((String) options.get(&quot;summary&quot;));
@@ -2460,19 +2755,27 @@ This object, once constructed,</body>
 
 	</body>
         </ownedBehavior>
-        <ownedOperation xmi:id="_pUneAABQEe-ziPgQOrU91w" name="setByJSONFile" method="_p5xZgABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_pUoFEABQEe-ziPgQOrU91w" name="fileName">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedParameter>
-        </ownedOperation>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MHmYQkPEe-_9bSnsIpr9A" name="writeToJSONFile" specification="__CQfwAkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>JSONObject main = new JSONObject();
+		
+		main.put(&quot;summary&quot;, this.summary);
+		main.put(&quot;title&quot;, this.title);
+		main.put(&quot;content&quot;, this.content);
+		main.put(&quot;publishDate&quot;, this.publishDate);
+		main.put(&quot;hashtag&quot;, this.hashtag);
+		main.put(&quot;authors&quot;, this.authors);
+		main.put(&quot;category&quot;, this.category);
+		
+		PrintWriter file = new PrintWriter(FILE);
+		file.write(main.toJSONString());
+		file.close();
+	</body>
+        </ownedBehavior>
+        <ownedOperation xmi:id="__CP4sAkPEe-_9bSnsIpr9A" name="setByJSONFile" method="__MHmYAkPEe-_9bSnsIpr9A" raisedException="_pzGw0QBQEe-ziPgQOrU91w"/>
+        <ownedOperation xmi:id="__CQfwAkPEe-_9bSnsIpr9A" name="writeToJSONFile" method="__MHmYQkPEe-_9bSnsIpr9A" raisedException="_pzGw0QBQEe-ziPgQOrU91w"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_pUqhUABQEe-ziPgQOrU91w" name="SingleThreadScraper" visibility="package">
-        <ownedComment xmi:id="_PPuRYABTEe-ziPgQOrU91w">
-          <body>&lt;b>Scraper&lt;/b>&lt;br>
-Provide proxy list int &lt;code>prx.txt&lt;/code> If you want to scrape a single
-page, use &lt;code>Scraper.scrapeSinglePage(String link, PageSelector ps)&lt;code>
-If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeWholeSite(String link, PageSelector ps, [optional] int maxDepth = 15)&lt;/code></body>
-        </ownedComment>
         <generalization xmi:id="_p0zZ8wBQEe-ziPgQOrU91w" general="_pxGlsABQEe-ziPgQOrU91w"/>
         <ownedAttribute xmi:id="_p4Jo4ABQEe-ziPgQOrU91w" name="PROXY_FILE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -2499,6 +2802,15 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
         </ownedAttribute>
         <ownedAttribute xmi:id="_p4Y5cABQEe-ziPgQOrU91w" name="scraperOptions" visibility="private" type="_pVdLgABQEe-ziPgQOrU91w" association="_p8SiAQBQEe-ziPgQOrU91w"/>
         <ownedAttribute xmi:id="_p4b8wQBQEe-ziPgQOrU91w" name="browser" visibility="private" type="_pyFdIABQEe-ziPgQOrU91w" association="_p8TwIQBQEe-ziPgQOrU91w"/>
+        <ownedAttribute xmi:id="__Lf7UAkPEe-_9bSnsIpr9A" name="articleSet" visibility="private" isStatic="true" type="_pP59IABQEe-ziPgQOrU91w" association="__NL9YAkPEe-_9bSnsIpr9A"/>
+        <ownedAttribute xmi:id="__LhwgAkPEe-_9bSnsIpr9A" name="AFTER_SCROLLING_WAIT_TIME" visibility="private" isLeaf="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LiXkAkPEe-_9bSnsIpr9A" value="5000"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="__LkMwAkPEe-_9bSnsIpr9A" name="DEFAULT_WAIT_TIME" visibility="private" isLeaf="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__Lkz0AkPEe-_9bSnsIpr9A" value="60000"/>
+        </ownedAttribute>
         <interfaceRealization xmi:id="_p0c0oABQEe-ziPgQOrU91w" client="_pUqhUABQEe-ziPgQOrU91w" supplier="_p0TqsABQEe-ziPgQOrU91w" contract="_p0TqsABQEe-ziPgQOrU91w"/>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p51q8ABQEe-ziPgQOrU91w" name="SingleThreadScraper" specification="_p0f38ABQEe-ziPgQOrU91w">
           <ownedParameter xmi:id="_p51q8QBQEe-ziPgQOrU91w" name="scraperOptions" type="_pVdLgABQEe-ziPgQOrU91w"/>
@@ -2508,14 +2820,16 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
             <name xsi:nil="true"/>
           </ownedParameter>
           <language>java</language>
-          <body>super(scraperOptions);
+          <body>super(scraperOptions, articleSet);
 		loadProxyList();
 		proxyCounter = 0;
 		this.scraperOptions = scraperOptions;
 		threadCounter++;
 
-		for (String s: nextURL) this.nextURL.put(s, 0);
-		for (String s: visitedURL) this.visitedURL.put(s, 0);
+		for (String s : nextURL)
+			this.nextURL.put(s, 0);
+		for (String s : visitedURL)
+			this.visitedURL.put(s, 0);
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p52SAABQEe-ziPgQOrU91w" name="debug" specification="_pU5K0ABQEe-ziPgQOrU91w">
@@ -2534,12 +2848,14 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
 
 			while (reader.hasNextLine()) {
 				String prx = reader.nextLine();
+				if (prx.isBlank())
+					continue;
 				proxy.add(prx);
 			}
 
 			reader.close();
 		} catch (Exception e) {
-			e.getStackTrace();
+			debug(e.getMessage());
 		}
 	</body>
         </ownedBehavior>
@@ -2719,7 +3035,18 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           <language>java</language>
           <body>int total = page.locator(&quot;a&quot;).count();
 		// Show as many links as possible in main page
-		
+		if (scraperOptions.getLoadLinkMethod().equals(&quot;scroll&quot;)) {
+			for (int i = 0; i &lt; 10; i++) {
+				page.mouse().wheel(0, 100000);
+				Thread.sleep(AFTER_SCROLLING_WAIT_TIME);
+			}
+		} else if (scraperOptions.getLoadLinkMethod().equals(&quot;click&quot;)) {
+			while (page.getByText(scraperOptions.getLoadLinkButtonText()) != null) {
+				page.getByText(scraperOptions.getLoadLinkButtonText()).click();
+				Thread.sleep(AFTER_SCROLLING_WAIT_TIME);
+			}
+
+		}
 
 		// Scrape links
 		for (int i = 0; i &lt; total; i++) {
@@ -2733,7 +3060,6 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
 			// Remove link to other websites
 			if (webName.length() > 0 &amp;&amp; !webName.equals(getWebNameFromURL(page.url())))
 				continue;
-			// System.out.println(URL + &quot; &quot; + webName);
 
 			// Remove visited links
 			if (visitedURL.containsKey(URL) || nextURL.containsKey(URL) || newURL.contains(URL))
@@ -2778,76 +3104,101 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
 
 		final long startTime = System.currentTimeMillis();
 
-		// Setting up proxy
-		String[] t = proxy.elementAt(proxyCounter % proxy.size()).split(&quot;:&quot;);
-		Proxy prox = new Proxy(t[0] + &quot;:&quot; + t[1]);
-		prox.setUsername(t[2]).setPassword(t[3]);
-		proxyCounter++;
-
-		debug(&quot;Link count: &quot; + nextURL.size());
+		debug(&quot;Remaining links: &quot; + nextURL.size());
 		debug(&quot;Navigating to: &quot; + link);
-		debug(&quot;Proxy: &quot; + t[0] + &quot;:&quot; + t[1]);
 
 		// Open browser, add page
-		BrowserContext context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false).setProxy(prox));
+		BrowserContext context = createBrowserContext();
 		Page page = context.newPage();
 
 		// Ignore ERR_TIMED_OUT Exception
-		page.setDefaultTimeout(60000);
+		page.setDefaultTimeout(DEFAULT_WAIT_TIME);
 
 		// Block all images and css then go to link
 		page.route(&quot;**/*.{png,jpg,jpeg,css,ico,svg}&quot;, route -> route.abort());
 
 		try {
+			// Go to link
 			long navigateTimeStart = System.currentTimeMillis();
 			page.navigate(link); // must be put in a try
 			long navigateTimeEnd = System.currentTimeMillis();
 			debug(&quot;Navigated in &quot; + (navigateTimeEnd - navigateTimeStart));
-			Article article = new Article();
 
+			// Get all hyperlinks in the page, write them to newURL
 			scrapeAllLinkInPage(page);
+			debug(&quot;Link count: &quot; + newURL.size());
+
+			// Real scraping process
+			Article article = new Article();
 			scrapePageToArticle(page, pageSelector, article);
 			article.saveToJSON();
-		}
-		catch (PlaywrightException e) {
+			articleSet.add(article);
+
+			debug(&quot;Completed, saved to &quot; + article.ownID + &quot;.json&quot;);
+		} catch (PlaywrightException e) {
+			// PlaywrightException usually due to internet connection error
+			// So we try a few times before terminate it
 			markLinkAsUnvisited(link);
 			debug(e.getMessage() + &quot; at link: &quot; + link);
+
+			// If we tried a few times and same thing happened
 			if (nextURL.get(link) > 5) {
 				debug(&quot;Stopped trying!&quot;);
 				markLinkAsVisited(link);
-				return;
+				throw new Exception(&quot;Something wrong with scraper. Check your proxy or internet connection.&quot;);
 			}
 			debug(&quot;Trying again (&quot; + nextURL.get(link) + &quot;)&quot;);
-		}
-		catch (Exception e) {
-			debug(e.getMessage() + &quot; at link: &quot; + link);
+		} catch (Exception e) {
+			debug(e.getMessage());
 		}
 
 		context.close();
 
 		final long endTime = System.currentTimeMillis();
-		debug(&quot;Time: &quot; + (endTime - startTime));
+		debug(&quot;Total time: &quot; + (endTime - startTime));
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p6E7gABQEe-ziPgQOrU91w" name="run" specification="_pVF_IABQEe-ziPgQOrU91w">
           <language>java</language>
           <body>debug(&quot;Started&quot;);
-		try (Playwright playwright = Playwright.create()) {
+		try {
+			Playwright playwright = Playwright.create();
 			// Open a browser for each thread
 			BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();
-			launchOptions.setProxy(&quot;per-context&quot;);
+			// launchOptions.setProxy(&quot;per-context&quot;);
 			browser = playwright.chromium().launch(launchOptions);
 
 			while (nextURL.size() > 0) {
 				scrapeSinglePage(getNextLink(), scraperOptions.getPageSelector());
 			}
 			browser.close();
-			
+			debug(&quot;Hello&quot;);
+
 			threadCounter--;
 			// Send new links to thread manager
 			super.reopenThread(newURL);
+		} catch (Exception e) {
+			debug(e.getMessage());
 		}
 		debug(&quot;Closed&quot;);
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MKpsAkPEe-_9bSnsIpr9A" name="createBrowserContext" specification="__C7OIAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__MKpsQkPEe-_9bSnsIpr9A" type="_pyGrQQBQEe-ziPgQOrU91w" direction="return"/>
+          <language>java</language>
+          <body>BrowserContext context;
+		if (proxy.size() > 0) {
+			// Setting up proxy
+			String[] t = proxy.elementAt(proxyCounter % proxy.size()).split(&quot;:&quot;);
+			Proxy prox = new Proxy(t[0] + &quot;:&quot; + t[1]);
+			prox.setUsername(t[2]).setPassword(t[3]);
+			proxyCounter++;
+			context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false).setProxy(prox));
+			debug(&quot;Proxy: &quot; + t[0] + &quot;:&quot; + t[1]);
+		} else {
+			context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false));
+		}
+		return context;
 	</body>
         </ownedBehavior>
         <ownedOperation xmi:id="_pU5K0ABQEe-ziPgQOrU91w" name="debug" visibility="private" method="_p52SAABQEe-ziPgQOrU91w">
@@ -2888,13 +3239,13 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           </ownedParameter>
         </ownedOperation>
         <ownedOperation xmi:id="_pVF_IABQEe-ziPgQOrU91w" name="run" method="_p6E7gABQEe-ziPgQOrU91w"/>
-        <ownedOperation xmi:id="_pyZmMABQEe-ziPgQOrU91w" name="scrapeSinglePage" visibility="private" method="_p6EUcABQEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_pyZmMABQEe-ziPgQOrU91w" name="scrapeSinglePage" visibility="private" method="_p6EUcABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
           <ownedParameter xmi:id="_pyZmMQBQEe-ziPgQOrU91w" name="link">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
           <ownedParameter xmi:id="_pyZmMgBQEe-ziPgQOrU91w" name="pageSelector" type="_pUilgABQEe-ziPgQOrU91w"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_p0f38ABQEe-ziPgQOrU91w" name="SingleThreadScraper" method="_p51q8ABQEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_p0f38ABQEe-ziPgQOrU91w" name="SingleThreadScraper" method="_p51q8ABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
           <eAnnotations xmi:id="_p0gfAABQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_p0gfAQBQEe-ziPgQOrU91w" key="create"/>
           </eAnnotations>
@@ -2934,7 +3285,7 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           </ownedParameter>
           <ownedParameter xmi:id="_p0xkwABQEe-ziPgQOrU91w" type="_pukPEABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_p0yL0ABQEe-ziPgQOrU91w" name="scrapeAllLinkInPage" visibility="private" method="_p6CfRABQEe-ziPgQOrU91w">
+        <ownedOperation xmi:id="_p0yL0ABQEe-ziPgQOrU91w" name="scrapeAllLinkInPage" visibility="private" method="_p6CfRABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
           <ownedParameter xmi:id="_p0yL0QBQEe-ziPgQOrU91w" name="page" type="_pyKVoQBQEe-ziPgQOrU91w"/>
         </ownedOperation>
         <ownedOperation xmi:id="_p0yy4ABQEe-ziPgQOrU91w" name="scrapePageToArticle" visibility="private" method="_p6DGUABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
@@ -2942,11 +3293,14 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           <ownedParameter xmi:id="_p0zZ8QBQEe-ziPgQOrU91w" name="pageSelector" type="_pUilgABQEe-ziPgQOrU91w"/>
           <ownedParameter xmi:id="_p0zZ8gBQEe-ziPgQOrU91w" name="article" type="_pOx7wABQEe-ziPgQOrU91w"/>
         </ownedOperation>
+        <ownedOperation xmi:id="__C7OIAkPEe-_9bSnsIpr9A" name="createBrowserContext" visibility="private" method="__MKpsAkPEe-_9bSnsIpr9A">
+          <ownedParameter xmi:id="__C71MAkPEe-_9bSnsIpr9A" type="_pyGrQQBQEe-ziPgQOrU91w" direction="return"/>
+        </ownedOperation>
         <nestedClassifier xmi:type="uml:Class" xmi:id="_pUuLsABQEe-ziPgQOrU91w" name="Scraper">
           <eAnnotations xmi:id="_pUuywABQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
             <details xmi:id="_pUvZ0ABQEe-ziPgQOrU91w" key="sameFile"/>
           </eAnnotations>
-          <ownedAttribute xmi:id="_p304wABQEe-ziPgQOrU91w" name="scraperOptions" visibility="private" type="_pVdLgABQEe-ziPgQOrU91w" association="_p8GUwQBQEe-ziPgQOrU91w"/>
+          <ownedAttribute xmi:id="_p304wABQEe-ziPgQOrU91w" name="scraperOptions" visibility="protected" isLeaf="true" type="_pVdLgABQEe-ziPgQOrU91w" isReadOnly="true" association="_p8GUwQBQEe-ziPgQOrU91w"/>
           <ownedAttribute xmi:id="_p32G4QBQEe-ziPgQOrU91w" name="NEW_URL_FILE" visibility="private" isLeaf="true" isReadOnly="true">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_p32t8ABQEe-ziPgQOrU91w" value="&quot;config&quot; + File.separator + &quot;new-url.info&quot;"/>
@@ -2967,6 +3321,7 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           <ownedAttribute xmi:id="_p4IawABQEe-ziPgQOrU91w" name="FULLY_VISITED_FILE" visibility="private" isLeaf="true" type="_puPe8ABQEe-ziPgQOrU91w" isReadOnly="true" association="_p8NCcQBQEe-ziPgQOrU91w">
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_p4IawQBQEe-ziPgQOrU91w" value="new File(&quot;config&quot; + File.separator + &quot;visited.info&quot;)"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="__Lbp4AkPEe-_9bSnsIpr9A" name="articleSet" visibility="package" type="_pP59IABQEe-ziPgQOrU91w" association="__NKIMAkPEe-_9bSnsIpr9A"/>
           <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p5yAkABQEe-ziPgQOrU91w" name="Scraper" specification="_pyUtsABQEe-ziPgQOrU91w">
             <ownedParameter xmi:id="_p5yAkQBQEe-ziPgQOrU91w" name="_scraperOptions" type="_pVdLgABQEe-ziPgQOrU91w"/>
             <ownedParameter xmi:id="_p5yAkgBQEe-ziPgQOrU91w" type="_pUuLsABQEe-ziPgQOrU91w" direction="return">
@@ -3034,58 +3389,98 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
             <language>java</language>
             <body>// If there's still a thread running, just add new URLs to the set
 		newURL.addAll(_newURL);
-		if (SingleThreadScraper.threadCounter != 0) return;
-		
+		debug(String.valueOf(newURL.size()));
+		if (SingleThreadScraper.threadCounter != 0)
+			return;
+
 		// Distribute next URLs to the threads evenly
 		Vector&lt;String> nextURL = new Vector&lt;String>(newURL);
-		
+
 		// Abort the app when there's no URL left
-		if (nextURL.size() == 0) return;
-		
+		if (nextURL.size() == 0)
+			return;
+
 		// If the number of new URL &lt; number of thread then open only one new thread
 		if (nextURL.size() &lt; scraperOptions.getThread()) {
-			openThread(nextURL);
+			new Thread(
+					new SingleThreadScraper(scraperOptions, nextURL, visitedURL)
+					).start();
 			return;
 		}
-		
+
 		long t = scraperOptions.getThread() - SingleThreadScraper.threadCounter;
 		int block = (int) (nextURL.size() / t);
-		System.out.println(&quot;Expected: &quot; + scraperOptions.getThread());
-		System.out.println(&quot;Current: &quot; + SingleThreadScraper.threadCounter);
-		backup();
-		
+		// backup();
+		debug(&quot;Total link: &quot; + nextURL.size());
+
 		for (int i = 0; i &lt; t; i++) {
 			int start = i * block;
 			int end = (i + 1) * block;
-			
+
 			Vector&lt;String> tmp = new Vector&lt;String>();
 			for (int j = start; j &lt; end &amp;&amp; j &lt; nextURL.size(); j++) {
 				tmp.add(nextURL.elementAt(j));
 			}
-			openThread(tmp);
 			
 			// URLs distributed to a thread should be ignored in the future calls
 			visitedURL.addAll(tmp);
+			
+			// Start new thread
+			new Thread(
+					new SingleThreadScraper(scraperOptions, tmp, visitedURL)
+					).start();
 		}
-		
+
 		// ready for the next distributing event
 		newURL.clear();
 	</body>
           </ownedBehavior>
           <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p50c0ABQEe-ziPgQOrU91w" name="scrape" specification="_pUzrQABQEe-ziPgQOrU91w">
             <language>java</language>
-            <body>loadBackup();
-		if (newURL.size() == 0) newURL.add(scraperOptions.getStartLink());
+            <body>if (newURL.size() == 0)
+			newURL.add(scraperOptions.getStartLink());
 		reopenThread(newURL);
+	</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MINcAkPEe-_9bSnsIpr9A" name="Scraper" specification="__CizoAkPEe-_9bSnsIpr9A">
+            <ownedParameter xmi:id="__MINcQkPEe-_9bSnsIpr9A" name="scraperOptions" type="_pVdLgABQEe-ziPgQOrU91w"/>
+            <ownedParameter xmi:id="__MINcgkPEe-_9bSnsIpr9A" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w"/>
+            <ownedParameter xmi:id="__MINcwkPEe-_9bSnsIpr9A" type="_pUuLsABQEe-ziPgQOrU91w" direction="return"/>
+            <language>java</language>
+            <body>Article.beginIDCount();
+		this.scraperOptions = scraperOptions;
+		this.articleSet = articleSet;
+	</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MI0gAkPEe-_9bSnsIpr9A" name="debug" specification="__FfZ8AkPEe-_9bSnsIpr9A">
+            <ownedParameter xmi:id="__MI0gQkPEe-_9bSnsIpr9A" name="t">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+            <language>java</language>
+            <body>String s = &quot;(&quot; + Thread.currentThread().getName() + &quot;)&quot; + t + &quot;\n&quot;;
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				CrawlPageController._console.appendText(s);
+				
+			}
+		});
+	</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MJbkAkPEe-_9bSnsIpr9A" name="addToVisitedList" specification="__K9IwAkPEe-_9bSnsIpr9A">
+            <ownedParameter xmi:id="__MJbkQkPEe-_9bSnsIpr9A" name="s" type="__KcycAkPEe-_9bSnsIpr9A"/>
+            <language>java</language>
+            <body>for (String t: s) this.visitedURL.add(t);
 	</body>
           </ownedBehavior>
           <ownedOperation xmi:id="_pUx2EABQEe-ziPgQOrU91w" name="backup" visibility="private" method="_p5zOsABQEe-ziPgQOrU91w"/>
           <ownedOperation xmi:id="_pUzEMABQEe-ziPgQOrU91w" name="loadBackup" visibility="private" method="_p5z1wABQEe-ziPgQOrU91w"/>
-          <ownedOperation xmi:id="_pUzrQABQEe-ziPgQOrU91w" name="scrape" method="_p50c0ABQEe-ziPgQOrU91w">
-            <ownedComment xmi:id="_PPu4cABTEe-ziPgQOrU91w">
-              <body>Scrape by the settings in &lt;code>scraper.json&lt;/code> and &lt;code>selector.json&lt;/code>.
-	 * Provide proxy list in &lt;code>prx.txt&lt;/code>.
-	 * The number of proxy should at least double the number of thread</body>
+          <ownedOperation xmi:id="_pUzrQABQEe-ziPgQOrU91w" name="scrape" method="_p50c0ABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+            <ownedComment xmi:id="__MpK0QkPEe-_9bSnsIpr9A">
+              <body>Scrape by the settings in &lt;code>scraper.json&lt;/code> and
+	 * &lt;code>selector.json&lt;/code>. Provide proxy list in &lt;code>prx.txt&lt;/code>. The
+	 * number of proxy should at least double the number of thread</body>
             </ownedComment>
           </ownedOperation>
           <ownedOperation xmi:id="_pyUtsABQEe-ziPgQOrU91w" name="Scraper" method="_p5yAkABQEe-ziPgQOrU91w">
@@ -3098,11 +3493,48 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           <ownedOperation xmi:id="_p0MV8ABQEe-ziPgQOrU91w" name="openThread" visibility="private" method="_p5ynoABQEe-ziPgQOrU91w">
             <ownedParameter xmi:id="_p0M9AABQEe-ziPgQOrU91w" name="nextURL" type="_pukPEABQEe-ziPgQOrU91w"/>
           </ownedOperation>
-          <ownedOperation xmi:id="_p0PZQABQEe-ziPgQOrU91w" name="reopenThread" visibility="protected" method="_p5z1wQBQEe-ziPgQOrU91w">
+          <ownedOperation xmi:id="_p0PZQABQEe-ziPgQOrU91w" name="reopenThread" visibility="protected" method="_p5z1wQBQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
             <eAnnotations xmi:id="_p0QAUABQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
               <details xmi:id="_p0QAUQBQEe-ziPgQOrU91w" key="synchronized"/>
             </eAnnotations>
+            <ownedComment xmi:id="__MojwgkPEe-_9bSnsIpr9A">
+              <body>Calling this method sends a list of new URLs to the Scraper. 
+	 * If there is still a SingleThreadScraper running, it will collect the URLs then terminate
+	 * until all threads are all terminated. Only by then, it will open &lt;code>scraperOptions.thread&lt;/code>
+	 * new SingleThreadScraper(s) and distribute the new URLs to them
+	 * @param _newURL a HashSet of String contains all the URLs sent by SingleThreadScraper(s)</body>
+            </ownedComment>
             <ownedParameter xmi:id="_p0PZQQBQEe-ziPgQOrU91w" name="_newURL" type="_puc6UABQEe-ziPgQOrU91w"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="__CizoAkPEe-_9bSnsIpr9A" name="Scraper" method="__MINcAkPEe-_9bSnsIpr9A" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+            <eAnnotations xmi:id="__Cl28AkPEe-_9bSnsIpr9A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+              <details xmi:id="__Cl28QkPEe-_9bSnsIpr9A" key="create"/>
+            </eAnnotations>
+            <ownedComment xmi:id="__MojwAkPEe-_9bSnsIpr9A">
+              <body>Start the scraper. 
+	 * @param scraperOptions the ScraperOptions object to be set to the scraper
+	 * @param articleSet the current ArticleSet to put new articles to and to avoid duplicating while scraping</body>
+            </ownedComment>
+            <ownedParameter xmi:id="__CizoQkPEe-_9bSnsIpr9A" name="scraperOptions" type="_pVdLgABQEe-ziPgQOrU91w"/>
+            <ownedParameter xmi:id="__CjasAkPEe-_9bSnsIpr9A" name="articleSet" type="_pP59IABQEe-ziPgQOrU91w"/>
+            <ownedParameter xmi:id="__ClP4AkPEe-_9bSnsIpr9A" type="_pUuLsABQEe-ziPgQOrU91w" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="__FfZ8AkPEe-_9bSnsIpr9A" name="debug" visibility="protected" method="__MI0gAkPEe-_9bSnsIpr9A">
+            <ownedComment xmi:id="__MojwQkPEe-_9bSnsIpr9A">
+              <body>Print the log to the CrawlPageController._console TextArea. 
+	 * This is protected because only Scraper and SingleThreadScraper use it
+	 * @param t the String to print out</body>
+            </ownedComment>
+            <ownedParameter xmi:id="__FgBAAkPEe-_9bSnsIpr9A" name="t">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:id="__K9IwAkPEe-_9bSnsIpr9A" name="addToVisitedList" method="__MJbkAkPEe-_9bSnsIpr9A">
+            <ownedComment xmi:id="__MpK0AkPEe-_9bSnsIpr9A">
+              <body>this.visitedURL can be accessed (write only) via this method. 
+	 * @param s a Collection of String to be put to this.visitedURL</body>
+            </ownedComment>
+            <ownedParameter xmi:id="__K-W4AkPEe-_9bSnsIpr9A" name="s" type="__KcycAkPEe-_9bSnsIpr9A"/>
           </ownedOperation>
         </nestedClassifier>
       </packagedElement>
@@ -3127,26 +3559,37 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_p4iDYABQEe-ziPgQOrU91w" name="pageSelector" type="_pUilgABQEe-ziPgQOrU91w" association="_p6Rv0ABQEe-ziPgQOrU91w"/>
-        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_p6GwsABQEe-ziPgQOrU91w" name="setByJSONFile" specification="_pVjSIABQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_p6GwsQBQEe-ziPgQOrU91w" name="link">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedParameter>
+        <ownedAttribute xmi:id="__Ln3IAkPEe-_9bSnsIpr9A" name="FILE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="__LoeMAkPEe-_9bSnsIpr9A" value="&quot;config&quot; + File.separator + &quot;scraper.json&quot;"/>
+        </ownedAttribute>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__ML30AkPEe-_9bSnsIpr9A" name="setByJSONFile" specification="__DMT4AkPEe-_9bSnsIpr9A">
           <language>java</language>
-          <body>try {			
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(new FileReader(System.getProperty(&quot;user.dir&quot;) + File.separator + link));
-			JSONObject options = (JSONObject)obj;
-			
-			setValidLinkPrefix((String)options.get(&quot;validLinkPrefix&quot;));
-			setLoadLinkMethod((String)options.get(&quot;loadLinkMethod&quot;));
-			setLoadLinkButtonText((String)options.get(&quot;loadLinkButtonText&quot;));
-			setMaxLinkCount((long)options.get(&quot;maxLinkCount&quot;));
-			setThread((long)options.get(&quot;thread&quot;));
-			setStartLink((String)options.get(&quot;startLink&quot;));
-			
-		} catch (Exception e) {
-			throw e;
-		}
+          <body>JSONParser parser = new JSONParser();
+		Object obj = parser.parse(new FileReader(FILE));
+		JSONObject options = (JSONObject) obj;
+
+		setValidLinkPrefix((String) options.get(&quot;validLinkPrefix&quot;));
+		setLoadLinkMethod((String) options.get(&quot;loadLinkMethod&quot;));
+		setLoadLinkButtonText((String) options.get(&quot;loadLinkButtonText&quot;));
+		setMaxLinkCount((long) options.get(&quot;maxLinkCount&quot;));
+		setThread((long) options.get(&quot;thread&quot;));
+		setStartLink((String) options.get(&quot;startLink&quot;));
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="__MNF8AkPEe-_9bSnsIpr9A" name="writeToJSONFile" specification="__DM68AkPEe-_9bSnsIpr9A">
+          <language>java</language>
+          <body>JSONObject main = new JSONObject();
+		main.put(&quot;validLinkPrefix&quot;, this.validLinkPrefix);
+		main.put(&quot;loadLinkMethod&quot;, this.loadLinkMethod);
+		main.put(&quot;loadLinkButtonText&quot;, this.loadLinkButtonText);
+		main.put(&quot;maxLinkCount&quot;, this.maxLinkCount);
+		main.put(&quot;thread&quot;, thread);
+		main.put(&quot;startLink&quot;, startLink);
+		
+		PrintWriter file = new PrintWriter(FILE);
+		file.write(main.toJSONString());
+		file.close();
 	</body>
         </ownedBehavior>
         <ownedOperation xmi:id="_pVfnwABQEe-ziPgQOrU91w" name="ScraperOptions">
@@ -3155,11 +3598,12 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
           </eAnnotations>
           <ownedParameter xmi:id="_pViEAQBQEe-ziPgQOrU91w" type="_pVdLgABQEe-ziPgQOrU91w" direction="return"/>
         </ownedOperation>
-        <ownedOperation xmi:id="_pVjSIABQEe-ziPgQOrU91w" name="setByJSONFile" method="_p6GwsABQEe-ziPgQOrU91w" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
-          <ownedParameter xmi:id="_pVjSIQBQEe-ziPgQOrU91w" name="link">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedParameter>
+        <ownedOperation xmi:id="__DMT4AkPEe-_9bSnsIpr9A" name="setByJSONFile" method="__ML30AkPEe-_9bSnsIpr9A" raisedException="_pzGw0QBQEe-ziPgQOrU91w">
+          <ownedComment xmi:id="__Mpx4AkPEe-_9bSnsIpr9A">
+            <body>Load options from JSON File in config</body>
+          </ownedComment>
         </ownedOperation>
+        <ownedOperation xmi:id="__DM68AkPEe-_9bSnsIpr9A" name="writeToJSONFile" method="__MNF8AkPEe-_9bSnsIpr9A" raisedException="_pzGw0QBQEe-ziPgQOrU91w"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_pxGlsABQEe-ziPgQOrU91w" name="Scraper"/>
       <packagedElement xmi:type="uml:Association" xmi:id="_p6Rv0ABQEe-ziPgQOrU91w" name="" memberEnd="_p4iDYABQEe-ziPgQOrU91w _p6SW4ABQEe-ziPgQOrU91w">
@@ -3198,6 +3642,12 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
       <packagedElement xmi:type="uml:Association" xmi:id="_p8TwIQBQEe-ziPgQOrU91w" name="" memberEnd="_p8TwIgBQEe-ziPgQOrU91w _p4b8wQBQEe-ziPgQOrU91w">
         <ownedEnd xmi:id="_p8TwIgBQEe-ziPgQOrU91w" name="" type="_pUqhUABQEe-ziPgQOrU91w" association="_p8TwIQBQEe-ziPgQOrU91w"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="__NKIMAkPEe-_9bSnsIpr9A" name="" memberEnd="__NKIMQkPEe-_9bSnsIpr9A __Lbp4AkPEe-_9bSnsIpr9A">
+        <ownedEnd xmi:id="__NKIMQkPEe-_9bSnsIpr9A" name="" type="_pUuLsABQEe-ziPgQOrU91w" association="__NKIMAkPEe-_9bSnsIpr9A"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="__NL9YAkPEe-_9bSnsIpr9A" name="" memberEnd="__NL9YQkPEe-_9bSnsIpr9A __Lf7UAkPEe-_9bSnsIpr9A">
+        <ownedEnd xmi:id="__NL9YQkPEe-_9bSnsIpr9A" name="" type="_pUqhUABQEe-ziPgQOrU91w" association="__NL9YAkPEe-_9bSnsIpr9A"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_pNGgwABQEe-ziPgQOrU91w" name="com">
       <packagedElement xmi:type="uml:Package" xmi:id="_pNHH0ABQEe-ziPgQOrU91w" name="microsoft">
@@ -3214,6 +3664,7 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
         </packagedElement>
       </packagedElement>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_SEcXQAkQEe-_9bSnsIpr9A" name="NewClass1"/>
     <profileApplication xmi:id="_oNsSMABQEe-ziPgQOrU91w">
       <eAnnotations xmi:id="_oNyY0ABQEe-ziPgQOrU91w" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UMLLAB_PROFILES/UMLLab.profile.uml#UMLLabProfile-Annotation_2-UMLLabProfile"/>
@@ -3229,7 +3680,7 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
   <UMLLabProfile:Annotations xmi:id="_pPaN4ABQEe-ziPgQOrU91w" base_Element="_pPVVYABQEe-ziPgQOrU91w">
     <annotations xmi:id="_pPaN4QBQEe-ziPgQOrU91w" name="SuppressWarnings">
       <annotationParameters xmi:id="_pPa08ABQEe-ziPgQOrU91w" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_P4I8QgBTEe-ziPgQOrU91w" value="&quot;unchecked&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="__MbIYAkPEe-_9bSnsIpr9A" value="&quot;unchecked&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -3242,7 +3693,7 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
   <UMLLabProfile:LegacyStyledElement xmi:id="_pQZFUABQEe-ziPgQOrU91w" base_Element="_pQWCAABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:Array xmi:id="_pQaTcABQEe-ziPgQOrU91w" base_Element="_pQWpEABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_pQfL8ABQEe-ziPgQOrU91w" base_Element="_pQcIoABQEe-ziPgQOrU91w"/>
-  <UMLLabProfile:Array xmi:id="_pQgaEABQEe-ziPgQOrU91w" base_Element="_pQcvsABQEe-ziPgQOrU91w"/>
+  <UMLLabProfile:Array xmi:id="_pQgaEABQEe-ziPgQOrU91w" dimensions="1" base_Element="_pQcvsABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_pQo88ABQEe-ziPgQOrU91w" base_Element="_pQmgsABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:Array xmi:id="_pQpkAABQEe-ziPgQOrU91w" base_Element="_pQnHwABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_pQsnUABQEe-ziPgQOrU91w" base_Element="_pQqyIABQEe-ziPgQOrU91w"/>
@@ -3353,10 +3804,6 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
   <UMLLabProfile:LegacyStyledElement xmi:id="_pzUzQABQEe-ziPgQOrU91w" base_Element="_pzTlIQBQEe-ziPgQOrU91w"/>
   <UMLLabProfile:Annotations xmi:id="_pzWocABQEe-ziPgQOrU91w" base_Element="_pzTlIQBQEe-ziPgQOrU91w">
     <annotations xmi:id="_pzXPgABQEe-ziPgQOrU91w" name="Override"/>
-  </UMLLabProfile:Annotations>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_pzl5AABQEe-ziPgQOrU91w" base_Element="_pzkq4ABQEe-ziPgQOrU91w"/>
-  <UMLLabProfile:Annotations xmi:id="_pzmgEABQEe-ziPgQOrU91w" base_Element="_pzkq4ABQEe-ziPgQOrU91w">
-    <annotations xmi:id="_pzmgEQBQEe-ziPgQOrU91w" name="Override"/>
   </UMLLabProfile:Annotations>
   <UMLLabProfile:Generics xmi:id="_pzrYkABQEe-ziPgQOrU91w" genericsValue="ArticleSet" base_Element="_pzoVQABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:Generics xmi:id="_pz3l0ABQEe-ziPgQOrU91w" genericsValue="Pair&lt;String, Integer>" base_Element="_pz1JkQBQEe-ziPgQOrU91w"/>
@@ -3637,4 +4084,43 @@ If you want to scrape a set of page (same website), use &lt;code>Scraper.scrapeW
   <UMLLabProfile:Reference xmi:id="_p8SiAABQEe-ziPgQOrU91w" base_Element="_p8R68ABQEe-ziPgQOrU91w"/>
   <UMLLabProfile:Reference xmi:id="_p8TwIABQEe-ziPgQOrU91w" base_Element="_p8SiAQBQEe-ziPgQOrU91w"/>
   <UMLLabProfile:Reference xmi:id="_p8U-QABQEe-ziPgQOrU91w" base_Element="_p8TwIQBQEe-ziPgQOrU91w"/>
+  <UMLLabProfile:Array xmi:id="__BOlAAkPEe-_9bSnsIpr9A" base_Element="__BMv0QkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Array xmi:id="__B89wAkPEe-_9bSnsIpr9A" base_Element="__B5TYAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Annotations xmi:id="__DOJEAkPEe-_9bSnsIpr9A" base_Element="__DM68AkPEe-_9bSnsIpr9A">
+    <annotations xmi:id="__DOwIAkPEe-_9bSnsIpr9A" name="SuppressWarnings">
+      <annotationParameters xmi:id="__ESgEQkPEe-_9bSnsIpr9A" skipName="true" skipArray="true">
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="__Mpx4QkPEe-_9bSnsIpr9A" value="&quot;unchecked&quot;"/>
+      </annotationParameters>
+    </annotations>
+  </UMLLabProfile:Annotations>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__DeAsAkPEe-_9bSnsIpr9A" base_Element="_pPDokABQEe-ziPgQOrU91w"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__DzX4AkPEe-_9bSnsIpr9A" base_Element="__BMIwAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__D_lIAkPEe-_9bSnsIpr9A" base_Element="__B4sUAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__ESgEAkPEe-_9bSnsIpr9A" base_Element="__DM68AkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Generics xmi:id="__E6yMAkPEe-_9bSnsIpr9A" genericsValue="MenuItem" base_Element="__EzdcAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__FTzwAkPEe-_9bSnsIpr9A" base_Element="__FRXgAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Array xmi:id="__FVo8AkPEe-_9bSnsIpr9A" base_Element="__FR-kAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__J8cIAkPEe-_9bSnsIpr9A" base_Element="__J6m8AkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__J-RUAkPEe-_9bSnsIpr9A" base_Element="__J9DMAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__KB7sAkPEe-_9bSnsIpr9A" base_Element="__J-4YAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__KE_AAkPEe-_9bSnsIpr9A" base_Element="__KCiwAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__KOwAAkPEe-_9bSnsIpr9A" base_Element="__KLssAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__KP-IAkPEe-_9bSnsIpr9A" base_Element="__KOwAQkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__KRMQAkPEe-_9bSnsIpr9A" base_Element="__KP-IQkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__KeAkAkPEe-_9bSnsIpr9A" base_Element="__KcycAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Generics xmi:id="__LCBQAkPEe-_9bSnsIpr9A" genericsValue="String" base_Element="__K-W4AkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__LQDsAkPEe-_9bSnsIpr9A" base_Element="__LO1kAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Annotations xmi:id="__LRR0AkPEe-_9bSnsIpr9A" base_Element="__LO1kAkPEe-_9bSnsIpr9A">
+    <annotations xmi:id="__LR44AkPEe-_9bSnsIpr9A" name="FXML"/>
+  </UMLLabProfile:Annotations>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__LUVIAkPEe-_9bSnsIpr9A" base_Element="__LR44QkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__LdfEAkPEe-_9bSnsIpr9A" base_Element="__Lbp4AkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__LgiYAkPEe-_9bSnsIpr9A" base_Element="__Lf7UAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__LjlsAkPEe-_9bSnsIpr9A" base_Element="__LhwgAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="__Lla4AkPEe-_9bSnsIpr9A" base_Element="__LkMwAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__NGd0AkPEe-_9bSnsIpr9A" base_Element="__NDagAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__NJhIAkPEe-_9bSnsIpr9A" base_Element="__NHE4AkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__NLWUAkPEe-_9bSnsIpr9A" base_Element="__NKIMAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Reference xmi:id="__NOZoAkPEe-_9bSnsIpr9A" base_Element="__NL9YAkPEe-_9bSnsIpr9A"/>
+  <UMLLabProfile:Patch xmi:id="_B41EQAkQEe-_9bSnsIpr9A" base_Element="_pOx7wABQEe-ziPgQOrU91w" patchText="@@ -754,22 +754,24 @@&#xA; ad%0A%09 */%0A&#xA;-public&#xA;+%09private&#xA;  static &#xA;" conflicting="false"/>
 </xmi:XMI>

@@ -3,18 +3,13 @@ package gui.pages;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import article.Article;
 import article.ArticleSet;
 import gui.Color;
 import gui.Helper;
 import gui.backgroundtask.ScrapeTask;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -23,7 +18,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -37,11 +31,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import scraping.ScraperOptions;
 import scraping.PageSelector;
-import scraping.Scraper;
 
 public class CrawlPageController {
 	private final String[] SELECTOR_TYPE = {
@@ -57,7 +49,7 @@ public class CrawlPageController {
 	};
 	private final int FIELD_WIDTH1 = 400;
 	private final int FIELD_WIDTH2 = 650;
-	
+
 	private double xOffset = 0;
 	private double yOffset = 0;
 	private ScraperOptions scraperOptions = new ScraperOptions();
@@ -352,8 +344,7 @@ public class CrawlPageController {
 			scraperOptions.writeToJSONFile();
 			
 			PrintWriter file = new PrintWriter("config" + File.separator + "prx.txt");
-			String prx[] = proxyField.getText().split("\n");
-			for (String s: prx) file.append(s);
+			file.append(proxyField.getText());
 			file.close();
 		}
 		catch (Exception e) {

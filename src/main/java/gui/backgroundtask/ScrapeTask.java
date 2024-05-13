@@ -10,9 +10,6 @@ import scraping.Scraper;
 import scraping.ScraperOptions;
 
 public class ScrapeTask extends Task<Integer> {
-
-	private PageSelector pageSelector;
-	private ScraperOptions scraperOptions;
 	private ArticleSet articleSet;
 	private Scraper scraper;
 
@@ -37,7 +34,7 @@ public class ScrapeTask extends Task<Integer> {
 			for (Article article : articleSet.content()) {
 				visited.add(article.link);
 			}
-			scraper.visitedList().addAll(visited);
+			scraper.addToVisitedList(visited);
 		} catch (Exception e) {
 			updateMessage("Error");
 		}

@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -28,7 +27,7 @@ public class Article {
 	 * This id should not be accessed anywhere else in the code. If you want to get
 	 * the ID of the article, use ownID instead
 	 */
-	public static int id;
+	private static int id;
 
 	/**
 	 * The original URL to the article
@@ -90,20 +89,35 @@ public class Article {
 	 */
 	public int ownID;
 
-	private static final String COUNTER_FILE = "config" + File.separator + "total.info";
+	private static final String COUNTER_FILE_NAME = "config" + File.separator + "total.info";
 	private String serializedClassifier = "classifiers/english.muc.7class.distsim.crf.ser.gz";
-	private AbstractSequenceClassifier<CoreLabel> classifier;
+	private static AbstractSequenceClassifier<CoreLabel> classifier;
 
 	/**
 	 * Create a blank article
 	 */
-	public Article() {}
+	public Article() {
+		try {
+			if (classifier == null)
+				classifier = CRFClassifier.getClassifier(serializedClassifier);
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	
+	/**
+	 * @throws Exception 
+	*/
+	public static void beginIDCount () throws Exception {
+		Article.id = getTotalArticle() + 1;
+	}
 
 	/**
 	 * Write the total number of articles to the total.info file
 	 */
 	public static void updateTotalArticle() throws Exception {
-		File file = new File(COUNTER_FILE);
+		File file = new File(COUNTER_FILE_NAME);
 		PrintWriter writer = new PrintWriter(file);
 		writer.print(id - 1);
 		writer.close();
@@ -112,11 +126,11 @@ public class Article {
 	/**
 	 * Set the counter to the one saved in file
 	 * 
-	 * @return <code>int</code>: the total number of articles saved in the database
+	 * @return the total number of articles saved in the database
 	 */
 	public static int getTotalArticle() throws Exception {
 		int total = 0;
-		File file = new File(COUNTER_FILE);
+		File file = new File(COUNTER_FILE_NAME);
 		Scanner reader = new Scanner(file);
 		String s = reader.nextLine();
 		total = Integer.parseInt(s);
@@ -150,7 +164,7 @@ public class Article {
 	 */
 	@SuppressWarnings("unchecked")
 	public synchronized void saveToJSON() throws Exception {
-		classifier = CRFClassifier.getClassifier(serializedClassifier);
+		this.ownID = id;
 
 		JSONObject mainObject = new JSONObject();
 		JSONArray hashtagJSON = new JSONArray();
@@ -198,7 +212,7 @@ public class Article {
 		file.write(mainObject.toJSONString());
 		file.close();
 
-		System.out.println("Completed, saved to: " + id++ + ".json");
+		id++;
 		updateTotalArticle();
 	}
 
@@ -258,12 +272,7 @@ public class Article {
 	 */
 	public static Vector<Article> loadAllArticle() throws Exception {
 		Vector<Article> articleSet = new Vector<Article>();
-
-		// Get number of articles
-		int total = 0;
-		Scanner reader = new Scanner(new File("config" + File.separator + "total.info"));
-		total = Integer.parseInt(reader.nextLine());
-		reader.close();
+		int total = getTotalArticle();
 
 		// Read all the articles
 		for (int i = 1; i <= total; i++) {

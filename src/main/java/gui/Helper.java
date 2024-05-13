@@ -23,18 +23,18 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Pair;
 
 public class Helper {
+	private static final int MAXIMUM_LINE_IN_TEXTAREA = 1000;
+	private static final String FILLER_WORD_FILE_NAME = "material" + File.separator + "filler-words.info";
 	
 	/**
 	 * Custom tooltip by given text
@@ -111,11 +111,14 @@ public class Helper {
 		return subParas;
 	}
 	
+	/**
+	 * Read filler words in file FILLER_WORD_FILE_NAME
+	*/
 	private static HashSet<String> getFillerWords () {
 		HashSet<String> result = new HashSet<String>();
 		
 		try {
-			File file = new File("material" + File.separator + "filler-words.info");
+			File file = new File(FILLER_WORD_FILE_NAME);
 			Scanner scanner = new Scanner(file);
 			
 			String[] words = scanner.nextLine().split(",");
@@ -211,7 +214,7 @@ public class Helper {
 	}
 	
 	/**
-	 * Show about window
+	 * Open "About" window, which provides informations and instruction to use the app
 	*/
 	public static void showAboutPage () {
 		try {
@@ -228,7 +231,8 @@ public class Helper {
 	}
 	
 	/**
-	 * Show about window
+	 * Open "Crawl" windows, which allows user to scrape more articles from the internet.
+	 * User can configure preferences of the scraper in a friendly way.
 	*/
 	public static void showCrawlPage (ArticleSet set) {
 		try {
@@ -272,35 +276,74 @@ public class Helper {
 		}
 	}
 	
+	/**
+	 * Create a label with given text, with font Montserrat Regular
+	 * @param s the content of the label
+	 * @param size the size of Label in pixel
+	 * @return the label with given text and size
+	*/
 	public static Label createNormalText (String s, int size) {
 		Label res = new Label(s);
+		
 		res.setFont(new Font("Montserrat Regular", size));
 		res.setTextFill(Paint.valueOf(Color.WHITE));
+		
 		return res;
 	}
 	
+	/**
+	 * Create a label with given text, with font Montserrat Bold and size of 32
+	 * @param s the content of the label
+	 * @return the label - title - with given text
+	*/
 	public static Label createTitle (String s) {
 		Label res = new Label(s);
+		
 		res.setFont(new Font("Montserrat Bold", 32));
 		res.setTextFill(Paint.valueOf(Color.WHITE));
 		res.setAlignment(Pos.CENTER);
 		res.setPadding(new Insets(30, 0, 0, 0));
+		
 		return res;
 	}
 	
+	/**
+	 * Create a normal text field
+	 * @param width the width of text field
+	 * @return a TextField with given width
+	*/
 	public static TextField createTextField (int width) {
 		TextField field = new TextField();
+		
 		field.setStyle("-fx-text-fill: " + Color.WHITE + ";"
 				+ "-fx-border-color: " + Color.LIGHT_GREY + ";"
 				+ "-fx-border-radius: 10px");
 		field.setBackground(null);
-		field.setFont(new Font("Montserrat", 15));
+		field.setFont(new Font("Montserrat Regular", 15));
 		field.setMinWidth(width);
+		
 		return field;
 	}
 	
+	/**
+	 * Create a text area with a height of 300 pixels.
+	 * <b>IMPORTANT!</b> this text area auto delete the first line
+	 * when it's more than MAXIMUM_LINE_IN_TEXTAREA line 
+	 * @param width the width of the area
+	 * @return a TextArea of size (300, width)
+	*/
 	public static TextArea createTextArea (int width) {
-		TextArea field = new TextArea();
+		TextArea field = new TextArea() {
+			@Override
+            public void replaceText(int start, int end, String text) {
+                super.replaceText(start, end, text);
+                while(getText().split("\n", -1).length > MAXIMUM_LINE_IN_TEXTAREA) {
+                    int fle = getText().indexOf("\n");
+                    super.replaceText(0, fle+1, "");
+                }
+                positionCaret(getText().length());
+            }
+		};
 		field.setStyle("-fx-text-fill: white;"
 					 + "-fx-background-color: transparent;"
 					 + "-fx-control-inner-background: " + Color.BACKGROUND_MEDIUM + ";"
@@ -316,9 +359,14 @@ public class Helper {
 		return field;
 	}
 	
+	/**
+	 * Create a normal drop down menu
+	 * @param s a Collection of String to be put to the menu
+	 * @return a ComboBox with items the given String
+	*/
 	public static ComboBox createDropdown (String ...s) {
 		ComboBox box = new ComboBox();
-		box.getItems().addAll(s);
+		for (String t: s) box.getItems().add(t);
 		return box;
 	}
 	

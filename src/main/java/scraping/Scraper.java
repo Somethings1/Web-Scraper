@@ -1,7 +1,7 @@
 package scraping;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,22 +27,22 @@ import javafx.application.Platform;
 class SingleThreadScraper extends Scraper implements Runnable {
 	private static final String PROXY_FILE = "config" + File.separator + "prx.txt";
 	public static int threadCounter = 0;
-	private static ArticleSet articleSet;
+	private final int AFTER_SCROLLING_WAIT_TIME = 5000;
+	private final int DEFAULT_WAIT_TIME = 60000;
 
 	private HashMap<String, Integer> nextURL = new HashMap<String, Integer>();
 	private HashMap<String, Integer> visitedURL = new HashMap<String, Integer>();
 	private HashSet<String> newURL = new HashSet<String>();
 	private int proxyCounter;
 	private Vector<String> proxy = new Vector<String>();
-	private ScraperOptions scraperOptions;
 	private Browser browser;
+	
 
-	public SingleThreadScraper(ScraperOptions scraperOptions, Vector<String> nextURL, HashSet<String> visitedURL)
+	public SingleThreadScraper(ScraperOptions scraperOptions, ArticleSet articleSet, Vector<String> nextURL, HashSet<String> visitedURL)
 			throws Exception {
 		super(scraperOptions, articleSet);
 		loadProxyList();
 		proxyCounter = 0;
-		this.scraperOptions = scraperOptions;
 		threadCounter++;
 
 		for (String s : nextURL)
@@ -58,7 +58,8 @@ class SingleThreadScraper extends Scraper implements Runnable {
 
 			while (reader.hasNextLine()) {
 				String prx = reader.nextLine();
-				if (prx.isBlank()) continue;
+				if (prx.isBlank())
+					continue;
 				proxy.add(prx);
 			}
 
@@ -175,9 +176,21 @@ class SingleThreadScraper extends Scraper implements Runnable {
 		return content;
 	}
 
-	private void scrapeAllLinkInPage(Page page) {
+	private void scrapeAllLinkInPage(Page page) throws Exception {
 		int total = page.locator("a").count();
 		// Show as many links as possible in main page
+		if (scraperOptions.getLoadLinkMethod().equals("scroll")) {
+			for (int i = 0; i < 10; i++) {
+				page.mouse().wheel(0, 100000);
+				Thread.sleep(AFTER_SCROLLING_WAIT_TIME);
+			}
+		} else if (scraperOptions.getLoadLinkMethod().equals("click")) {
+			while (page.getByText(scraperOptions.getLoadLinkButtonText()) != null) {
+				page.getByText(scraperOptions.getLoadLinkButtonText()).click();
+				Thread.sleep(AFTER_SCROLLING_WAIT_TIME);
+			}
+
+		}
 
 		// Scrape links
 		for (int i = 0; i < total; i++) {
@@ -191,7 +204,6 @@ class SingleThreadScraper extends Scraper implements Runnable {
 			// Remove link to other websites
 			if (webName.length() > 0 && !webName.equals(getWebNameFromURL(page.url())))
 				continue;
-			// System.out.println(URL + " " + webName);
 
 			// Remove visited links
 			if (visitedURL.containsKey(URL) || nextURL.containsKey(URL) || newURL.contains(URL))
@@ -218,6 +230,22 @@ class SingleThreadScraper extends Scraper implements Runnable {
 		article.category = scrapeElement(page, pageSelector.getCategory());
 	}
 
+	private BrowserContext createBrowserContext() {
+		BrowserContext context;
+		if (proxy.size() > 0) {
+			// Setting up proxy
+			String[] t = proxy.elementAt(proxyCounter % proxy.size()).split(":");
+			Proxy prox = new Proxy(t[0] + ":" + t[1]);
+			prox.setUsername(t[2]).setPassword(t[3]);
+			proxyCounter++;
+			context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false).setProxy(prox));
+			debug("Proxy: " + t[0] + ":" + t[1]);
+		} else {
+			context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false));
+		}
+		return context;
+	}
+
 	private void scrapeSinglePage(String link, PageSelector pageSelector) throws Exception {
 		if (visitedURL.containsKey(link)) {
 			markLinkAsVisited(link);
@@ -231,57 +259,58 @@ class SingleThreadScraper extends Scraper implements Runnable {
 		debug("Navigating to: " + link);
 
 		// Open browser, add page
-		BrowserContext context;
-		if (proxy.size() > 0) {
-			// Setting up proxy
-			String[] t = proxy.elementAt(proxyCounter % proxy.size()).split(":");
-			Proxy prox = new Proxy(t[0] + ":" + t[1]);
-			prox.setUsername(t[2]).setPassword(t[3]);
-			proxyCounter++;
-			context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false).setProxy(prox));
-			debug("Proxy: " + t[0] + ":" + t[1]);
-		}
-		else 
-			context = browser.newContext(new Browser.NewContextOptions().setJavaScriptEnabled(false));
+		BrowserContext context = createBrowserContext();
 		Page page = context.newPage();
 
 		// Ignore ERR_TIMED_OUT Exception
-		page.setDefaultTimeout(60000);
+		page.setDefaultTimeout(DEFAULT_WAIT_TIME);
 
 		// Block all images and css then go to link
 		page.route("**/*.{png,jpg,jpeg,css,ico,svg}", route -> route.abort());
 
 		try {
+			// Go to link
 			long navigateTimeStart = System.currentTimeMillis();
 			page.navigate(link); // must be put in a try
 			long navigateTimeEnd = System.currentTimeMillis();
-			debug("Navigated in " + (navigateTimeEnd - navigateTimeStart));
-			Article article = new Article();
+			debug("Naviga ted in " + (navigateTimeEnd - navigateTimeStart));
 
+			// Get all hyperlinks in the page, write them to newURL
 			scrapeAllLinkInPage(page);
 			debug("Link count: " + newURL.size());
+
+			// Real scraping process
+			Article article = new Article();
 			scrapePageToArticle(page, pageSelector, article);
-			debug(article.toString());
+			
+			// If no exception were thrown
 			article.saveToJSON();
 			articleSet.add(article);
+			
+			
+			debug("Completed, saved to " + article.ownID + ".json");
 		} catch (PlaywrightException e) {
+			// PlaywrightException usually due to internet connection error
+			// So we try a few times before terminate it
 			markLinkAsUnvisited(link);
 			debug(e.getMessage() + " at link: " + link);
+
+			// If we tried a few times and same thing happened
 			if (nextURL.get(link) > 5) {
 				debug("Stopped trying!");
 				markLinkAsVisited(link);
-				throw new Exception("Something wrong with scraper. Check your proxy or internet connection.");
+				
+				debug("Something wrong with scraper. Check your proxy or internet connection.");
 			}
 			debug("Trying again (" + nextURL.get(link) + ")");
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			debug(e.getMessage());
 		}
 
 		context.close();
 
 		final long endTime = System.currentTimeMillis();
-		debug("Time: " + (endTime - startTime));
+		debug("Total time: " + (endTime - startTime));
 	}
 
 	public void run() {
@@ -290,14 +319,13 @@ class SingleThreadScraper extends Scraper implements Runnable {
 			Playwright playwright = Playwright.create();
 			// Open a browser for each thread
 			BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();
-			//launchOptions.setProxy("per-context");
+			// launchOptions.setProxy("per-context");
 			browser = playwright.chromium().launch(launchOptions);
 
 			while (nextURL.size() > 0) {
 				scrapeSinglePage(getNextLink(), scraperOptions.getPageSelector());
 			}
 			browser.close();
-			debug("Hello");
 
 			threadCounter--;
 			// Send new links to thread manager
@@ -314,78 +342,92 @@ class SingleThreadScraper extends Scraper implements Runnable {
  * Provide proxy list int <code>prx.txt</code>
  */
 public class Scraper {
-	private ScraperOptions scraperOptions;
-	private final String NEW_URL_FILE = "config" + File.separator + "new-url.info";
-	private final String VISITED_URL_FILE = "config" + File.separator + "visited-url.info";
+	/**
+	 * The options for this scraper
+	*/
+	protected final ScraperOptions scraperOptions;
 
-	// All URLs distributed to threads
+	/** 
+	 * All URLs distributed to threads
+	*/
 	private HashSet<String> visitedURL = new HashSet<String>();
 
-	// URLs waiting to be distributed
-	private HashSet<String> newURL = new HashSet<String>();
-	
-	// Article set to write new articles to
-	ArticleSet articleSet;
-
-	// All URLs appeared in newURL
-	private final File APPEARED_FILE = new File("config" + File.separator + "appeared.info");
-
-	// URLs sent back by threads, to be considered as fully visited
-	private final File FULLY_VISITED_FILE = new File("config" + File.separator + "visited.info");
-
-	protected void debug(String t) {
-		String s = "(" + Thread.currentThread().getName() + ")" + t + "\n";
-		Platform.runLater(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				CrawlPageController._console.appendText(s);
-			}
-			
-		});
-	}
-	
 	/**
-	 * Start the scraper
-	 * 
-	 * @param scraperOptions ScraperOptions
+	 * URLs waiting to be distributed
+	 */
+	private HashSet<String> newURL = new HashSet<String>();
+
+	/**
+	 * Article set to write new articles to
+	 */
+	protected ArticleSet articleSet;
+
+	/**
+	 * Start the scraper. 
+	 * @param scraperOptions the ScraperOptions object to be set to the scraper
+	 * @param articleSet the current ArticleSet to put new articles to and to avoid duplicating while scraping
 	 */
 	public Scraper(ScraperOptions scraperOptions, ArticleSet articleSet) throws Exception {
-		Article.id = Article.getTotalArticle() + 1;
+		Article.beginIDCount();
 		this.scraperOptions = scraperOptions;
 		this.articleSet = articleSet;
 	}
-
-	private void openThread(Vector<String> nextURL) throws Exception {
-		//Platform.runLater(new SingleThreadScraper(scraperOptions, nextURL, visitedURL));
-		Thread thread = new Thread(new SingleThreadScraper(scraperOptions, nextURL, visitedURL));
-		thread.start();
+	
+	/**
+	 * Print the log to the CrawlPageController._console TextArea. 
+	 * This is protected because only Scraper and SingleThreadScraper use it
+	 * @param t the String to print out
+	*/
+	protected void debug(String t) {
+		String s = "(" + Thread.currentThread().getName() + ")" + t + "\n";
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if (CrawlPageController._console.getText().length() > 10000) {
+					CrawlPageController._console.setText("");
+				}
+				CrawlPageController._console.appendText(s);
+			}
+		});
+		//System.out.print(s);
 	}
 
+	/**
+	 * Calling this method sends a list of new URLs to the Scraper. 
+	 * If there is still a SingleThreadScraper running, it will collect the URLs then terminate
+	 * until all threads are all terminated. Only by then, it will open <code>scraperOptions.thread</code>
+	 * new SingleThreadScraper(s) and distribute the new URLs to them
+	 * @param _newURL a HashSet of String contains all the URLs sent by SingleThreadScraper(s)
+	*/
 	protected synchronized void reopenThread(HashSet<String> _newURL) throws Exception {
 		// If there's still a thread running, just add new URLs to the set
+		debug(String.valueOf(_newURL.size()));
+		debug(String.valueOf(SingleThreadScraper.threadCounter));
 		newURL.addAll(_newURL);
-		debug(String.valueOf(newURL.size()));
 		if (SingleThreadScraper.threadCounter != 0)
 			return;
 
+		debug("All threads closed.");
 		// Distribute next URLs to the threads evenly
 		Vector<String> nextURL = new Vector<String>(newURL);
 
+		debug("New URL count: " + nextURL.size());
 		// Abort the app when there's no URL left
 		if (nextURL.size() == 0)
 			return;
 
 		// If the number of new URL < number of thread then open only one new thread
 		if (nextURL.size() < scraperOptions.getThread()) {
-			openThread(nextURL);
+			new Thread(
+					new SingleThreadScraper(scraperOptions, articleSet, nextURL, visitedURL)
+					).start();
 			return;
 		}
 
 		long t = scraperOptions.getThread() - SingleThreadScraper.threadCounter;
 		int block = (int) (nextURL.size() / t);
-		//backup();
+		// backup();
 		debug("Total link: " + nextURL.size());
 
 		for (int i = 0; i < t; i++) {
@@ -396,8 +438,12 @@ public class Scraper {
 			for (int j = start; j < end && j < nextURL.size(); j++) {
 				tmp.add(nextURL.elementAt(j));
 			}
-			openThread(tmp);
-
+			
+			// Start new thread
+			new Thread(
+				new SingleThreadScraper(scraperOptions, articleSet, tmp, visitedURL)
+				).start();
+			
 			// URLs distributed to a thread should be ignored in the future calls
 			visitedURL.addAll(tmp);
 		}
@@ -405,9 +451,13 @@ public class Scraper {
 		// ready for the next distributing event
 		newURL.clear();
 	}
-	
-	public HashSet<String> visitedList () {
-		return this.visitedURL;
+
+	/**
+	 * this.visitedURL can be accessed (write only) via this method. 
+	 * @param s a Collection of String to be put to this.visitedURL
+	*/
+	public void addToVisitedList(Collection<String> s) {
+		for (String t: s) this.visitedURL.add(t);
 	}
 
 	/**

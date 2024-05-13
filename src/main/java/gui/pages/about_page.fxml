@@ -43,7 +43,7 @@
                         <Font name="Montserrat Bold" size="33.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;This app is a personal project based on the project in OOP course. It was proginally a group project. However, I want to have a deeper understanding of Java language and Javafx framework, so I decided to do it solo. In the group project, I provided the scraping part, which is also used here.&#10;&#10;Big thanks to: &#10;&#9;* The Java Langugage&#10;&#9;* Javafx framework for GUI&#10;&#9;* Playwright for web scraping&#10;&#9;* Stanford NER library for entity detection&#10;&#9;* And others on Stackoverflow for amazing explanation&#10;&#10;&#10;">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="&#10;Big thanks to: &#10;&#9;* The Java Langugage&#10;&#9;* Javafx framework for GUI&#10;&#9;* Playwright for web scraping&#10;&#9;* Stanford NER library for entity detection&#10;&#9;* And others on Stackoverflow for amazing explanation&#10;&#10;&#10;">
                      <font>
                         <Font name="Montserrat Regular" size="15.0" />
                      </font>
