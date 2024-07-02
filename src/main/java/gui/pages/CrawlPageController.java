@@ -7,8 +7,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import article.ArticleSet;
-import gui.Color;
-import gui.Helper;
 import gui.backgroundtask.ScrapeTask;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import scraping.ScraperOptions;
 import scraping.PageSelector;
@@ -55,20 +54,20 @@ public class CrawlPageController {
 	private ScraperOptions scraperOptions = new ScraperOptions();
 	private PageSelector pageSelector = new PageSelector();
 	private TextArea proxyField; 
-	private ComboBox summaryType = Helper.createDropdown(SELECTOR_TYPE);
-	private ComboBox titleType = Helper.createDropdown(SELECTOR_TYPE);
-	private ComboBox contentType = Helper.createDropdown(SELECTOR_TYPE);
-	private ComboBox publishDateType = Helper.createDropdown(SELECTOR_TYPE);
-	private ComboBox hashtagType = Helper.createDropdown(SELECTOR_TYPE);
-	private ComboBox authorsType = Helper.createDropdown(SELECTOR_TYPE);
-	private ComboBox categoryType = Helper.createDropdown(SELECTOR_TYPE);
-	private TextField summarySelector = Helper.createTextField(FIELD_WIDTH1);
-	private TextField titleSelector = Helper.createTextField(FIELD_WIDTH1);
-	private TextField publishDateSelector = Helper.createTextField(FIELD_WIDTH1);
-	private TextField hashtagSelector = Helper.createTextField(FIELD_WIDTH1);
-	private TextField authorsSelector = Helper.createTextField(FIELD_WIDTH1);
-	private TextField contentSelector = Helper.createTextField(FIELD_WIDTH1);
-	private TextField categorySelector = Helper.createTextField(FIELD_WIDTH1);
+	private ComboBox summaryType = createDropdown(SELECTOR_TYPE);
+	private ComboBox titleType = createDropdown(SELECTOR_TYPE);
+	private ComboBox contentType = createDropdown(SELECTOR_TYPE);
+	private ComboBox publishDateType = createDropdown(SELECTOR_TYPE);
+	private ComboBox hashtagType = createDropdown(SELECTOR_TYPE);
+	private ComboBox authorsType = createDropdown(SELECTOR_TYPE);
+	private ComboBox categoryType = createDropdown(SELECTOR_TYPE);
+	private TextField summarySelector = createTextField(FIELD_WIDTH1);
+	private TextField titleSelector = createTextField(FIELD_WIDTH1);
+	private TextField publishDateSelector = createTextField(FIELD_WIDTH1);
+	private TextField hashtagSelector = createTextField(FIELD_WIDTH1);
+	private TextField authorsSelector = createTextField(FIELD_WIDTH1);
+	private TextField contentSelector = createTextField(FIELD_WIDTH1);
+	private TextField categorySelector = createTextField(FIELD_WIDTH1);
 	private CheckBox summaryRequirement = new CheckBox();
 	private CheckBox titleRequirement = new CheckBox();
 	private CheckBox publishDateRequirement = new CheckBox();
@@ -76,13 +75,14 @@ public class CrawlPageController {
 	private CheckBox authorsRequirement = new CheckBox();
 	private CheckBox contentRequirement = new CheckBox();
 	private CheckBox categoryRequirement = new CheckBox();
-	private TextField startLink = Helper.createTextField(FIELD_WIDTH2);
-	private TextField loadLinkButtonText = Helper.createTextField(FIELD_WIDTH2);
-	private TextField validLinkPrefix = Helper.createTextField(FIELD_WIDTH2);
-	private TextField maxLinkCount = Helper.createTextField(FIELD_WIDTH2);
-	private TextField thread = Helper.createTextField(FIELD_WIDTH2);
-	private ComboBox loadLinkMethod = Helper.createDropdown(LOAD_METHOD);
-	private TextArea console = Helper.createTextArea(870);
+	private TextField startLink = createTextField(FIELD_WIDTH2);
+	private TextField loadLinkButtonText = createTextField(FIELD_WIDTH2);
+	private TextField validLinkPrefix = createTextField(FIELD_WIDTH2);
+	private TextField maxLinkCount = createTextField(FIELD_WIDTH2);
+	private TextField thread = createTextField(FIELD_WIDTH2);
+	private ComboBox loadLinkMethod = createDropdown(LOAD_METHOD);
+	private TextArea console = createTextArea(870);
+	private final int MAXIMUM_LINE_IN_TEXTAREA = 1000;
 	
 	public static TextArea _console;
 	private ArticleSet articleSet;
@@ -111,21 +111,86 @@ public class CrawlPageController {
 		exit_btn.getScene().getWindow().hide();
 	}
 	
+	private Label createNormalText (String s, int size) {
+		Label res = new Label(s);
+		
+		res.setFont(new Font("Montserrat Regular", size));
+		res.setTextFill(Paint.valueOf(Color.WHITE));
+		
+		return res;
+	}
+	
+	private Label createTitle (String s) {
+		Label res = new Label(s);
+		
+		res.setFont(new Font("Montserrat Bold", 32));
+		res.setTextFill(Paint.valueOf(Color.WHITE));
+		res.setAlignment(Pos.CENTER);
+		res.setPadding(new Insets(30, 0, 0, 0));
+		
+		return res;
+	}
+	private TextField createTextField (int width) {
+		TextField field = new TextField();
+		
+		field.setStyle("-fx-text-fill: " + Color.WHITE + ";"
+				+ "-fx-border-color: " + Color.LIGHT_GREY + ";"
+				+ "-fx-border-radius: 10px");
+		field.setBackground(null);
+		field.setFont(new Font("Montserrat Regular", 15));
+		field.setMinWidth(width);
+		
+		return field;
+	}
+	
+	private TextArea createTextArea (int width) {
+		TextArea field = new TextArea() {
+			@Override
+            public void replaceText(int start, int end, String text) {
+                super.replaceText(start, end, text);
+                while(getText().split("\n", -1).length > MAXIMUM_LINE_IN_TEXTAREA) {
+                    int fle = getText().indexOf("\n");
+                    super.replaceText(0, fle+1, "");
+                }
+                positionCaret(getText().length());
+            }
+		};
+		field.setStyle("-fx-text-fill: white;"
+					 + "-fx-background-color: transparent;"
+					 + "-fx-control-inner-background: " + Color.BACKGROUND_MEDIUM + ";"
+					 + "-fx-border-color: " + Color.WHITE + ";");
+		field.setMaxWidth(width);
+		field.setMinHeight(300);
+		field.setFont(new Font("Montserrat", 15));
+		field.widthProperty().addListener((o) -> {
+			Node vp = field.lookup(".content");
+			vp.setStyle("-fx-background-color: " + Color.BACKGROUND_MEDIUM + ";"
+					  + "-fx-text-fill: white;");
+		});
+		return field;
+	}
+	
+	private ComboBox createDropdown (String ...s) {
+		ComboBox box = new ComboBox();
+		for (String t: s) box.getItems().add(t);
+		return box;
+	}
+	
 	private void createComponents () {
-		Label title1 = Helper.createTitle("Page Selector");
-		Label subtitle1 = Helper.createNormalText("Provide way to select the right element on page", 18);
+		Label title1 = createTitle("Page Selector");
+		Label subtitle1 = createNormalText("Provide way to select the right element on page", 18);
 		GridPane selectorPane = createSelectorPane();
 		
 		
-		Label title2 = Helper.createTitle("Scraper Options");
-		Label subtitle2 = Helper.createNormalText("Change the settings of scraper", 18);
+		Label title2 = createTitle("Scraper Options");
+		Label subtitle2 = createNormalText("Change the settings of scraper", 18);
 		GridPane optionsPane = createScraperOptionsPane();
 		
 		
-		Label title3 = Helper.createTitle("Proxy List");
-		Label subtitle3 = Helper.createNormalText("The number of proxy should double the number of thread\n"
+		Label title3 = createTitle("Proxy List");
+		Label subtitle3 = createNormalText("The number of proxy should double the number of thread\n"
 												+ "Proxy should be given in the form address:port:username:password", 18);
-		proxyField = Helper.createTextArea(870);
+		proxyField = createTextArea(870);
 		
 		Label scrapeButton = new Label("Scrape!");
 		scrapeButton.setStyle("-fx-padding: 10 20 10 20;"
@@ -192,47 +257,47 @@ public class CrawlPageController {
 		pane.setHgap(30);
 		pane.setPadding(new Insets(20));
 		
-		pane.add(Helper.createNormalText("Option", 15), 1, 0);
-		pane.add(Helper.createNormalText("Selector", 15), 2, 0);
-		pane.add(Helper.createNormalText("Required", 15), 3, 0);
+		pane.add(createNormalText("Option", 15), 1, 0);
+		pane.add(createNormalText("Selector", 15), 2, 0);
+		pane.add(createNormalText("Required", 15), 3, 0);
 		
-		pane.add(Helper.createNormalText("Summary: ", 15), 0, 1);
+		pane.add(createNormalText("Summary: ", 15), 0, 1);
 		pane.add(summaryType, 1, 1);
 		pane.add(summarySelector, 2, 1);
 		pane.add(summaryRequirement, 3, 1);
 		GridPane.setHalignment(summaryRequirement, HPos.CENTER);
 		
-		pane.add(Helper.createNormalText("Title: ", 15), 0, 2);
+		pane.add(createNormalText("Title: ", 15), 0, 2);
 		pane.add(titleType, 1, 2);
 		pane.add(titleSelector, 2, 2);
 		pane.add(titleRequirement, 3, 2);
 		GridPane.setHalignment(titleRequirement, HPos.CENTER);
 		
-		pane.add(Helper.createNormalText("Paragraph: ", 15), 0, 3);
+		pane.add(createNormalText("Paragraph: ", 15), 0, 3);
 		pane.add(contentType, 1, 3);
 		pane.add(contentSelector, 2, 3);
 		pane.add(contentRequirement, 3, 3);
 		GridPane.setHalignment(contentRequirement, HPos.CENTER);
 		
-		pane.add(Helper.createNormalText("Publish date: ", 15), 0, 4);
+		pane.add(createNormalText("Publish date: ", 15), 0, 4);
 		pane.add(publishDateType, 1, 4);
 		pane.add(publishDateSelector, 2, 4);
 		pane.add(publishDateRequirement, 3, 4);
 		GridPane.setHalignment(publishDateRequirement, HPos.CENTER);
 		
-		pane.add(Helper.createNormalText("Hashtag: ", 15), 0, 5);
+		pane.add(createNormalText("Hashtag: ", 15), 0, 5);
 		pane.add(hashtagType, 1, 5);
 		pane.add(hashtagSelector, 2, 5);
 		pane.add(hashtagRequirement, 3, 5);
 		GridPane.setHalignment(hashtagRequirement, HPos.CENTER);
 		
-		pane.add(Helper.createNormalText("Authors: ", 15), 0, 6);
+		pane.add(createNormalText("Authors: ", 15), 0, 6);
 		pane.add(authorsType, 1, 6);
 		pane.add(authorsSelector, 2, 6);
 		pane.add(authorsRequirement, 3, 6);
 		GridPane.setHalignment(authorsRequirement, HPos.CENTER);
 		
-		pane.add(Helper.createNormalText("Category: ", 15), 0, 7);
+		pane.add(createNormalText("Category: ", 15), 0, 7);
 		pane.add(categoryType, 1, 7);
 		pane.add(categorySelector, 2, 7);
 		pane.add(categoryRequirement, 3, 7);
@@ -248,22 +313,22 @@ public class CrawlPageController {
 		pane.setAlignment(Pos.CENTER);
 		pane.setPadding(new Insets(50, 20, 50, 20));
 		
-		pane.add(Helper.createNormalText("Start link: ", 15), 0, 0);
+		pane.add(createNormalText("Start link: ", 15), 0, 0);
 		pane.add(startLink, 1, 0);
 		
-		pane.add(Helper.createNormalText("Load link method: ", 15), 0, 1);
+		pane.add(createNormalText("Load link method: ", 15), 0, 1);
 		pane.add(loadLinkMethod, 1, 1);
 		
-		pane.add(Helper.createNormalText("Load link button text: ", 15), 0, 2);
+		pane.add(createNormalText("Load link button text: ", 15), 0, 2);
 		pane.add(loadLinkButtonText, 1, 2);
 		
-		pane.add(Helper.createNormalText("Max number of link: ", 15), 0, 3);
+		pane.add(createNormalText("Max number of link: ", 15), 0, 3);
 		pane.add(maxLinkCount, 1, 3);
 		
-		pane.add(Helper.createNormalText("Number of thread: ", 15), 0, 4);
+		pane.add(createNormalText("Number of thread: ", 15), 0, 4);
 		pane.add(thread, 1, 4);
 		
-		pane.add(Helper.createNormalText("Valid link prefix: ", 15), 0, 5);
+		pane.add(createNormalText("Valid link prefix: ", 15), 0, 5);
 		pane.add(validLinkPrefix, 1, 5);
 		
 		return pane;

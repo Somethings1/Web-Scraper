@@ -3,10 +3,11 @@ package gui.pages;
 import java.util.LinkedList;
 import java.util.Vector;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import article.Article;
 import article.ArticleSet;
-import gui.Color;
-import gui.Helper;
+import article.Entity;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -70,6 +71,22 @@ public class ArticleViewController extends Application {
 	Pane object_toggle;
 	@FXML
 	ImageView object_icon;
+	
+	private String modifyString (String s) {
+		s = s.replaceAll("<[^>]*>", "");
+		s = StringEscapeUtils.unescapeHtml4(s);
+		s = s.replaceAll("\n", "");
+		s = s.replaceAll("\t", "");
+		s = s.replaceAll("&#x27;", "\'");
+		s = s.trim();
+		for (int i = 0; i < s.length() - 1; i++)
+			if (s.charAt(i) == ' ' && s.charAt(i + 1) == ' ') {
+				s = s.substring(0, i).concat(s.substring(i + 1));
+				i--;
+			}
+				
+		return s;
+	}
 
 	private void initStyle() {
 		label_title.setWrapText(true);
@@ -135,7 +152,7 @@ public class ArticleViewController extends Application {
 	}
 
 	private void showArticle() {
-		label_title.setText("#" + article.ownID + ": " + article.title);
+		label_title.setText("#" + article.ownID + ": " + modifyString(article.title));
 		label_author.setText(String.join(", ", article.authors));
 		label_site.setText(article.webName);
 		label_date.setText(article.publishDate);
@@ -185,11 +202,55 @@ public class ArticleViewController extends Application {
 			related_container.getChildren().add(title);
 		}
 	}
+	
+	private Tooltip createTooltip (String s) {
+		Tooltip tooltip = new Tooltip(s);
+		tooltip.setAutoHide(false);
+		tooltip.setFont(new Font("Montserrat Bold", 13));
+		tooltip.setStyle("-fx-background-color: " + Color.WHITE + ";"
+				+ "-fx-text-fill: " + Color.BACKGROUND_WEAK + ";"
+				+ "-fx-padding: 5px 10px 5px 10px");
+		
+		return tooltip;
+	}
+	
+	private LinkedList<Pair<String, String>> separateObjects (String para, Article article) {
+		LinkedList<Pair<String, String>> subParas = new LinkedList<>();
+		subParas.add(new Pair<String, String>(para, "none"));
+		for (Entity entity: article.entities) {
+			LinkedList<Pair<String, String>> newList = new LinkedList<>();
+			for (int i = 0; i < subParas.size(); i++) {
+				// if that segment is already an entity
+				if (!subParas.get(i).getValue().equals("none")) {
+					newList.add(subParas.get(i));
+					continue;
+				}
+				
+				int next = 0, prev = 0;
+				String tmp = subParas.get(i).getKey();
+				next = tmp.indexOf(entity.content, next);
+				
+				while(next >= 0) {
+					if (next != 0) newList.add(new Pair<String, String>(tmp.substring(prev, next), "none"));
+					newList.add(new Pair<String, String>(tmp.substring(next, next + entity.content.length()), entity.type));
+					
+					prev = next + entity.content.length();
+					next = tmp.indexOf(entity.content, prev + 1);
+				}
+				
+				newList.add(new Pair<String, String>(tmp.substring(prev), "none"));
+			}
+			subParas.clear();
+			subParas.addAll(newList);
+		}
+		
+		return subParas;
+	}
 
 	private void showContent() {
 		for (String s : article.content) {
 			content_container.getChildren().add(new Text("\n"));
-			LinkedList<Pair<String, String>> subParas = Helper.objectSeparator(s, article);
+			LinkedList<Pair<String, String>> subParas = separateObjects(modifyString(s), article);
 
 			for (int i = 0; i < subParas.size(); i++) {
 				String content = subParas.get(i).getKey();
@@ -203,7 +264,7 @@ public class ArticleViewController extends Application {
 					text.setFill(Paint.valueOf(Color.LIGHT_BLUE));
 					text.setFont(new Font("Montserrat Bold", 15));
 
-					Tooltip tooltip = Helper.createTooltip(type);
+					Tooltip tooltip = createTooltip(type);
 					tooltip.setShowDelay(Duration.ZERO);
 
 					Tooltip.install(text, tooltip);

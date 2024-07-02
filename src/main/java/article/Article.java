@@ -16,7 +16,6 @@ import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.util.Triple;
-import gui.Helper;
 
 /**
  * The soul of the project. Articles scraped from the internet will be contained
@@ -242,7 +241,7 @@ public class Article {
 		article.type = (String) main.get("type");
 		article.summary = (String) main.get("summary");
 		article.publishDate = (String) main.get("publishDate");
-		article.title = Helper.modifyString((String) main.get("title"));
+		article.title = (String) main.get("title");
 		JSONArray arr = (JSONArray) main.get("hashtag");
 		for (Object o : arr)
 			article.hashtag.add((String) o);
@@ -254,7 +253,7 @@ public class Article {
 			article.authors.add((String) o);
 		arr = (JSONArray) main.get("content");
 		for (Object o : arr)
-			article.content.add(Helper.modifyString((String) o));
+			article.content.add((String) o);
 		arr = (JSONArray) main.get("entity");
 		for (Object o : arr) {
 			JSONObject entityJSON = (JSONObject) o;

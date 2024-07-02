@@ -1,10 +1,14 @@
 package gui.pages;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Vector;
 
+import article.Article;
 import article.ArticleSet;
-import gui.Color;
-import gui.Helper;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,6 +32,7 @@ public class TrendPageController {
 	private double xOffset = 0;
 	private double yOffset = 0;
 	String query;
+	private static final String FILLER_WORD_FILE_NAME = "material" + File.separator + "filler-words.info";
 
 	@FXML
 	HBox title_bar;
@@ -88,13 +93,92 @@ public class TrendPageController {
 		}
 	}
 	
+	/**
+	 * Read filler words in file FILLER_WORD_FILE_NAME
+	*/
+	private HashSet<String> getFillerWords () {
+		HashSet<String> result = new HashSet<String>();
+		
+		try {
+			File file = new File(FILLER_WORD_FILE_NAME);
+			Scanner scanner = new Scanner(file);
+			
+			String[] words = scanner.nextLine().split(",");
+			for (String word: words) result.add(word);
+			
+			scanner.close();
+		}
+		catch (IOException e) {
+			
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Support for trend finding<br>update filler word list in material/filler-words.info
+	 * @param _articleSet the ArticleSet to search for words in it
+	 * @return a list of word (or word combination) and its frequency
+	*/
+	private Vector<Pair<String, Integer>> getWordList (ArticleSet _articleSet) {
+		HashMap<String, Integer> words = new HashMap<String, Integer>();
+		Vector<Article> articleSet = _articleSet.content();
+		for (Article article: articleSet) {
+			for (String para: article.content) {
+				String wordsInPara[] = para.split(" ");
+				Vector<String> realWordList = new Vector<String>();
+				for (String word: wordsInPara) {
+					boolean isRealWord = true;
+					for (int i = 0; i < word.length(); i++) {
+						if (word.charAt(i) == '\'') {
+							word = word.substring(0, i);
+							break;
+						}
+						if (word.charAt(i) == '\"') {
+							word = String.join("", word.split("\""));
+							continue;
+						}
+						if (word.charAt(i) == '.' || word.charAt(i) == ',' || word.charAt(i) == '?' || word.charAt(i) == '!') {
+							word = word.substring(0, word.length() - 1);
+							continue;
+						}
+						if (word.charAt(i) < 'A' || (word.charAt(i) > 'Z' && word.charAt(i) < 'a') || word.charAt(i) > 'z') {
+							isRealWord = false;
+							break;
+						}
+					}
+					if (isRealWord && !word.isBlank()) realWordList.add(word.toLowerCase());
+				}
+				for (int i = 0; i < realWordList.size(); i++) {
+					String s = realWordList.elementAt(i);
+				
+					if (words.containsKey(s)) words.replace(s, words.get(s) + 1);
+					else words.put(s, 1);
+				}
+			}
+		}
+		
+		HashSet<String> fillerWords = getFillerWords();
+		for (String word: fillerWords) {
+			words.remove(word);
+		}
+		
+		Vector<Pair<String, Integer>> wordList = new Vector<>();
+		for (HashMap.Entry<String, Integer> entry: words.entrySet()) {
+			wordList.add(new Pair<String, Integer>(entry.getKey(), entry.getValue()));
+		}
+		wordList.sort((a, b) -> b.getValue() - a.getValue());
+		
+		return wordList;
+	}
+	
 	public void initData (String query, ArticleSet articleSet) {
 		query_label.setText(query);
 		initStyle();
 		Platform.runLater(new Runnable () {
 			@Override
 			public void run () {
-				showGraph(Helper.getWordList(articleSet));
+				showGraph(getWordList(articleSet));
 			}
 		});
 	}

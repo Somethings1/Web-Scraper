@@ -43,7 +43,7 @@ public class ScrapeTask extends Task<Integer> {
 	@Override
 	protected Integer call() throws Exception {
 		scraper.scrape();
-		return null;
+		return 1;
 	}
 
 }
