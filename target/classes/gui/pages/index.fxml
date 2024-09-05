@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import gui.pages.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.pages.MainPageController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="993.0" style="-fx-background-color: #0B1416;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.MainPageController">
    <children>
       <HBox fx:id="title_bar" alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="993.0" style="-fx-background-color: #04090A;">
          <children>
